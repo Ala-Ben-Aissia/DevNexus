@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Dev Nexus" },
+    { title: "Dev Nexus | Welcome" },
     {
       name: "description",
       content:
@@ -11,6 +11,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  return <h1>Dev Nexus</h1>;
+export default function HomePage() {
+  return <section>My App</section>;
 }
