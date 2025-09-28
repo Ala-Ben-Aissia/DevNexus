@@ -1,4 +1,3 @@
-import Hero from "~/components/Hero";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -13,12 +12,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function HomePage() {
-  return (
-    <section>
-      <Hero
-        name="Ala"
-        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Error dolor delectus laboriosam nesciunt libero, rerum culpa ducimus iste dolorum qui eius velit excepturi aliquam nostrum nihil iusto atque commodi maxime!"
-      />
-    </section>
-  );
+  return <h2 className="text-3xl font-bold text-white mb-2">Home page</h2>;
 }
