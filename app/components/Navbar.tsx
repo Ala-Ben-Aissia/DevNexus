@@ -16,8 +16,8 @@ const navLinks: NavLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const base = "hover:text-blue-200 ";
-  const active = "text-blue-300 font-semibold";
+  const base = "hover:text-blue-200 transition";
+  const active = "text-blue-400 font-semibold";
 
   return (
     <nav className="bg-gray-900/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50 shadow-lg">
@@ -25,10 +25,12 @@ export default function Navbar() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="flex items-center gap-2 font-bold text-blue-300 hover:scale-105 transition-transform duration-300 text-base sm:text-lg"
+          className="flex items-center gap-2 font-bold text-blue-400 hover:scale-105 transition-transform duration-400 text-base sm:text-lg"
         >
-          <FaDev className="text-blue-400 text-base sm:text-lg" />
-          <span className="tracking-wide">Ala Ben Aissia</span>
+          <FaDev className="text-blue-500 text-lg sm:text-lg" />
+          <span className="tracking-wide sm:text-lg text-md text-blue-100">
+            Ala Ben Aissia
+          </span>
         </NavLink>
 
         {/* Desktop Links */}
@@ -37,7 +39,7 @@ export default function Navbar() {
             <NavLink
               key={l.label}
               to={l.to}
-              className={({ isActive }) => `${base} ${isActive ? active : ""} `}
+              className={({ isActive }) => `${isActive ? active : base} `}
             >
               {l.label}
             </NavLink>
@@ -46,7 +48,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="sm:hidden text-blue-400 text-lg"
+          className="sm:hidden text-blue-500 text-xl cursor-pointer"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Toggle menu"
         >
@@ -56,7 +58,7 @@ export default function Navbar() {
 
       {/* Top Dropdown Menu */}
       <div
-        className={`sm:hidden absolute left-0 right-0 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800 transition-all duration-300 overflow-hidden ${
+        className={`sm:hidden absolute left-0 right-0 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800 transition-all duration-400 overflow-hidden ${
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
