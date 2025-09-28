@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
-import { FaDev } from "react-icons/fa";
+import { FaBars, FaDev, FaTimes } from "react-icons/fa";
+import { useState } from "react";
 
 type Path = `/${string}`;
-
 type NavLinks = Array<{ to: Path; label: string }>;
 
 const navLinks: NavLinks = [
@@ -14,33 +14,63 @@ const navLinks: NavLinks = [
 ];
 
 export default function Navbar() {
-  const base = "transition hover:text-blue-300";
-  const active = "text-blue-400 font-semibold";
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const base = "hover:text-blue-200 ";
+  const active = "text-blue-300 font-semibold";
 
   return (
-    <nav className="bg-gray-800 border-b border-gray-700 shadow-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="bg-gray-900/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        {/* Logo */}
         <NavLink
           to="/"
-          className="flex items-center gap-2 text-lg font-bold text-blue-300"
+          className="flex items-center gap-2 font-bold text-blue-300 hover:scale-105 transition-transform duration-300 text-base sm:text-lg"
         >
-          <FaDev className="text-blue-400 text-xl" />
-          <span>Ala Ben Aissia</span>
+          <FaDev className="text-blue-400 text-base sm:text-lg" />
+          <span className="tracking-wide">Ala Ben Aissia</span>
         </NavLink>
-        <div className="hidden md:flex items-center gap-6">
-          <div className="space-x-4 text-sm text-gray-300">
-            {navLinks.map((l) => (
-              <NavLink
-                key={l.label}
-                to={l.to}
-                className={({ isActive }) => {
-                  return isActive ? active : base;
-                }}
-              >
-                {l.label}
-              </NavLink>
-            ))}
-          </div>
+
+        {/* Desktop Links */}
+        <div className="hidden sm:flex items-center gap-6">
+          {navLinks.map((l) => (
+            <NavLink
+              key={l.label}
+              to={l.to}
+              className={({ isActive }) => `${base} ${isActive ? active : ""} `}
+            >
+              {l.label}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="sm:hidden text-blue-400 text-lg"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+
+      {/* Top Dropdown Menu */}
+      <div
+        className={`sm:hidden absolute left-0 right-0 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800 transition-all duration-300 overflow-hidden ${
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="flex flex-col items-center gap-5 py-6 text-base sm:text-lg">
+          {navLinks.map((l) => (
+            <NavLink
+              key={l.label}
+              to={l.to}
+              className={({ isActive }) => `${base} ${isActive ? active : ""}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {l.label}
+            </NavLink>
+          ))}
         </div>
       </div>
     </nav>
