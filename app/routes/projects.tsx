@@ -3,6 +3,7 @@ import type { Route } from "./+types/projects";
 import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 type Project = {
   id: number;
@@ -104,11 +105,18 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {displayedProject.map((project) => (
-          <ProjectCard project={project} key={project.id} />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
+          {displayedProject.map((project) => (
+            <motion.div layout key={project.id}>
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
       <div className="flex justify-center mt-10">
         <Pagination
           totalPages={totalPages}
