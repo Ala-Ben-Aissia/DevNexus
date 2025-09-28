@@ -42,6 +42,18 @@ export default function Project({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      {/* Back Button */}
+      <div className="px-4 py-4 border-t border-gray-700">
+        <a
+          href="/projects"
+          className="inline-flex items-center gap-3 text-gray-400 hover:text-white transition-colors duration-300 group"
+        >
+          <div className="w-10 h-10 bg-gray-800 group-hover:bg-gray-700 border border-gray-600 group-hover:border-gray-500 rounded-lg flex items-center justify-center transition-all duration-300">
+            ←
+          </div>
+          <span className="font-medium">Back to Projects</span>
+        </a>
+      </div>
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         <img
@@ -176,19 +188,6 @@ export default function Project({ loaderData }: Route.ComponentProps) {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Back Button */}
-        <div className="mt-12 pt-8 border-t border-gray-700">
-          <a
-            href="/projects"
-            className="inline-flex items-center gap-3 text-gray-400 hover:text-white transition-colors duration-300 group"
-          >
-            <div className="w-10 h-10 bg-gray-800 group-hover:bg-gray-700 border border-gray-600 group-hover:border-gray-500 rounded-lg flex items-center justify-center transition-all duration-300">
-              ←
-            </div>
-            <span className="font-medium">Back to Projects</span>
-          </a>
         </div>
       </div>
     </div>

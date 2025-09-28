@@ -1,5 +1,7 @@
 import ProjectCard from "~/components/ProjectCard";
 import type { Route } from "./+types/projects";
+import Pagination from "~/components/Pagination";
+import { usePage } from "~/hooks/usePage";
 
 type Project = {
   id: number;
@@ -20,7 +22,17 @@ export async function loader() {
 }
 
 export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
-  const projects = loaderData;
+  const {
+    items: projects,
+    totalPages,
+    currentPage,
+    onPageChange,
+    goNext,
+    goPrev,
+  } = usePage({
+    list: loaderData,
+    perPage: 4,
+  });
 
   return (
     <>
@@ -32,6 +44,15 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
         {projects.map((project) => (
           <ProjectCard project={project} key={project.id} />
         ))}
+      </div>
+      <div className="flex justify-center mt-10">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+          goNext={goNext}
+          goPrev={goPrev}
+        />
       </div>
     </>
   );
