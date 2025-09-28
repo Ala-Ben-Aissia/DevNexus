@@ -15,6 +15,40 @@ type Project = {
   featured: boolean;
 };
 
+export function meta({}: Route.MetaArgs) {
+  const title = "Dev Nexus | Projects";
+  return [
+    { title: "Dev Nexus | Projects" },
+    {
+      name: "description",
+      content:
+        "A list of projects I've worked on, including web development and other projects.",
+    },
+    {
+      property: "og:title",
+      content: title,
+    },
+    {
+      property: "og:description",
+      content:
+        "A list of projects I've worked on, including web development and other projects.",
+    },
+    {
+      property: "og:url",
+      content: "https://devnexus.vercel.app/projects",
+    },
+    {
+      property: "twitter:title",
+      content: title,
+    },
+    {
+      property: "twitter:description",
+      content:
+        "A list of projects I've worked on, including web development and other projects.",
+    },
+  ];
+}
+
 export async function loader() {
   const projects = await fetch("http://localhost:8000/projects").then<
     Promise<Project[]>
