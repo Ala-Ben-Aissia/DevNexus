@@ -51,7 +51,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const projects = await fetch("http://localhost:8000/projects").then<
+  const projects = await fetch(`${import.meta.env.VITE_API_URL}/projects`).then<
     Promise<Project[]>
   >((res) => res.json());
   return projects;

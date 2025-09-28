@@ -4,12 +4,11 @@ import type { Route } from "./+types/project";
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const id = params.id;
   try {
-    const res = await fetch(`http://localhost:8000/projects`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`);
     if (!res.ok) {
       throw new Response("Error loading projects", { status: res.status });
     }
-    const projects = (await res.json()) as Project[];
-    const project = projects.find((p) => p.id.toString() === id);
+    const project = (await res.json()) as Project;
     if (!project) {
       throw new Response("Not Found", { status: 404 });
     }
