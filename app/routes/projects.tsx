@@ -4,17 +4,7 @@ import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  url: string;
-  date: string;
-  category: string;
-  featured: boolean;
-};
+import type { Project } from "~/types";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Projects";
