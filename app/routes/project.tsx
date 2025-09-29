@@ -75,7 +75,7 @@ export default function Project({ loaderData }: Route.ComponentProps) {
                 {project.category}
               </span>
               {project.featured && (
-                <span className="px-4 py-2 bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300 text-sm rounded-full border border-yellow-200 dark:border-yellow-400/30">
+                <span className="px-3 py-2 bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300 text-sm rounded-full border border-yellow-200 dark:border-yellow-400/30">
                   ⭐ Featured
                 </span>
               )}
