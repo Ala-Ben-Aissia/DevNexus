@@ -1,5 +1,6 @@
 import type { Project } from "~/types";
 import type { Route } from "./+types/project";
+import { Link } from "react-router";
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const id = params.id;
@@ -43,15 +44,15 @@ export default function Project({ loaderData }: Route.ComponentProps) {
     <div className="min-h-screen dark:bg-gray-900 dark:text-white">
       {/* Back Button */}
       <div className="px-4 py-4 border-t dark:border-gray-700">
-        <a
-          href="/projects"
+        <Link
+          to="/projects"
           className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition-colors duration-300 group"
         >
           <div className="w-10 h-10 bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 group-hover:dark:bg-gray-700 border border-gray-400 dark:border-gray-600 group-hover:border-gray-500 rounded-lg flex items-center justify-center transition-all duration-300">
             ←
           </div>
           <span className="font-medium">Back to Projects</span>
-        </a>
+        </Link>
       </div>
 
       {/* Hero Section */}

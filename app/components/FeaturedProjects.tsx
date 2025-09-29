@@ -23,7 +23,7 @@ function FeaturedProject({
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+        <div className="inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
       </div>
 
       {/* Content with Clean Typography */}
@@ -45,16 +45,16 @@ function FeaturedProject({
           {project.description}
         </p>
 
-        <div className="flex items-center text-[var(--color-text-light)] group-hover:text-[var(--color-text)] transition-colors duration-300">
+        <div className="flex items-center text-[var(--color-text-light)] hover:text-[var(--color-text)]">
           <Link to={`/projects/${project.id}`}>
             <span className="text-base lg:text-lg font-normal">
               Explore Project
             </span>{" "}
             <motion.span
-              className="ml-3 inline-block"
+              className="ml-3 inline-block hover:ease-out duration-300"
               initial={{ x: 0 }}
-              whileHover={{ x: 8 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              // whileHover={{ x: 8 }}
+              // transition={{ duration: 0.3, ease: "easeOut" }}
             >
               →
             </motion.span>

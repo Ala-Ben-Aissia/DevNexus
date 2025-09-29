@@ -5,10 +5,10 @@ export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
   return (
     <article
       key={post_meta.id}
-      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 transition-all duration-300 hover:scale-105 dark:bg-gray-800 dark:ring-gray-700"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200 transition-all duration-300 dark:bg-gray-800 dark:ring-gray-700"
     >
       {/* Content */}
-      <div className="flex flex-1 flex-col p-6 cursor-pointer">
+      <div className="flex flex-1 flex-col p-6">
         {/* Date Badge */}
         <time
           dateTime={post_meta.date}
@@ -47,7 +47,7 @@ export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
         {/* Read More Link */}
         <Link
           to={`/blog/${post_meta.slug}`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400"
+          className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 cursor-pointer"
         >
           Read more
           <svg
