@@ -2,24 +2,40 @@ import { Link } from "react-router";
 
 const AboutPreview = () => {
   return (
-    <section className="mt-12 p-10 flex flex-col md:flex-row items-center gap-8 bg-gray-900">
-      <img
-        src="/images/avatar.webp"
-        alt="profile"
-        className="md:w-40 md:h-40 w-32 h-32 rounded-full object-cover border-4 border-yellow-400 shadow-[0_0_30px_2px_rgba(250,204,21,0.75),0_0_20px_1px_rgba(250,204,21,0.4)]"
-      />
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">👋 About Me</h2>
-        <p className="text-gray-200 mb-4 max-w 4xl">
-          I’m Brad — a self-taught developer and educator passionate about
-          building friendly digital experiences and helping others grow into
-          confident modern devs.
+    <section className="p-8 lg:p-16 flex flex-col md:flex-row items-center gap-12 lg:gap-16 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] hover-lift relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+      <div className="relative z-10 flex-shrink-0">
+        <div className="relative">
+          <img
+            src="/images/avatar.webp"
+            alt="profile"
+            className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-[var(--color-border)] shadow-lg gpu-accelerated"
+            loading="lazy"
+          />
+          <div className="absolute -top-2 -right-2 w-6 h-6 bg-[var(--color-accent)] rounded-full animate-pulse"></div>
+        </div>
+      </div>
+      <div className="flex-1 text-center md:text-left relative z-10 space-y-6">
+        <h2 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] tracking-tight">
+          👋 About{" "}
+          <span className="font-normal relative">
+            Me
+            <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-30"></div>
+          </span>
+        </h2>
+        <p className="text-[var(--color-text-light)] text-fluid-base lg:text-fluid-lg leading-relaxed max-w-2xl">
+          I'm Ala — a passionate developer and tech enthusiast dedicated to
+          creating elegant digital solutions and sharing knowledge with the
+          developer community.
         </p>
         <Link
           to="/about"
-          className="inline-block text-blue-400 hover:underline text-sm"
+          className="group inline-flex items-center gap-3 text-[var(--color-text)] hover:text-[var(--color-text-light)] transition-all duration-500 text-fluid-base border-b border-[var(--color-border)] hover:border-[var(--color-accent)] hover-lift"
         >
-          Learn More About Me
+          <span>Learn More About Me</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
         </Link>
       </div>
     </section>

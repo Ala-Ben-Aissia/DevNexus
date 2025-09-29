@@ -17,68 +17,82 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const base =
-    "text-gray-300 hover:text-blue-300 transition-colors duration-300";
+    "text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-500 relative group";
   const active =
-    "font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 transition-colors duration-300";
+    "font-medium text-[var(--color-text)] transition-all duration-500 relative";
 
   return (
-    <nav className="bg-gray-900/80 backdrop-blur-md sticky top-0 z-50 shadow-lg after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gradient-to-r after:from-blue-800/30 after:via-purple-800/30 after:to-blue-800/30">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="bg-[var(--color-primary)]/95 backdrop-blur-xl sticky top-0 z-50 border-b border-[var(--color-border)] gpu-accelerated">
+      <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
         {/* Logo */}
         <NavLink
           to="/"
-          className="group flex items-center gap-2 font-bold text-blue-400 hover:scale-105 transition-transform duration-300 text-base sm:text-lg"
+          className="group flex items-center gap-3 text-[var(--color-text)] hover:text-[var(--color-text)] transition-all duration-500 text-fluid-lg hover-lift"
         >
-          <FaDev className="text-blue-500 text-lg sm:text-lg" />
-          <span className="tracking-wide sm:text-lg text-md text-blue-100 transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-500">
+          <FaDev className="text-fluid-xl text-[var(--color-text)] transition-transform duration-300 group-hover:rotate-12" />
+          <span className="tracking-wide font-normal relative">
             Ala Ben Aissia
+            <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-500 group-hover:w-full"></div>
           </span>
         </NavLink>
 
         {/* Desktop Links */}
-        <div className="hidden sm:flex items-center gap-8">
+        <div className="hidden sm:flex items-center gap-12">
           {navLinks.map((l) => (
             <NavLink
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `transition-colors duration-300 ${isActive ? active : base}`
+                `transition-all duration-500 text-fluid-base relative ${
+                  isActive ? active : base
+                }`
               }
             >
-              {l.label}
+              <span className="relative z-10">{l.label}</span>
+              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
             </NavLink>
           ))}
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="sm:hidden text-blue-500 text-xl cursor-pointer hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-500"
+          className="sm:hidden text-[var(--color-text)] text-fluid-xl cursor-pointer hover:text-[var(--color-text-light)] transition-all duration-300 hover-lift"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Toggle menu"
         >
-          {menuOpen ? <FaTimes /> : <FaBars />}
+          <div className="relative w-6 h-6 flex items-center justify-center">
+            <div
+              className={`absolute transition-all duration-300 ${
+                menuOpen ? "rotate-45" : ""
+              }`}
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </div>
+          </div>
         </button>
       </div>
 
-      {/* Top Dropdown Menu */}
+      {/* Mobile Dropdown Menu */}
       <div
-        className={`sm:hidden absolute left-0 right-0 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800 transition-all duration-300 overflow-hidden ${
+        className={`sm:hidden absolute left-0 right-0 bg-[var(--color-primary)]/98 backdrop-blur-xl border-t border-[var(--color-border)] transition-all duration-500 overflow-hidden ${
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="flex flex-col items-center gap-5 py-6 text-base sm:text-lg">
-          {navLinks.map((l) => (
+        <div className="flex flex-col items-center gap-6 py-8 text-fluid-lg">
+          {navLinks.map((l, index) => (
             <NavLink
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `transition-colors duration-300 ${
+                `transition-all duration-500 relative group ${
                   isActive ? active : base
-                } hover:${base}`
+                }`
               }
               onClick={() => setMenuOpen(false)}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {l.label}
+              <span className="relative z-10">{l.label}</span>
+              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
             </NavLink>
           ))}
         </div>

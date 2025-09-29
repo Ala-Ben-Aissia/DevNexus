@@ -14,46 +14,58 @@ export default function Pagination({
   goPrev,
 }: Props) {
   return totalPages <= 1 ? null : (
-    <div className="flex items-center gap-2 bg-gray-900 px-4 py-3 rounded-lg shadow-lg">
+    <div className="flex items-center gap-4 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] px-8 py-6 rounded-3xl border border-[var(--color-border)] shadow-lg hover-lift gpu-accelerated">
       {/* Prev button */}
       <button
         onClick={goPrev}
         disabled={currentPage === 1}
-        className={`px-3 py-2 rounded-md text-sm transition-colors duration-200 ${
+        className={`px-5 py-4 rounded-2xl text-fluid-base transition-all duration-500 hover-lift ${
           currentPage === 1
-            ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-            : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+            ? "bg-[var(--color-tertiary)] text-[var(--color-text-muted)] cursor-not-allowed opacity-50"
+            : "bg-[var(--color-tertiary)] text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text)] hover:shadow-md"
         }`}
+        aria-label="Previous page"
       >
-        ‹
+        <span className="transition-transform duration-300 hover:-translate-x-1">
+          ‹
+        </span>
       </button>
 
       {/* Page numbers */}
-      {Array.from({ length: totalPages }, (_, index) => (
-        <button
-          key={index}
-          onClick={() => onPageChange(index + 1)}
-          className={`px-4 py-2 rounded-md text-sm transition-colors duration-200 ${
-            currentPage === index + 1
-              ? "bg-blue-600 text-white shadow-md"
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
-          }`}
-        >
-          {index + 1}
-        </button>
-      ))}
+      <div className="flex items-center gap-2">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => onPageChange(index + 1)}
+            className={`px-6 py-4 rounded-2xl text-fluid-base transition-all duration-500 hover-lift relative overflow-hidden ${
+              currentPage === index + 1
+                ? "bg-[var(--color-accent)] text-[var(--color-text)] shadow-md"
+                : "bg-[var(--color-tertiary)] text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text)]"
+            }`}
+            aria-label={`Go to page ${index + 1}`}
+          >
+            <span className="relative z-10">{index + 1}</span>
+            {currentPage === index + 1 && (
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-20"></div>
+            )}
+          </button>
+        ))}
+      </div>
 
       {/* Next button */}
       <button
         onClick={goNext}
         disabled={currentPage === totalPages}
-        className={`px-3 py-2 rounded-md text-sm transition-colors duration-200 ${
+        className={`px-5 py-4 rounded-2xl text-fluid-base transition-all duration-500 hover-lift ${
           currentPage === totalPages
-            ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-            : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+            ? "bg-[var(--color-tertiary)] text-[var(--color-text-muted)] cursor-not-allowed opacity-50"
+            : "bg-[var(--color-tertiary)] text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-text)] hover:shadow-md"
         }`}
+        aria-label="Next page"
       >
-        ›
+        <span className="transition-transform duration-300 hover:translate-x-1">
+          ›
+        </span>
       </button>
     </div>
   );

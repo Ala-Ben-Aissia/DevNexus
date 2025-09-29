@@ -170,7 +170,7 @@ export default function Project({ loaderData }: Route.ComponentProps) {
             </div>
 
             {/* Share Section */}
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700">
+            {/* <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700">
               <h3 className="text-lg font-bold mb-4 text-white">
                 Share Project
               </h3>
@@ -185,7 +185,7 @@ export default function Project({ loaderData }: Route.ComponentProps) {
                   💼
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
