@@ -7,7 +7,7 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "server": "json-server --watch ./data/db.json --port 8000"
+    "server": "json-server ./data/db.json --port 8000"
   },
   "dependencies": {
     "@react-router/node": "^7.9.2",
@@ -17,7 +17,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
-    "react-router": "^7.9.2"
+    "react-router": "^7.9.2",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@react-router/dev": "^7.9.2",

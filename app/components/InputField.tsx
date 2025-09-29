@@ -22,7 +22,7 @@ export function InputField({
           type={type}
           id={id}
           name={name}
-          className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gray-800 from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
+          className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl dark:bg-gray-800 from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
           autoComplete="off"
           {...props}
         />
