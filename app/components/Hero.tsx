@@ -5,7 +5,7 @@ export default function Hero({ name, text }: { name: string; text: string }) {
     <section className="min-h-[40vh] mt-16 lg:mt-20 flex items-center justify-center px-4 lg:px-6">
       <div className="max-w-6xl mx-auto text-center space-y-12 lg:space-y-16">
         <div className="space-y-8 lg:space-y-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-thin text-[var(--color-text)] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-thin text-[var(--color-text)] tracking-tight leading-tight">
             Hey, I'm{" "}
             <span className="font-normal text-[var(--color-text)] relative">
               {name}
@@ -13,7 +13,7 @@ export default function Hero({ name, text }: { name: string; text: string }) {
             </span>
           </h1>
           <div className="w-24 lg:w-32 h-px bg-[var(--color-border)] mx-auto"></div>
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-[var(--color-text-light)] font-light leading-relaxed max-w-4xl mx-auto px-4">
+          <p className="text-base sm:text-md md:text-lg lg:text-xl text-[var(--color-text-light)] font-light leading-relaxed max-w-4xl mx-auto px-4">
             {text}
           </p>
         </div>
