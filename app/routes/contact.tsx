@@ -130,7 +130,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
             required
             // minLength={20}
             // maxLength={1000}
-            className="mt-3 w-full rounded border px-4 py-2 text-gray-300 placeholder:text-gray-500 dark:border-gray-700 dark:bg-gray-800"
+            className="mt-3 w-full rounded border px-4 py-2 dark:text-gray-300 placeholder:text-gray-500 dark:border-gray-700 dark:bg-gray-800"
             placeholder="Please write your message here... (minimum 20 characters)"
           />
           {!actionData?.success && actionData?.field === "body" && (
