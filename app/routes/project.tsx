@@ -6,6 +6,15 @@ import { useState } from "react";
 
 export function meta({ loaderData }: Route.MetaArgs) {
   const project = loaderData;
+  if (!project) {
+    return [
+      { title: "Dev Nexus}" },
+      {
+        description:
+          "A list of projects I've worked on, including web development and other projects.",
+      },
+    ];
+  }
   const title = `${project.title} | Dev Nexus`;
   return [
     { title },
