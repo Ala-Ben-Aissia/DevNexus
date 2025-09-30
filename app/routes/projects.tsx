@@ -81,7 +81,7 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
           </span>
         </h1>
         <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
-        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
+        <p className="text-fluid-lg text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
           A collection of projects showcasing my expertise in modern web
           development and design.
         </p>

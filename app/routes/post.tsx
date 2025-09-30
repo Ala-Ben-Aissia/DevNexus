@@ -134,7 +134,7 @@ const markdownComponents: Partial<
     if (!className) {
       return (
         <code
-          className="bg-[var(--color-tertiary)] text-[var(--color-text)] px-[var(--space-3xs)] py-[0.125rem] rounded text-fluid-sm font-mono inline break-words"
+          className="bg-[var(--color-tertiary)] text-[var(--color-text)] px-[var(--space-3xs)] py-[0.125rem] rounded text-lg font-mono inline break-words"
           {...props}
         >
           {children}
