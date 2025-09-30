@@ -18,7 +18,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       {/* Hero Section */}
       <section className="text-center space-y-12 lg:space-y-16 animate-fade-in-up relative">
         {/* Floating badges */}
-        <div className="absolute top-0 left-1/4 w-20 h-20 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-10 blur-xl animate-pulse"></div>
+        {/*<div className="absolute top-0 left-1/4 w-20 h-20 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-10 blur-xl animate-pulse"></div>*/}
         <div
           className="absolute top-20 right-1/3 w-14 h-14 bg-gradient-to-br from-[var(--color-accent-hover)] to-[var(--color-accent)] rounded-full opacity-20 blur-lg animate-pulse"
           style={{ animationDelay: "1s" }}
@@ -152,7 +152,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
           <div className="relative z-10">
             {/* Response time badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-full text-blue-700 dark:text-blue-300 text-fluid-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-full text-fluid-sm font-medium mb-8">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -227,7 +227,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
               <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-green-500"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -237,7 +238,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
               <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-green-500"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -247,7 +249,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
               <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-green-500"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

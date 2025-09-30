@@ -6,7 +6,7 @@ export default function HomeLayout() {
     <>
       <Hero
         name="Ala"
-        text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, aliquam architecto perspiciatis omnis assumenda officia commodi dicta vel repellendus. Cumque ad enim voluptates fugiat rerum! Eius incidunt architecto nihil esse!"
+        text="Full-stack developer passionate about crafting exceptional digital experiences. I transform complex ideas into elegant, scalable solutions that drive real business value and deliver measurable results."
       />
       <MainLayout />
     </>

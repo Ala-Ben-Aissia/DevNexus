@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { Link, NavLink } from "react-router";
 import type { Project } from "~/types";
 
-function FeaturedProject({
+function FeaturedProjectHero({
   project,
   index,
 }: {
@@ -10,58 +10,173 @@ function FeaturedProject({
   index: number;
 }) {
   return (
-    <motion.article
-      className="group relative"
+    <motion.div
+      className="relative group cursor-pointer"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+    >
+      <Link to={`/projects/${project.id}`} className="block">
+        {/* Main container with subtle gradient background */}
+        <div className="relative bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10">
+          {/* Image section with parallax effect */}
+          <div className="relative h-80 lg:h-96 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-transparent to-transparent z-10"></div>
+
+            <motion.img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            />
+
+            {/* Floating status indicator */}
+            <div className="absolute top-6 right-6 z-20">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-black/10 backdrop-blur-xl rounded-full border border-white/20">
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs font-medium text-white/90">Live</span>
+              </div>
+            </div>
+
+            {/* Category badge */}
+            <div className="absolute top-6 left-6 z-20">
+              <span className="px-3 py-1.5 bg-white/10 backdrop-blur-xl text-white/90 text-xs font-medium rounded-full border border-white/20">
+                {project.category}
+              </span>
+            </div>
+          </div>
+
+          {/* Content section */}
+          <div className="relative p-8 lg:p-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+
+            <div className="relative z-10">
+              {/* Title with subtle animation */}
+              <motion.h3
+                className="text-2xl lg:text-3xl font-light text-[var(--color-text)] mb-4 tracking-tight leading-tight"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.3 }}
+              >
+                {project.title}
+              </motion.h3>
+
+              {/* Description */}
+              <p className="text-[var(--color-text-light)] leading-relaxed mb-6 font-normal">
+                {project.description}
+              </p>
+
+              {/* Meta info and CTA */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]">
+                  <span>{new Date(project.date).getFullYear()}</span>
+                  <div className="w-1 h-1 bg-[var(--color-border)] rounded-full"></div>
+                  <span>Featured</span>
+                </div>
+
+                {/* Arrow with hover animation */}
+                <motion.div
+                  className="flex items-center gap-2 text-[var(--color-text-light)] group-hover:text-[var(--color-text)]"
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <span className="text-sm font-medium">Explore</span>
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+function FeaturedProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  return (
+    <motion.div
+      className="group cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.6, delay: (index + 1) * 0.1 }}
     >
-      {/* Image with Clean Design */}
-      <div className="aspect-[4/3] lg:aspect-[16/10] overflow-hidden rounded-2xl bg-[var(--color-tertiary)] mb-6 lg:mb-8 border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-500">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-      </div>
+      <Link to={`/projects/${project.id}`} className="block">
+        <div className="relative bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 hover:shadow-lg hover:shadow-[var(--color-accent)]/5 hover-lift">
+          {/* Compact image */}
+          <div className="relative h-48 overflow-hidden">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/20 to-transparent"></div>
 
-      {/* Content with Clean Typography */}
-      <div className="space-y-4 lg:space-y-6 p-6 lg:p-8 bg-[var(--color-secondary)] rounded-2xl border border-[var(--color-border)]">
-        <div className="flex items-center justify-between">
-          <span className="px-3 lg:px-4 py-2 bg-[var(--color-tertiary)] text-[var(--color-text)] text-xs lg:text-sm rounded-full border border-[var(--color-border)] font-normal">
-            {project.category}
-          </span>
-          <time className="text-[var(--color-text-light)] text-sm lg:text-base">
-            {new Date(project.date).getFullYear()}
-          </time>
+            {/* Category badge */}
+            <div className="absolute top-3 left-3">
+              <span className="px-2 py-1 bg-black/20 backdrop-blur-sm text-white text-xs rounded-full">
+                {project.category}
+              </span>
+            </div>
+          </div>
+
+          {/* Compact content */}
+          <div className="p-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
+
+            <div className="relative z-10">
+              <h4 className="text-lg font-medium text-[var(--color-text)] mb-3 leading-tight group-hover:text-[var(--color-text)] transition-colors duration-300">
+                {project.title}
+              </h4>
+
+              <p className="text-sm text-[var(--color-text-light)] leading-relaxed mb-4 line-clamp-2">
+                {project.description}
+              </p>
+
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-[var(--color-text-muted)]">
+                  {new Date(project.date).getFullYear()}
+                </span>
+                <svg
+                  className="w-4 h-4 text-[var(--color-text-light)] group-hover:text-[var(--color-text)] group-hover:translate-x-1 transition-all duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[var(--color-text)] leading-tight transition-colors duration-300">
-          {project.title}
-        </h3>
-
-        <p className="text-[var(--color-text-light)] leading-relaxed text-base lg:text-lg">
-          {project.description}
-        </p>
-
-        <div className="flex items-center text-[var(--color-text-light)] hover:text-[var(--color-text)]">
-          <Link to={`/projects/${project.id}`}>
-            <span className="text-base lg:text-lg font-normal">
-              Explore Project
-            </span>{" "}
-            <motion.span
-              className="ml-3 inline-block hover:ease-out duration-300"
-              initial={{ x: 0 }}
-              // whileHover={{ x: 8 }}
-              // transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              →
-            </motion.span>
-          </Link>
-        </div>
-      </div>
-    </motion.article>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -70,40 +185,80 @@ export default function FeaturedProjects({
 }: {
   featuredProjects: Project[];
 }) {
+  const [heroProject, ...otherProjects] = featuredProjects;
+
   return (
-    <div className="bg-[var(--color-primary)]">
-      <section className="px-4 lg:px-6 py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
-            {featuredProjects.slice(0, 4).map((featuredProject, index) => (
-              <FeaturedProject
-                key={featuredProject.id}
-                project={featuredProject}
+    <div className="relative">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-accent) 1px, transparent 0)`,
+            backgroundSize: "24px 24px",
+          }}
+        ></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 py-0">
+        {/* Hero project - takes full width */}
+        {heroProject && (
+          <motion.div
+            className="mb-16 lg:mb-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <FeaturedProjectHero project={heroProject} index={0} />
+          </motion.div>
+        )}
+
+        {/* Grid of smaller projects */}
+        {otherProjects.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            {otherProjects.slice(0, 3).map((project, index) => (
+              <FeaturedProjectCard
+                key={project.id}
+                project={project}
                 index={index}
               />
             ))}
           </div>
+        )}
 
-          {featuredProjects.length > 4 && (
-            <div className="text-center mt-16 lg:mt-20">
-              <NavLink
-                to="/projects"
-                className="group inline-flex items-center gap-4 px-8 lg:px-12 py-3 lg:py-4 bg-[var(--color-secondary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 font-normal text-base lg:text-lg"
+        {/* View all projects CTA */}
+        {featuredProjects.length > 4 && (
+          <motion.div
+            className="text-center mt-16 lg:mt-20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <NavLink
+              to="/projects"
+              className="group inline-flex items-center gap-4 px-8 lg:px-12 py-4 lg:py-5 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 hover-lift font-medium text-fluid-base relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+              <span className="relative z-10">Discover All Projects</span>
+              <motion.svg
+                className="relative z-10 w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3 }}
               >
-                <span>Discover All Projects</span>
-                <motion.span
-                  className="ml-2"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 8 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  →
-                </motion.span>
-              </NavLink>
-            </div>
-          )}
-        </div>
-      </section>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </motion.svg>
+            </NavLink>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
