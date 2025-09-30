@@ -272,16 +272,30 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
     <div className="min-h-screen bg-[var(--color-primary)]">
       <div className="mx-auto max-w-4xl px-[var(--space-s)] py-[var(--space-m)] sm:px-[var(--space-m)] lg:px-[var(--space-l)]">
         {/* Back Navigation */}
-        <div className="pr-4 py-4 border-t dark:border-gray-700">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition-colors duration-300 group"
-          >
-            <div className="w-10 h-10 bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 group-hover:dark:bg-gray-700 border border-gray-400 dark:border-gray-600 group-hover:border-gray-500 rounded-lg flex items-center justify-center transition-all duration-300">
-              ←
-            </div>
-            <span className="font-medium">Back to Blog</span>
-          </Link>
+        <div className="animate-fade-in-up bg-[var(--color-primary)] border-b border-[var(--color-border)] py-6">
+          <div className="max-w-7xl mx-auto px-6">
+            <Link
+              to="/projects"
+              className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
+                <svg
+                  className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </div>
+              <span className="font-medium text-fluid-base">Back to Blog</span>
+            </Link>
+          </div>
         </div>
 
         {/* Main Content with proper markdown styles */}
