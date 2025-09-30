@@ -62,6 +62,7 @@ export async function loader({
 export default function BlogPage({ loaderData }: Route.ComponentProps) {
   let posts = loaderData;
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
   posts = posts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -70,11 +71,20 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
   // Get unique categories
   const categories = ["All", ...new Set(posts.map((post) => "Tech"))]; // Mock categories
 
-  // Filter posts by category
-  const filteredPosts =
-    selectedCategory === "All"
-      ? posts
-      : posts.filter(() => selectedCategory === "Tech"); // Mock filtering
+  // Filter posts by category and search query
+  const filteredPosts = posts.filter((post) => {
+    // Category filter
+    const categoryMatch =
+      selectedCategory === "All" || selectedCategory === "Tech";
+
+    // Search filter
+    const searchMatch =
+      searchQuery === "" ||
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return categoryMatch && searchMatch;
+  });
 
   const {
     items: displayedPosts,
@@ -202,10 +212,80 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div
+        className="max-w-2xl mx-auto animate-fade-in-up"
+        style={{ animationDelay: "0.1s" }}
+      >
+        <div className="relative group">
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+            <svg
+              className="w-5 h-5 text-[var(--color-text-light)] group-focus-within:text-[var(--color-accent)] transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              onPageChange(1); // Reset to first page on search
+            }}
+            placeholder="Search articles by title or keyword..."
+            className="w-full pl-12 pr-4 py-4 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border-2 border-[var(--color-border)] rounded-2xl text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-all duration-300 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-lg"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                onPageChange(1);
+              }}
+              className="absolute inset-y-0 right-4 flex items-center text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-colors duration-300"
+              aria-label="Clear search"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {/* Search results count */}
+        {searchQuery && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-3 text-center text-fluid-sm text-[var(--color-text-light)]"
+          >
+            Found {filteredPosts.length} article
+            {filteredPosts.length !== 1 ? "s" : ""} matching "{searchQuery}"
+          </motion.div>
+        )}
+      </div>
+
       {/* Categories Filter */}
       <div
         className="flex flex-wrap justify-center gap-3 animate-fade-in-up"
-        style={{ animationDelay: "0.1s" }}
+        style={{ animationDelay: "0.15s" }}
       >
         {categories.map((category, index) => (
           <button
@@ -261,79 +341,126 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
         ))}
       </div>
 
-      {/* Newsletter Signup */}
-      <div className="animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
-        <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl border border-[var(--color-border)] p-6 hover-lift relative overflow-hidden max-w-2xl mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
-          <div className="relative z-10 text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <svg
-                className="w-5 h-5 text-[var(--color-text-light)]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-              <h3 className="text-fluid-lg font-semibold text-[var(--color-text)]">
-                Stay Updated
+      {/* No results message */}
+      {filteredPosts.length === 0 && searchQuery && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16 animate-fade-in-up"
+        >
+          <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 text-center hover-lift relative overflow-hidden max-w-2xl mx-auto">
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+            <div className="relative z-10">
+              <div className="text-6xl mb-6 opacity-20">🔍</div>
+              <h3 className="text-fluid-2xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+                No articles <span className="font-medium">found</span>
               </h3>
-            </div>
-            <p className="text-fluid-sm text-[var(--color-text-light)] mb-4 font-normal">
-              Get notified when new articles are published. No spam, just
-              quality content.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
-              <input
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-2 bg-[var(--color-primary)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] text-fluid-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-300"
-                autoComplete="off"
-              />
-              <button className="px-6 py-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-medium rounded-xl transition-colors duration-300 text-fluid-sm">
-                Subscribe
+              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed font-normal mb-6">
+                No articles match your search for "
+                <strong>{searchQuery}</strong>". Try different keywords or
+                browse all articles.
+              </p>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-medium rounded-2xl transition-all duration-300 hover-lift text-fluid-sm"
+              >
+                Clear Search
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
             </div>
           </div>
+        </motion.div>
+      )}
+
+      {/* Newsletter Signup */}
+      {filteredPosts.length > 0 && (
+        <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl border border-[var(--color-border)] p-6 hover-lift relative overflow-hidden max-w-2xl mx-auto">
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+            <div className="relative z-10 text-center">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <svg
+                  className="w-5 h-5 text-[var(--color-text-light)]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <h3 className="text-fluid-lg font-semibold text-[var(--color-text)]">
+                  Stay Updated
+                </h3>
+              </div>
+              <p className="text-fluid-sm text-[var(--color-text-light)] mb-4 font-normal">
+                Get notified when new articles are published. No spam, just
+                quality content.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  className="flex-1 px-4 py-2 bg-[var(--color-primary)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] text-fluid-sm focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-300"
+                  autoComplete="off"
+                />
+                <button className="px-6 py-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-medium rounded-xl transition-colors duration-300 text-fluid-sm">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Blog Posts - Vertical Layout */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          layout
-          className="space-y-8 lg:space-y-12"
-          style={{ animationDelay: "0.2s" }}
-        >
-          {displayedPosts.map((post, index) => (
-            <motion.div
-              layout
-              key={post.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
-            >
-              <PostCard post_meta={post} />
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
+      {filteredPosts.length > 0 && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            layout
+            className="space-y-8 lg:space-y-12"
+            style={{ animationDelay: "0.2s" }}
+          >
+            {displayedPosts.map((post, index) => (
+              <motion.div
+                layout
+                key={post.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.1,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+              >
+                <PostCard post_meta={post} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      )}
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {totalPages > 1 && filteredPosts.length > 0 && (
         <div
           className="flex justify-center mt-16 lg:mt-20 animate-fade-in-up"
           style={{ animationDelay: "0.4s" }}
