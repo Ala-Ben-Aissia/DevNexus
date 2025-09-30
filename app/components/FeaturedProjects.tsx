@@ -37,7 +37,7 @@ function FeaturedProject({
           </time>
         </div>
 
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-thin text-[var(--color-text)] leading-tight transition-colors duration-300">
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[var(--color-text)] leading-tight transition-colors duration-300">
           {project.title}
         </h3>
 

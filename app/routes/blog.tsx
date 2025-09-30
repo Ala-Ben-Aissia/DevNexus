@@ -81,15 +81,15 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
       <div className="space-y-12 lg:space-y-16">
         {/* Header Section */}
         <div className="text-center space-y-6 animate-fade-in-up">
-          <h1 className="text-fluid-4xl lg:text-fluid-6xl font-thin text-[var(--color-text)] tracking-tight">
+          <h1 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight">
             My{" "}
-            <span className="font-normal text-[var(--color-text)] relative">
+            <span className="font-medium text-[var(--color-text)] relative">
               Blog
               <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-20"></div>
             </span>
           </h1>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
-          <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
             Thoughts, ideas, and insights on web development, design, and
             technology trends.
           </p>
@@ -104,10 +104,10 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
             <div className="relative z-10">
               <div className="text-8xl lg:text-9xl mb-8 opacity-20">✍️</div>
-              <h2 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] mb-4 tracking-tight">
-                No posts <span className="font-normal">yet</span>
+              <h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+                No posts <span className="font-medium">yet</span>
               </h2>
-              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed">
+              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed font-normal">
                 I'm working on some exciting content. Check back soon for new
                 articles and insights!
               </p>
@@ -122,15 +122,15 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
     <div className="space-y-12 lg:space-y-16">
       {/* Header Section */}
       <div className="text-center space-y-6 animate-fade-in-up">
-        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-thin text-[var(--color-text)] tracking-tight">
+        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight">
           My{" "}
-          <span className="font-normal text-[var(--color-text)] relative">
+          <span className="font-medium text-[var(--color-text)] relative">
             Blog
             <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-20"></div>
           </span>
         </h1>
         <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
-        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
           Thoughts, ideas, and insights on web development, design, and
           technology trends.
         </p>
@@ -146,7 +146,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
             <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
             </svg>
-            <span className="font-medium">
+            <span className="font-semibold">
               {posts.length} Article{posts.length !== 1 ? "s" : ""}
             </span>
           </div>
@@ -165,7 +165,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253z"
               />
             </svg>
-            <span className="font-medium">Latest Insights</span>
+            <span className="font-semibold">Latest Insights</span>
           </div>
         </div>
       </div>
@@ -222,10 +222,10 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
         <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden max-w-4xl mx-auto">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
           <div className="relative z-10">
-            <h3 className="text-fluid-2xl lg:text-fluid-4xl font-thin text-[var(--color-text)] mb-6 tracking-tight">
-              Stay <span className="font-normal">Connected</span>
+            <h3 className="text-fluid-2xl lg:text-fluid-4xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+              Stay <span className="font-medium">Connected</span>
             </h3>
-            <p className="text-fluid-base text-[var(--color-text-light)] mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-fluid-base text-[var(--color-text-light)] mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed font-normal">
               Get notified when I publish new articles. Join the community of
               developers and designers who stay ahead of the curve.
             </p>

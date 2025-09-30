@@ -13,7 +13,7 @@ export function InputField({
     <div className="space-y-3">
       <label
         htmlFor={id}
-        className="block text-fluid-base font-normal text-[var(--color-text)] tracking-wide"
+        className="block text-fluid-base font-medium text-[var(--color-text)] tracking-wide"
       >
         {label}
       </label>

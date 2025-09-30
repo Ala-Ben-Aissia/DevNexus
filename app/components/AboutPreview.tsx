@@ -16,14 +16,14 @@ const AboutPreview = () => {
         </div>
       </div>
       <div className="flex-1 text-center md:text-left relative z-10 space-y-6">
-        <h2 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] tracking-tight">
+        <h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] tracking-tight">
           👋 About{" "}
-          <span className="font-normal relative">
+          <span className="font-medium relative">
             Me
             <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-30"></div>
           </span>
         </h2>
-        <p className="text-[var(--color-text-light)] text-fluid-base lg:text-fluid-lg leading-relaxed max-w-2xl">
+        <p className="text-[var(--color-text-light)] text-fluid-base lg:text-fluid-lg leading-relaxed max-w-2xl font-normal">
           I'm Ala — a passionate developer and tech enthusiast dedicated to
           creating elegant digital solutions and sharing knowledge with the
           developer community.

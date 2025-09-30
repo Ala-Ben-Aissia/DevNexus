@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import { FaBars, FaDev, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import ThemeToggleSimple from "./ThemeToggleSimple";
 
 type Path = `/${string}`;
 type NavLinks = Array<{ to: Path; label: string }>;
@@ -17,9 +18,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const base =
-    "text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-500 relative group";
+    "text-[var(--color-text-light)] hover:text-[var(--color-text)] font-medium transition-all duration-500 relative group";
   const active =
-    "font-medium text-[var(--color-text)] transition-all duration-500 relative";
+    "font-semibold text-[var(--color-text)] transition-all duration-500 relative";
 
   return (
     <nav className="bg-[var(--color-primary)]/95 backdrop-blur-xl sticky top-0 z-50 border-b border-[var(--color-border)] gpu-accelerated">
@@ -30,14 +31,15 @@ export default function Navbar() {
           className="group flex items-center gap-3 text-[var(--color-text)] hover:text-[var(--color-text)] transition-all duration-500 text-fluid-lg hover-lift"
         >
           <FaDev className="text-fluid-xl text-[var(--color-text)] transition-transform duration-300 group-hover:rotate-12" />
-          <span className="tracking-wide font-normal relative">
+          <span className="tracking-wide font-medium relative">
             Ala Ben Aissia
             <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-500 group-hover:w-full"></div>
           </span>
         </NavLink>
 
         {/* Desktop Links */}
-        <div className="hidden sm:flex items-center gap-12">
+        {/* Desktop Navigation */}
+        <div className="hidden sm:flex items-center gap-8">
           {navLinks.map((l) => (
             <NavLink
               key={l.label}
@@ -52,24 +54,32 @@ export default function Navbar() {
               <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
             </NavLink>
           ))}
+
+          {/* Theme Toggle */}
+          <div className="ml-4">
+            <ThemeToggleSimple />
+          </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="sm:hidden text-[var(--color-text)] text-fluid-xl cursor-pointer hover:text-[var(--color-text-light)] transition-all duration-300 hover-lift"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          <div className="relative w-6 h-6 flex items-center justify-center">
-            <div
-              className={`absolute transition-all duration-300 ${
-                menuOpen ? "rotate-45" : ""
-              }`}
-            >
-              {menuOpen ? <FaTimes /> : <FaBars />}
+        {/* Mobile Actions */}
+        <div className="sm:hidden flex items-center gap-3">
+          <ThemeToggleSimple />
+          <button
+            className="text-[var(--color-text)] text-fluid-xl cursor-pointer hover:text-[var(--color-text-light)] transition-all duration-300 hover-lift"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            <div className="relative w-6 h-6 flex items-center justify-center">
+              <div
+                className={`absolute transition-all duration-300 ${
+                  menuOpen ? "rotate-45" : ""
+                }`}
+              >
+                {menuOpen ? <FaTimes /> : <FaBars />}
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Dropdown Menu */}
@@ -84,7 +94,7 @@ export default function Navbar() {
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `transition-all duration-500 relative group ${
+                `transition-all duration-500 relative group text-fluid-lg ${
                   isActive ? active : base
                 }`
               }

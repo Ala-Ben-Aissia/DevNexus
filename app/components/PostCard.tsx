@@ -35,12 +35,12 @@ export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
         </div>
 
         {/* Title */}
-        <h2 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] leading-tight tracking-tight mb-4 lg:mb-6 group-hover:text-[var(--color-text)] transition-colors duration-300">
+        <h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] leading-tight tracking-tight mb-4 lg:mb-6 group-hover:text-[var(--color-text)] transition-colors duration-300">
           {post_meta.title}
         </h2>
 
         {/* Excerpt */}
-        <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed mb-6 lg:mb-8 line-clamp-3">
+        <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed mb-6 lg:mb-8 line-clamp-3 font-normal">
           {post_meta.excerpt}
         </p>
 
@@ -50,7 +50,7 @@ export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
         {/* Read More Link */}
         <Link
           to={`/blog/${post_meta.slug}`}
-          className="group/link inline-flex items-center gap-3 text-[var(--color-text)] font-medium text-fluid-base transition-all duration-300 hover:text-[var(--color-text)] relative"
+          className="group/link inline-flex items-center gap-3 text-[var(--color-text)] font-semibold text-fluid-base transition-all duration-300 hover:text-[var(--color-text)] relative"
         >
           <span className="relative z-10">Read Article</span>
           <svg

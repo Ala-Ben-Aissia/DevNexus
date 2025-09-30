@@ -58,15 +58,15 @@ export default function AboutPage() {
     <div className="space-y-12 lg:space-y-20">
       {/* Header Section */}
       <div className="text-center space-y-6 animate-fade-in-up">
-        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-thin text-[var(--color-text)] tracking-tight">
+        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight">
           About{" "}
-          <span className="font-normal text-[var(--color-text)] relative">
+          <span className="font-medium text-[var(--color-text)] relative">
             Me
             <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-20"></div>
           </span>
         </h1>
         <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
-        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
           Passionate about creating digital experiences that make a difference
         </p>
       </div>
@@ -94,13 +94,13 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
             <div className="relative z-10 space-y-6">
               <div>
-                <h2 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] mb-4 tracking-tight">
-                  Hey, I'm <span className="font-normal">Ala</span> 👋
+                <h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+                  Hey, I'm <span className="font-medium">Ala</span> 👋
                 </h2>
                 <div className="w-16 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-6"></div>
               </div>
 
-              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed">
+              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed font-normal">
                 I'm a passionate full-stack developer with a love for creating
                 elegant, functional, and user-centered digital solutions. With
                 years of experience in modern web technologies, I specialize in
@@ -108,7 +108,7 @@ export default function AboutPage() {
                 exceptional user experiences.
               </p>
 
-              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed">
+              <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed font-normal">
                 When I'm not coding, you'll find me exploring the latest tech
                 trends, contributing to open source projects, or sharing
                 knowledge with the developer community.
@@ -124,13 +124,13 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
           <div className="relative z-10 text-center space-y-8">
             <div>
-              <h3 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] mb-4 tracking-tight">
-                My <span className="font-normal">Mission</span>
+              <h3 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+                My <span className="font-medium">Mission</span>
               </h3>
               <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-accent)] to-transparent mx-auto"></div>
             </div>
 
-            <p className="text-fluid-lg text-[var(--color-text-light)] leading-relaxed max-w-4xl mx-auto">
+            <p className="text-fluid-lg text-[var(--color-text-light)] leading-relaxed max-w-4xl mx-auto font-normal">
               To bridge the gap between complex technology and human needs by
               creating intuitive, accessible, and performant digital
               experiences. I believe that great software should feel effortless
@@ -143,8 +143,8 @@ export default function AboutPage() {
       {/* Skills Section */}
       <div className="animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
         <div className="text-center mb-12">
-          <h3 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] mb-4 tracking-tight">
-            Core <span className="font-normal">Skills</span>
+          <h3 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+            Core <span className="font-medium">Skills</span>
           </h3>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
         </div>
@@ -161,10 +161,10 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
               <div className="relative z-10">
                 <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-[var(--color-text)] font-medium text-fluid-base">
+                  <h4 className="text-[var(--color-text)] font-semibold text-fluid-base">
                     {skill.name}
                   </h4>
-                  <span className="text-[var(--color-text-light)] text-fluid-sm">
+                  <span className="text-[var(--color-text-light)] text-fluid-sm font-medium">
                     {skill.level}%
                   </span>
                 </div>
@@ -185,11 +185,11 @@ export default function AboutPage() {
       {/* Tech Stack Section */}
       <div className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
         <div className="text-center mb-12">
-          <h3 className="text-fluid-2xl lg:text-fluid-3xl font-thin text-[var(--color-text)] mb-4 tracking-tight">
-            Tech <span className="font-normal">Stack</span>
+          <h3 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
+            Tech <span className="font-medium">Stack</span>
           </h3>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto mb-6"></div>
-          <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
             Technologies I use to bring ideas to life
           </p>
         </div>
@@ -205,10 +205,10 @@ export default function AboutPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl"></div>
               <div className="relative z-10 text-center">
-                <p className="text-[var(--color-text)] font-medium text-fluid-base">
+                <p className="text-[var(--color-text)] font-semibold text-fluid-base">
                   {tech.name}
                 </p>
-                <p className="text-[var(--color-text-light)] text-fluid-sm mt-1">
+                <p className="text-[var(--color-text-light)] text-fluid-sm mt-1 font-medium">
                   {tech.category}
                 </p>
               </div>
@@ -225,10 +225,10 @@ export default function AboutPage() {
         <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden max-w-4xl mx-auto">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
           <div className="relative z-10">
-            <h3 className="text-fluid-2xl lg:text-fluid-4xl font-thin text-[var(--color-text)] mb-6 tracking-tight">
-              Let's Build Something <span className="font-normal">Amazing</span>
+            <h3 className="text-fluid-2xl lg:text-fluid-4xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+              Let's Build Something <span className="font-medium">Amazing</span>
             </h3>
-            <p className="text-fluid-base text-[var(--color-text-light)] mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-fluid-base text-[var(--color-text-light)] mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed font-normal">
               I'm always excited to work on new projects and collaborate with
               like-minded individuals. Whether you have an idea or need help
               with an existing project, let's make it happen.

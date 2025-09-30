@@ -73,15 +73,15 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="space-y-12 lg:space-y-16">
       <div className="text-center space-y-6 animate-fade-in-up">
-        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-thin text-[var(--color-text)] tracking-tight">
+        <h1 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight">
           My{" "}
-          <span className="font-normal text-[var(--color-text)] relative">
+          <span className="font-medium text-[var(--color-text)] relative">
             Projects
             <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-20"></div>
           </span>
         </h1>
         <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto"></div>
-        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-fluid-base text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
           A collection of projects showcasing my expertise in modern web
           development and design.
         </p>
