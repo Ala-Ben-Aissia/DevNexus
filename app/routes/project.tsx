@@ -1,13 +1,55 @@
 import type { Project } from "~/types";
 import type { Route } from "./+types/project";
 import { Link } from "react-router";
+import { motion } from "motion/react";
+import { useState } from "react";
+
+export function meta({ loaderData }: Route.MetaArgs) {
+  const project = loaderData;
+  const title = `${project.title} | Dev Nexus`;
+  return [
+    { title },
+    {
+      name: "description",
+      content: project.description,
+    },
+    {
+      property: "og:title",
+      content: title,
+    },
+    {
+      property: "og:description",
+      content: project.description,
+    },
+    {
+      property: "og:image",
+      content: project.image,
+    },
+    {
+      property: "og:url",
+      content: `https://devnexus.vercel.app/projects/${project.id}`,
+    },
+    {
+      property: "twitter:title",
+      content: title,
+    },
+    {
+      property: "twitter:description",
+      content: project.description,
+    },
+    {
+      property: "twitter:image",
+      content: project.image,
+    },
+  ];
+}
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const id = params.id;
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`);
     if (!res.ok) {
-      throw new Response("Error loading projects", { status: res.status });
+      throw new Response("Error loading project", { status: res.status });
     }
     const project = (await res.json()) as Project;
     if (!project) {
@@ -15,22 +57,22 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
     }
     return project;
   } catch (error) {
-    throw new Response("Error loading projects", { status: 500 });
+    throw new Response("Error loading project", { status: 500 });
   }
 }
 
 export function hydrateFallback() {
   return (
-    <div className="min-h-screen dark:bg-gray-900 flex items-center justify-center">
-      <div className="text-center space-y-6">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center space-y-8 animate-fade-in-up">
         <div className="relative">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-spin">
-            <div className="absolute inset-2 dark:bg-gray-900 rounded-full"></div>
+          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full animate-spin">
+            <div className="absolute inset-2 bg-[var(--color-primary)] rounded-full"></div>
           </div>
-          <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-lg opacity-50 animate-pulse"></div>
+          <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full blur-lg opacity-50 animate-pulse"></div>
         </div>
-        <h1 className="text-2xl text-white font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text">
-          Loading Project...
+        <h1 className="text-fluid-2xl font-light text-[var(--color-text)] tracking-tight">
+          Loading <span className="font-medium">Project</span>...
         </h1>
       </div>
     </div>
@@ -39,139 +81,240 @@ export function hydrateFallback() {
 
 export default function Project({ loaderData }: Route.ComponentProps) {
   const project = loaderData;
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  const features = [
+    { name: "Modern Design", color: "var(--color-accent)" },
+    { name: "Responsive Layout", color: "#c678dd" },
+    { name: "Fast Performance", color: "#98c379" },
+    { name: "User Friendly", color: "#e5c07b" },
+    { name: "SEO Optimized", color: "#61afef" },
+    { name: "Accessible", color: "#e06c75" },
+  ];
 
   return (
-    <div className="min-h-screen dark:bg-gray-900 dark:text-white">
-      {/* Back Button */}
-      <div className="px-4 py-4 border-t dark:border-gray-700">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition-colors duration-300 group"
-        >
-          <div className="w-10 h-10 bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 group-hover:dark:bg-gray-700 border border-gray-400 dark:border-gray-600 group-hover:border-gray-500 rounded-lg flex items-center justify-center transition-all duration-300">
-            ←
-          </div>
-          <span className="font-medium">Back to Projects</span>
-        </Link>
+    <div className="space-y-0">
+      {/* Back Navigation */}
+      <div className="animate-fade-in-up bg-[var(--color-primary)] border-b border-[var(--color-border)] py-6">
+        <div className="max-w-7xl mx-auto px-6">
+          <Link
+            to="/projects"
+            className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </div>
+            <span className="font-medium text-fluid-base">
+              Back to Projects
+            </span>
+          </Link>
+        </div>
       </div>
 
       {/* Hero Section */}
-      {/* Hero Section */}
-      <div className="relative h-96 overflow-hidden rounded-b-3xl shadow-sm">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
-        />
+      <div
+        className="relative animate-fade-in-up"
+        style={{ animationDelay: "0.1s" }}
+      >
+        {/* Hero Image */}
+        <div className="relative h-[60vh] lg:h-[70vh] overflow-hidden">
+          <motion.img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{
+              scale: imageLoaded ? 1 : 1.1,
+              opacity: imageLoaded ? 1 : 0,
+            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            onLoad={() => setImageLoaded(true)}
+          />
 
-        {/* Overlay: lighter in light mode, darker in dark mode */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/50 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent"></div>
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/20 to-transparent"></div>
 
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-8">
-          <div className="max-w-4xl mx-auto">
-            {/* Badges */}
-            <div className="flex items-center gap-4 mb-4">
-              <span className="px-4 py-2 bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 text-sm rounded-full border border-blue-200 dark:border-blue-400/30">
-                {project.category}
-              </span>
-              {project.featured && (
-                <span className="px-3 py-2 bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300 text-sm rounded-full border border-yellow-200 dark:border-yellow-400/30">
-                  ⭐ Featured
+          {/* Content */}
+          <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+            <div className="max-w-6xl mx-auto">
+              {/* Badges */}
+              <motion.div
+                className="flex flex-wrap items-center gap-3 mb-6"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <span className="px-4 py-2 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] text-fluid-sm font-medium rounded-full border border-[var(--color-border)] backdrop-blur-sm">
+                  {project.category}
                 </span>
-              )}
+                {project.featured && (
+                  <span className="px-4 py-2 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] text-[var(--color-text)] text-fluid-sm font-medium rounded-full border border-[var(--color-accent)] backdrop-blur-sm">
+                    ⭐ Featured
+                  </span>
+                )}
+                <span className="px-4 py-2 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text-light)] text-fluid-sm font-medium rounded-full border border-[var(--color-border)] backdrop-blur-sm">
+                  {new Date(project.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                  })}
+                </span>
+              </motion.div>
+
+              {/* Title */}
+              <motion.h1
+                className="text-fluid-5xl lg:text-fluid-7xl font-light text-[var(--color-text)] mb-6 tracking-tight leading-tight"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <span className="font-medium">{project.title}</span>
+              </motion.h1>
+
+              {/* Description */}
+              <motion.p
+                className="text-fluid-lg text-[var(--color-text-light)] max-w-3xl leading-relaxed font-normal"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                {project.description}
+              </motion.p>
             </div>
-
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
-              {project.title}
-            </h1>
-
-            {/* Description */}
-            <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">
-              {project.description}
-            </p>
           </div>
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="max-w-4xl mx-auto px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border border-gray-300 dark:border-gray-700">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                Project Overview
-              </h2>
-              <div className="prose max-w-none dark:prose-invert">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                  {project.description}
-                </p>
+      {/* Main Content */}
+      <div
+        className="max-w-6xl mx-auto px-6 py-16 lg:py-24 animate-fade-in-up"
+        style={{ animationDelay: "0.2s" }}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+          {/* Main Content Column */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Project Overview */}
+            <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-8 lg:p-10 hover-lift relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+              <div className="relative z-10">
+                <h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+                  Project <span className="font-medium">Overview</span>
+                </h2>
+                <div className="w-16 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-8"></div>
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-fluid-base text-[var(--color-text-light)] leading-relaxed font-normal">
+                    {project.description} This project showcases modern web
+                    development practices with a focus on user experience,
+                    performance, and accessibility. Built with the latest
+                    technologies and best practices in mind.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Technologies/Features Section */}
-            <div className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border border-gray-300 dark:border-gray-700">
-              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                Key Features
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-4 bg-gray-100 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600">
-                  <div className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Modern Design
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-gray-100 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600">
-                  <div className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Responsive Layout
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-gray-100 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600">
-                  <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Fast Performance
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-gray-100 dark:bg-gray-700/50 rounded-lg border border-gray-300 dark:border-gray-600">
-                  <div className="w-2 h-2 bg-yellow-500 dark:bg-yellow-400 rounded-full"></div>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    User Friendly
-                  </span>
+            {/* Key Features */}
+            <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-8 lg:p-10 hover-lift relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+              <div className="relative z-10">
+                <h3 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+                  Key <span className="font-medium">Features</span>
+                </h3>
+                <div className="w-16 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-8"></div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {features.map((feature, index) => (
+                    <motion.div
+                      key={feature.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="group flex items-center gap-4 p-4 bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-quaternary)] rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 hover-lift"
+                    >
+                      <div
+                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: feature.color }}
+                      />
+                      <span className="text-[var(--color-text)] font-medium text-fluid-base group-hover:text-[var(--color-text)] transition-colors duration-300">
+                        {feature.name}
+                      </span>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Project Info */}
-            <div className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-300 dark:border-gray-700">
-              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
-                Project Info
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="text-sm text-gray-600 dark:text-gray-400">
-                    Date
-                  </label>
-                  <p className="text-gray-800 dark:text-white font-medium">
-                    {new Date(project.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <label className="text-sm text-gray-600 dark:text-gray-400">
-                    Category
-                  </label>
-                  <p className="text-gray-800 dark:text-white font-medium capitalize">
-                    {project.category}
-                  </p>
+          <div className="space-y-8">
+            {/* Project Details */}
+            <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-6 lg:p-8 hover-lift relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+              <div className="relative z-10">
+                <h3 className="text-fluid-xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+                  Project <span className="font-medium">Details</span>
+                </h3>
+                <div className="w-12 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-6"></div>
+
+                <div className="space-y-6">
+                  <div>
+                    <label className="text-fluid-sm text-[var(--color-text-muted)] font-medium mb-2 block">
+                      Launch Date
+                    </label>
+                    <p className="text-[var(--color-text)] font-semibold text-fluid-base">
+                      {new Date(project.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+
+                  <div className="w-full h-px bg-[var(--color-border)]"></div>
+
+                  <div>
+                    <label className="text-fluid-sm text-[var(--color-text-muted)] font-medium mb-2 block">
+                      Category
+                    </label>
+                    <p className="text-[var(--color-text)] font-semibold text-fluid-base capitalize">
+                      {project.category}
+                    </p>
+                  </div>
+
+                  <div className="w-full h-px bg-[var(--color-border)]"></div>
+
+                  <div>
+                    <label className="text-fluid-sm text-[var(--color-text-muted)] font-medium mb-2 block">
+                      Status
+                    </label>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <p className="text-[var(--color-text)] font-semibold text-fluid-base">
+                        Live & Active
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -182,33 +325,126 @@ export default function Project({ loaderData }: Route.ComponentProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-purple-500/25 hover:-translate-y-1"
+                className="group block w-full px-6 py-4 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-2xl text-center transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden border border-[var(--color-accent)] hover:border-[var(--color-accent-hover)]"
               >
-                🚀 View Live Project
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                  View Live Project
+                  <svg
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
               </a>
 
-              <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 hover:dark:bg-gray-700 border border-gray-400 dark:border-gray-600 hover:border-gray-500 text-gray-800 dark:text-white font-medium py-4 px-6 rounded-xl transition-all duration-300">
-                📋 Copy Link
+              <button
+                onClick={handleCopyLink}
+                className="group w-full px-6 py-4 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] hover:bg-[var(--color-tertiary)] border border-[var(--color-border)] hover:border-[var(--color-accent)] text-[var(--color-text)] font-medium rounded-2xl transition-all duration-300 hover-lift text-fluid-base relative overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {copySuccess ? "Link Copied!" : "Copy Link"}
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
               </button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Share Section */}
-            {/* <div className="bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 rounded-2xl p-6 border border-gray-300 dark:border-gray-700">
-              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
-                Share Project
+      {/* Call to Action */}
+      <div
+        className="text-center py-16 lg:py-20 animate-fade-in-up"
+        style={{ animationDelay: "0.3s" }}
+      >
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
+            <div className="relative z-10">
+              <h3 className="text-fluid-2xl lg:text-fluid-4xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+                Ready to Work <span className="font-medium">Together?</span>
               </h3>
-              <div className="flex gap-3">
-                <button className="flex-1 bg-blue-100 hover:bg-blue-200 dark:bg-blue-600/20 hover:dark:bg-blue-600/30 border border-blue-300 dark:border-blue-500/30 text-blue-600 dark:text-blue-300 p-3 rounded-lg transition-colors duration-300">
-                  📘
-                </button>
-                <button className="flex-1 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600/20 hover:dark:bg-gray-600/30 border border-gray-400 dark:border-gray-500/30 text-gray-700 dark:text-gray-300 p-3 rounded-lg transition-colors duration-300">
-                  🐦
-                </button>
-                <button className="flex-1 bg-blue-200 hover:bg-blue-300 dark:bg-blue-700/20 hover:dark:bg-blue-700/30 border border-blue-400 dark:border-blue-400/30 text-blue-700 dark:text-blue-300 p-3 rounded-lg transition-colors duration-300">
-                  💼
-                </button>
+              <p className="text-fluid-base text-[var(--color-text-light)] mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed font-normal">
+                I'm always excited to work on new projects and collaborate with
+                like-minded individuals. Let's discuss how we can bring your
+                ideas to life.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
+                >
+                  <span className="relative z-10">Start a Project</span>
+                  <svg
+                    className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                </Link>
+                <Link
+                  to="/projects"
+                  className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-fluid-base min-w-[200px] justify-center"
+                >
+                  <span>View All Projects</span>
+                  <svg
+                    className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
