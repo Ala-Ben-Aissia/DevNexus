@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/atom-one-dark.css";
 
 // Clean, responsive markdown components with syntax highlighting
 const markdownComponents: Partial<
