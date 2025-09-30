@@ -105,8 +105,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         >
           <div className="text-center mb-16 lg:mb-20">
             {/* Section badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-500 to-yellow-400 border border-[var(--color-border)] text-gray-700 rounded-full text-fluid-sm font-medium mb-6">
-              <span className="text-lg">🌟</span> &nbsp;&nbsp;Featured Projects
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-accent)]/79 to-[var(--color-accent-hover)] border border-[var(--color-border)] text-[var(--color-text)] rounded-full text-fluid-sm font-medium mb-6">
+              <span className="text-lg">🔥</span>&nbsp;&nbsp;Featured Projects
             </div>
 
             <h2 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] mb-6 tracking-tight">
