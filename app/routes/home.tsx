@@ -1,17 +1,28 @@
-import type { Project } from "~/types";
+import type { Project, PostMeta } from "~/types";
 import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
+import FeaturedPosts from "~/components/FeaturedPosts";
 import AboutPreview from "~/components/AboutPreview";
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  // Fetch featured projects
   const projects = await fetch(`${import.meta.env.VITE_API_URL}/projects`).then<
     Promise<Project[]>
   >((res) => res.json());
-  return projects.filter((p) => p.featured);
+
+  // Fetch blog posts
+  const postsUrl = new URL("/posts_meta.json", request.url);
+  const postsResponse = await fetch(postsUrl);
+  const posts = postsResponse.ok ? await postsResponse.json() : [];
+
+  return {
+    featuredProjects: projects.filter((p) => p.featured),
+    posts,
+  };
 }
 
 export default function HomePage({ loaderData }: Route.ComponentProps) {
-  const featuredProjects = loaderData;
+  const { featuredProjects, posts } = loaderData;
 
   return (
     <div className="space-y-20 lg:space-y-32">
@@ -127,10 +138,52 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         </section>
       )}
 
+      {/* Latest Blog Posts Section */}
+      {posts.length > 0 && (
+        <section
+          className="animate-fade-in-up"
+          style={{ animationDelay: "0.4s" }}
+        >
+          <div className="text-center mb-16 lg:mb-20">
+            {/* Section badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] rounded-full text-[var(--color-text-light)] text-fluid-sm font-medium mb-6">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253z"
+                />
+              </svg>
+              Latest Insights
+            </div>
+
+            <h2 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] mb-6 tracking-tight">
+              From the{" "}
+              <span className="font-medium relative">
+                Blog
+                <div className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-20"></div>
+              </span>
+            </h2>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent mx-auto mb-6"></div>
+            <p className="text-fluid-base lg:text-fluid-lg text-[var(--color-text-light)] max-w-2xl mx-auto leading-relaxed font-normal">
+              Deep dives into modern web development, performance optimization,
+              and design patterns that matter.
+            </p>
+          </div>
+          <FeaturedPosts posts={posts} />
+        </section>
+      )}
+
       {/* About Preview Section */}
       <section
         className="animate-fade-in-up"
-        style={{ animationDelay: "0.4s" }}
+        style={{ animationDelay: "0.6s" }}
       >
         <AboutPreview />
       </section>
@@ -138,7 +191,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       {/* Call to Action */}
       <section
         className="text-center py-16 lg:py-20 animate-fade-in-up"
-        style={{ animationDelay: "0.6s" }}
+        style={{ animationDelay: "0.8s" }}
       >
         <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
