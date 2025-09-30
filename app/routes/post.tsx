@@ -3,8 +3,10 @@ import type { Route } from "./+types/post";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/atom-one-dark.css";
 
-// Clean, responsive markdown components with fixed list rendering
+// Clean, responsive markdown components with syntax highlighting
 const markdownComponents: Partial<
   Record<keyof React.JSX.IntrinsicElements, React.ComponentType<any>>
 > = {
@@ -94,7 +96,6 @@ const markdownComponents: Partial<
   ),
 
   li: ({ children, ordered, ...props }: any) => {
-    // Check if this is part of an ordered list by looking at the parent
     const isOrdered = props.className?.includes("ordered") || ordered;
 
     if (isOrdered || props.parentName === "ol") {
@@ -115,7 +116,6 @@ const markdownComponents: Partial<
     );
   },
 
-  // Fixed strong element to work properly in lists
   strong: ({ children, ...props }: any) => (
     <strong
       className="font-semibold text-[var(--color-text)] inline"
@@ -131,11 +131,9 @@ const markdownComponents: Partial<
     </em>
   ),
 
-  code: ({ children, ...props }: any) => {
-    // Check if it's inline code (not wrapped in pre)
-    const isInline = !props.className;
-
-    if (isInline) {
+  code: ({ children, className, ...props }: any) => {
+    // Inline code (no language specified)
+    if (!className) {
       return (
         <code
           className="bg-[var(--color-tertiary)] text-[var(--color-text)] px-[var(--space-3xs)] py-[0.125rem] rounded text-fluid-sm font-mono inline break-words"
@@ -145,8 +143,10 @@ const markdownComponents: Partial<
         </code>
       );
     }
+
+    // Block code with syntax highlighting (handled by rehype-highlight)
     return (
-      <code className="font-mono text-fluid-sm block" {...props}>
+      <code className={className} {...props}>
         {children}
       </code>
     );
@@ -291,6 +291,7 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
           <ReactMarkdown
             components={markdownComponents}
             remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight]}
           >
             {markdown}
           </ReactMarkdown>
@@ -320,7 +321,6 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
               <span>View all posts</span>
             </Link>
 
-            {/* Optional: Add share buttons or other footer content */}
             <div className="flex items-center gap-[var(--space-s)]">
               <button
                 className="text-fluid-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-200 cursor-pointer"

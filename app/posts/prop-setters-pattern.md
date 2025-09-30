@@ -231,6 +231,9 @@ Compared to controlled props (e.g., passing `onClick` directly), setters central
 
 The prop setters pattern is a game-changer for building flexible React components that empower users without sacrificing control. By drawing from Kent C. Dodds' wisdom, we've seen how it simplifies modals, tooltips, and more, outperforming render props in usability. Next time you're designing a reusable UI primitive, reach for prop getters—they'll make your code cleaner, more accessible, and a joy to compose.
 
-If you've used this pattern, share your experiences in the comments! For further reading, check out Kent's original post and React's documentation on [compound components](https://react.dev/learn/passing-props-to-a-component#passing-props-to-a-component).
+If you've used this pattern, share your experiences in the comments! For further reading, check out:
+
+- Kent's original post: [React Hooks: Compound Components](https://kentcdodds.com/blog/compound-components-with-react-hooks)
+- React's documentation on [compound components](https://react.dev/learn/passing-props-to-a-component#passing-props-to-a-component)
 
 _Published on March 15, 2025_
