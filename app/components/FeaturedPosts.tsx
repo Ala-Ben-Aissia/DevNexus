@@ -13,10 +13,10 @@ function HeroFeaturedPost({ post }: { post: PostMeta }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 1,
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       className="group relative"
@@ -178,11 +178,11 @@ function SecondaryPostCard({ post, index }: { post: PostMeta; index: number }) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.7,
-        delay: 0.2 + index * 0.1,
+        duration: 0.5,
+        delay: 0,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
       className="group h-full"

@@ -46,7 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Navbar />
-        <main>{children}</main>
+        <main className="w-full">{children}</main>
         <ScrollRestoration />
         <Scripts />
       </body>

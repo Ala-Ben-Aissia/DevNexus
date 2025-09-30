@@ -2,29 +2,29 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import type { Project } from "~/types";
 
-// Hero Featured Project - Premium treatment
+// Hero Featured Project - Large and prominent
 function HeroFeaturedProject({ project }: { project: Project }) {
   return (
     <motion.div
       className="group relative"
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 1,
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
     >
       <Link to={`/projects/${project.id}`} className="block">
-        <div className="relative bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-2xl lg:rounded-[2rem] overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700">
+        <div className="relative w-full bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-xl lg:rounded-3xl overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700">
           {/* Animated gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 via-transparent to-[var(--color-accent-hover)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
           {/* Subtle outer glow */}
           <div className="absolute -inset-[1px] bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent-hover)] to-[var(--color-accent)] opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-700 -z-10"></div>
 
-          <div className="grid lg:grid-cols-2 gap-0">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 w-full">
             {/* Image Section */}
-            <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden">
+            <div className="relative w-full h-64 sm:h-80 lg:h-[400px] xl:h-[480px] overflow-hidden">
               {/* Image with parallax effect */}
               <motion.img
                 src={project.image}
@@ -41,7 +41,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
               <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20">
                 <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-xl">
                   <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide">
+                  <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide whitespace-nowrap">
                     Live Project
                   </span>
                 </div>
@@ -65,10 +65,10 @@ function HeroFeaturedProject({ project }: { project: Project }) {
             </div>
 
             {/* Content Section */}
-            <div className="relative p-6 sm:p-8 md:p-10 lg:p-14 flex flex-col justify-center">
+            <div className="relative w-full p-6 sm:p-8 lg:p-10 xl:p-12 flex flex-col justify-center">
               <div className="relative z-10">
                 {/* Year and Status */}
-                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
                   <span className="text-xs sm:text-sm font-medium text-[var(--color-text-muted)] tracking-wider uppercase">
                     {new Date(project.date).getFullYear()}
                   </span>
@@ -76,7 +76,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-[var(--color-text)] mb-4 sm:mb-6 leading-[1.15] tracking-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-[var(--color-text)] mb-4 sm:mb-6 leading-tight tracking-tight">
                   {project.title}
                 </h2>
 
@@ -97,7 +97,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span className="text-sm sm:text-base font-semibold text-[var(--color-accent)] group-hover:text-[var(--color-accent-hover)] transition-colors duration-300">
+                    <span className="text-sm sm:text-base font-semibold group-hover:text-[var(--color-accent-secondary)] transition-colors duration-300">
                       View Project
                     </span>
                     <svg
@@ -115,15 +115,9 @@ function HeroFeaturedProject({ project }: { project: Project }) {
                     </svg>
                   </motion.div>
 
-                  {/* External link */}
+                  {/* External link indicator */}
                   {project.url && (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-colors duration-300"
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                    <span className="flex items-center gap-2 text-[var(--color-text-light)] text-sm">
                       <svg
                         className="w-4 h-4 sm:w-5 sm:h-5"
                         fill="none"
@@ -137,8 +131,10 @@ function HeroFeaturedProject({ project }: { project: Project }) {
                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                         />
                       </svg>
-                      <span className="text-sm font-medium">Live Site</span>
-                    </a>
+                      <span className="font-medium hidden sm:inline whitespace-nowrap">
+                        Live Site
+                      </span>
+                    </span>
                   )}
                 </div>
               </div>
@@ -150,7 +146,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
   );
 }
 
-// Secondary Project Cards - Refined grid items
+// Secondary Project Cards - SMALLER horizontal cards
 function SecondaryProjectCard({
   project,
   index,
@@ -160,105 +156,82 @@ function SecondaryProjectCard({
 }) {
   return (
     <motion.div
-      className="group h-full"
-      initial={{ opacity: 0, y: 30 }}
+      className="group w-full"
+      initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.7,
-        delay: 0.2 + index * 0.1,
+        duration: 0.5,
+        delay: 0,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
     >
-      <Link to={`/projects/${project.id}`} className="block h-full">
-        <div className="relative h-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 hover:shadow-xl hover:shadow-[var(--color-accent)]/5 flex flex-col">
+      <Link to={`/projects/${project.id}`} className="block w-full">
+        <div className="relative w-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-lg lg:rounded-xl overflow-hidden border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 hover:shadow-xl hover:shadow-[var(--color-accent)]/5">
           {/* Hover gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/0 to-[var(--color-accent)]/0 group-hover:from-[var(--color-accent)]/5 group-hover:to-transparent transition-all duration-500"></div>
 
-          {/* Image Section */}
-          <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-              whileHover={{ scale: 1.08 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            />
+          <div className="flex flex-col sm:flex-row w-full">
+            {/* Image Section - SMALLER */}
+            <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-48 sm:h-auto flex-shrink-0 overflow-hidden">
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              />
 
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/30 to-transparent"></div>
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/30 to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-[var(--color-primary)]"></div>
 
-            {/* Category badge */}
-            <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
-              <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-white/10 backdrop-blur-xl text-white/90 text-xs font-semibold rounded-full border border-white/20">
-                {project.category}
-              </span>
-            </div>
-
-            {/* Status indicator */}
-            <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-lg shadow-emerald-500/50"></div>
-            </div>
-          </div>
-
-          {/* Content Section */}
-          <div className="relative z-10 p-5 sm:p-6 md:p-8 flex flex-col flex-1">
-            {/* Year */}
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <span className="text-xs font-medium text-[var(--color-text-muted)] tracking-wider uppercase">
-                {new Date(project.date).getFullYear()}
-              </span>
-              <div className="flex-1 h-px bg-gradient-to-r from-[var(--color-border)] to-transparent"></div>
-            </div>
-
-            {/* Title */}
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-[var(--color-text)] mb-3 sm:mb-4 leading-tight tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-300 flex-grow">
-              {project.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-[var(--color-text-light)] leading-relaxed mb-4 sm:mb-6 font-normal text-sm lg:text-base line-clamp-2">
-              {project.description}
-            </p>
-
-            {/* Divider */}
-            <div className="w-12 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-4 sm:mb-6 group-hover:w-20 transition-all duration-500"></div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between">
-              <motion.div
-                className="flex items-center gap-2 transition-colors duration-300"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.3 }}
-              >
-                <span className="text-sm font-semibold tracking-wide">
-                  View Details
+              {/* Category badge - smaller */}
+              <div className="absolute top-3 left-3 z-10">
+                <span className="px-2 py-1 bg-white/10 backdrop-blur-xl text-white/90 text-xs font-semibold rounded-full border border-white/20">
+                  {project.category}
                 </span>
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </motion.div>
+              </div>
 
-              {/* External link icon */}
-              {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 hover:bg-[var(--color-tertiary)] rounded-full transition-colors duration-300"
-                  onClick={(e) => e.stopPropagation()}
+              {/* Status indicator - smaller */}
+              <div className="absolute top-3 right-3 z-10">
+                <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-lg shadow-emerald-500/50"></div>
+              </div>
+            </div>
+
+            {/* Content Section - SMALLER */}
+            <div className="relative z-10 w-full p-5 sm:p-6 flex flex-col justify-center">
+              {/* Year - smaller */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xs font-medium text-[var(--color-text-muted)] tracking-wider uppercase whitespace-nowrap">
+                  {new Date(project.date).getFullYear()}
+                </span>
+                <div className="flex-1 h-px bg-gradient-to-r from-[var(--color-border)] to-transparent"></div>
+              </div>
+
+              {/* Title - SMALLER than hero */}
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-[var(--color-text)] mb-3 leading-tight tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-300">
+                {project.title}
+              </h3>
+
+              {/* Description - smaller */}
+              <p className="text-[var(--color-text-light)] leading-relaxed mb-4 font-normal text-sm line-clamp-2">
+                {project.description}
+              </p>
+
+              {/* Divider - smaller */}
+              <div className="w-8 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-4 group-hover:w-14 transition-all duration-500"></div>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between">
+                <motion.div
+                  className="flex items-center gap-2 text-[var(--color-text-light)] group-hover:text-[var(--color-accent)] transition-colors duration-300"
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.3 }}
                 >
+                  <span className="text-sm font-semibold tracking-wide whitespace-nowrap">
+                    View Details
+                  </span>
                   <svg
-                    className="w-4 h-4 text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                    className="w-4 h-4 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -267,11 +240,30 @@ function SecondaryProjectCard({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
                   </svg>
-                </a>
-              )}
+                </motion.div>
+
+                {/* External link icon */}
+                {project.url && (
+                  <span className="text-[var(--color-text-muted)] group-hover:text-[var(--color-text)] transition-colors duration-300">
+                    <svg
+                      className="w-4 h-4 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -288,9 +280,9 @@ export default function FeaturedProjects({
   const [heroProject, ...otherProjects] = featuredProjects;
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Subtle background decoration */}
-      <div className="absolute inset-0 opacity-[0.015]">
+      <div className="absolute inset-0 opacity-[0.015] pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
@@ -304,17 +296,17 @@ export default function FeaturedProjects({
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--color-accent)] rounded-full opacity-[0.02] blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 right-1/3 w-72 h-72 bg-[var(--color-accent-hover)] rounded-full opacity-[0.03] blur-3xl pointer-events-none"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Hero Featured Project */}
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Hero Featured Project - LARGE */}
         {heroProject && (
-          <div className="mb-8 sm:mb-12 lg:mb-16 xl:mb-20">
+          <div className="w-full mb-8 sm:mb-10 lg:mb-12">
             <HeroFeaturedProject project={heroProject} />
           </div>
         )}
 
-        {/* Grid of Secondary Projects */}
+        {/* Secondary Projects - SMALLER, stacked vertically */}
         {otherProjects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          <div className="w-full space-y-5 sm:space-y-6 lg:space-y-8">
             {otherProjects.slice(0, 3).map((project, index) => (
               <SecondaryProjectCard
                 key={project.id}
@@ -328,19 +320,21 @@ export default function FeaturedProjects({
         {/* View All Projects CTA */}
         {featuredProjects.length > 4 && (
           <motion.div
-            className="text-center mt-12 sm:mt-16 lg:mt-20"
+            className="w-full text-center mt-10 sm:mt-12 lg:mt-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <Link
               to="/projects"
-              className="group inline-flex items-center gap-3 sm:gap-4 px-8 sm:px-10 lg:px-14 py-3.5 sm:py-4 lg:py-5 bg-gradient-to-r from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] hover:from-[var(--color-tertiary)] hover:to-[var(--color-tertiary)] text-[var(--color-text)] rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 font-semibold text-sm sm:text-base relative overflow-hidden shadow-lg shadow-transparent hover:shadow-[var(--color-accent)]/10"
+              className="group inline-flex items-center gap-3 sm:gap-4 px-8 sm:px-10 lg:px-14 py-3 sm:py-4 lg:py-5 bg-gradient-to-r from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] hover:from-[var(--color-tertiary)] hover:to-[var(--color-tertiary)] text-[var(--color-text)] rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 font-semibold text-sm sm:text-base relative overflow-hidden shadow-lg shadow-transparent hover:shadow-[var(--color-accent)]/10"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)]/10 via-[var(--color-accent-hover)]/10 to-[var(--color-accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <span className="relative z-10">Discover All Projects</span>
+              <span className="relative z-10 whitespace-nowrap">
+                Discover All Projects
+              </span>
               <motion.svg
-                className="relative z-10 w-4 h-4 sm:w-5 sm:h-5"
+                className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

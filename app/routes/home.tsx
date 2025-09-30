@@ -25,9 +25,9 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
   const { featuredProjects, posts } = loaderData;
 
   return (
-    <div className="space-y-20 lg:space-y-32">
+    <div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">
       {/* Hero Section */}
-      <section className="text-center space-y-12 lg:space-y-16 animate-fade-in-up relative">
+      <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
         {/* Floating badges */}
         {/*<div className="absolute top-0 left-1/4 w-20 h-20 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-10 blur-xl animate-pulse"></div>*/}
         <div
@@ -84,14 +84,14 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           </div>
 
           <div className="w-24 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] mx-auto rounded-full"></div>
-          <p className="text-fluid-lg lg:text-fluid-xl text-[var(--color-text-light)] font-normal leading-relaxed max-w-4xl mx-auto">
+          <p className="text-fluid-lg lg:text-fluid-xl text-[var(--color-text-light)] font-normal leading-relaxed max-w-4xl mx-auto px-4">
             Full-stack developer specializing in modern web technologies. I
             transform complex ideas into elegant, scalable solutions that exceed
             expectations.
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8 px-4">
           <a
             href="/projects"
             className="group px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-secondary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] font-medium rounded-full transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-accent)] hover-lift min-w-[200px] lg:min-w-[240px] text-fluid-base relative overflow-hidden"
@@ -110,11 +110,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
       {/* Featured Projects Section */}
       {featuredProjects.length > 0 && (
-        <section
-          className="animate-fade-in-up"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <div className="text-center mb-16 lg:mb-20">
+        <section className="w-full overflow-x-hidden">
+          <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-accent)]/79 to-[var(--color-accent-hover)] border border-[var(--color-border)] text-[var(--color-text)] rounded-full text-fluid-sm font-medium mb-6">
               <span className="text-lg">🔥</span>&nbsp;&nbsp;Featured Projects
@@ -140,11 +137,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
       {/* Latest Blog Posts Section */}
       {posts.length > 0 && (
-        <section
-          className="animate-fade-in-up"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <div className="text-center mb-16 lg:mb-20">
+        <section className="w-full overflow-x-hidden">
+          <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] rounded-full text-[var(--color-text-light)] text-fluid-sm font-medium mb-6">
               <svg
@@ -181,19 +175,13 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       )}
 
       {/* About Preview Section */}
-      <section
-        className="animate-fade-in-up"
-        style={{ animationDelay: "0.6s" }}
-      >
+      <section className="w-full overflow-x-hidden px-4 sm:px-6">
         <AboutPreview />
       </section>
 
       {/* Call to Action */}
-      <section
-        className="text-center py-16 lg:py-20 animate-fade-in-up"
-        style={{ animationDelay: "0.8s" }}
-      >
-        <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden">
+      <section className="w-full text-center py-16 lg:py-20 overflow-x-hidden px-4 sm:px-6">
+        <div className="w-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-6 sm:p-12 lg:p-16 hover-lift relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 
           {/* Floating elements */}
