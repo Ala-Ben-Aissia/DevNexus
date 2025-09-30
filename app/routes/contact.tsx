@@ -562,7 +562,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                   <span className="relative z-10 flex items-center justify-center gap-3">
                     Send Message
                     <svg
-                      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                      className="h-5 w-5 rotate-90 transition-transform duration-300 group-hover:translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
