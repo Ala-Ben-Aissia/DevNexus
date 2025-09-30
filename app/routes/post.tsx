@@ -5,7 +5,6 @@ import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 
-// Clean, responsive markdown components with syntax highlighting
 const markdownComponents: Partial<
   Record<keyof React.JSX.IntrinsicElements, React.ComponentType<any>>
 > = {
