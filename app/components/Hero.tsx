@@ -1,6 +1,6 @@
 export default function Hero({ name, text }: { name: string; text: string }) {
   return (
-    <section className="min-h-[32vh] mt-32 md:mt-32 flex items-center justify-center px-4 lg:px-6">
+    <section className="min-h-[32vh] flex items-center justify-center px-4 lg:px-6">
       <div className="max-w-6xl mx-auto text-center space-y-12 lg:space-y-16">
         <div className="space-y-8 lg:space-y-12">
           <h1 className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-[var(--color-text)] tracking-tight leading-tight">
@@ -10,7 +10,7 @@ export default function Hero({ name, text }: { name: string; text: string }) {
               <div className="absolute -bottom-1 lg:-bottom-2 left-0 right-0 h-[1px] bg-[var(--color-accent)] opacity-30"></div>
             </span>
           </h1>
-          <div className="w-24 lg:w-32 h-px bg-[var(--color-border)] mx-auto"></div>
+          {/* <div className="w-16 lg:w-32 h-[1px] bg-[var(--color-border)] mx-auto"></div> */}
           <p className="text-base sm:text-md md:text-lg lg:text-xl text-[var(--color-text-light)] font-normal leading-relaxed max-w-4xl mx-auto px-4">
             {text}
           </p>

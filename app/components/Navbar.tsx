@@ -17,13 +17,8 @@ const navLinks: NavLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const base =
-    "text-[var(--color-text-light)] hover:text-[var(--color-text)] font-medium transition-all duration-500 relative group";
-  const active =
-    "font-semibold text-[var(--color-text)] transition-all duration-500 relative";
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-gradient-to-r from-[var(--color-primary)]/70 via-[var(--color-primary)]/50 to-[var(--color-primary)]/70 border-b border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] supports-[backdrop-filter]:backdrop-saturate-150">
+    <nav className="sticky top-0 left-0 right-0 z-50 backdrop-blur-sm bg-gradient-to-r from-[var(--color-primary)]/70 via-[var(--color-primary)]/50 to-[var(--color-primary)]/70 border-b border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] supports-[backdrop-filter]:backdrop-saturate-150 mb-12">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <NavLink

@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import type { PostMeta } from "~/types";
+import Button from "./Button";
 
 export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
   return (
@@ -48,26 +48,7 @@ export default function PostCard({ post_meta }: { post_meta: PostMeta }) {
         <div className="w-16 h-px bg-gradient-to-r from-[var(--color-border)] to-transparent mb-6 lg:mb-8 group-hover:from-[var(--color-accent)] transition-colors duration-300"></div>
 
         {/* Read More Link */}
-        <Link
-          to={`/blog/${post_meta.slug}`}
-          className="group/link inline-flex items-center gap-3 text-[var(--color-text)] font-semibold text-fluid-base transition-all duration-300 hover:text-[var(--color-text)] relative"
-        >
-          <span className="relative z-10">Read Article</span>
-          <svg
-            className="h-5 w-5 transition-transform duration-300 group-hover/link:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-          <div className="absolute inset-x-0 -bottom-1 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent scale-x-0 group-hover/link:scale-x-100 transition-transform duration-300 origin-left"></div>
-        </Link>
+        <Button text="Read Article" to={`/blog/${post_meta.slug}`} />
       </div>
 
       {/* Subtle glow effect on hover */}

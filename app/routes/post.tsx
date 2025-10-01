@@ -275,7 +275,7 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
         <div className="animate-fade-in-up bg-[var(--color-primary)] border-b border-[var(--color-border)] py-6">
           <div className="max-w-7xl mx-auto px-6">
             <Link
-              to="/projects"
+              to="/blog"
               className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
             >
               <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
