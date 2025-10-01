@@ -516,6 +516,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     githubUrl: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.Required;
+    imageLight: Schema.Attribute.Media<'images' | 'files'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

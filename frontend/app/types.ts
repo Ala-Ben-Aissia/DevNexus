@@ -3,6 +3,7 @@ export type Project = {
   title: string;
   description: string;
   image: { url: string };
+  imageLight?: { url: string };
   url: string;
   githubUrl?: string;
   date: string;

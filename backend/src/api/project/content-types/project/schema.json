@@ -53,6 +53,14 @@
     },
     "githubUrl": {
       "type": "string"
+    },
+    "imageLight": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
