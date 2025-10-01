@@ -6,7 +6,7 @@ import AboutPreview from "~/components/AboutPreview";
 import StatusBadge from "~/components/StatusBadge";
 import { Link } from "react-router";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({}: Route.LoaderArgs) {
   // Fetch featured projects
   const projects = await fetch(
     `${import.meta.env.VITE_API_URL}/api/projects?populate=*`
@@ -15,8 +15,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   // console.dir({ projects: projects.data }, { depth: null });
 
   // Fetch blog posts
-  const postsUrl = new URL("/posts_meta.json", request.url);
-  const postsResponse = await fetch(postsUrl);
+  const postsResponse = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/posts`
+  );
   const posts = postsResponse.ok ? await postsResponse.json() : [];
 
   return {
@@ -28,7 +29,7 @@ export async function loader({ request }: Route.LoaderArgs) {
         },
       }))
       .filter((p) => p.featured),
-    posts,
+    posts: posts.data,
   };
 }
 

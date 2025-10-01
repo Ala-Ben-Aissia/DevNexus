@@ -13,7 +13,7 @@ export default [
     route("projects", "routes/projects.tsx"),
     route("projects/:id", "routes/project.tsx"),
     route("blog", "routes/blog.tsx"),
-    route("blog/:slug", "routes/post.tsx"),
+    route("blog/:id", "routes/post.tsx"),
     route("badge-showcase", "routes/badge-showcase.tsx"),
     route("*", "routes/not-found.tsx"),
   ]),

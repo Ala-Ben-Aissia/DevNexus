@@ -1,9 +1,10 @@
-import type { PostMeta } from "~/types";
+import type { Post } from "~/types";
 import type { Route } from "./+types/post";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import Copy from "~/components/Copy";
 
 const markdownComponents: Partial<
   Record<keyof React.JSX.IntrinsicElements, React.ComponentType<any>>
@@ -239,26 +240,24 @@ const markdownComponents: Partial<
 
 export async function loader({
   params,
-  request,
-}: Route.LoaderArgs): Promise<string> {
-  const { slug } = params;
+}: Route.LoaderArgs): Promise<{ data: Post }> {
   try {
-    const url = new URL("/posts_meta.json", request.url);
-    const response = await fetch(url);
+    console.log(`${import.meta.env.VITE_API_URL}/api/posts/${params.id}`);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`
+    );
 
     if (!response.ok) {
       throw new Error(`Failed to fetch posts: ${response.statusText}`);
     }
 
-    const postsMeta = (await response.json()) as PostMeta[];
-    const postMeta = postsMeta.find((p) => p.slug === slug);
+    const post = (await response.json()) as { data: Post };
 
-    if (!postMeta) {
+    if (!post) {
       throw new Error("Post not found");
     }
 
-    const postMdPreview = await import(`../posts/${postMeta.slug}.md?raw`);
-    return postMdPreview.default;
+    return post;
   } catch (error) {
     console.error("Error loading post:", error);
     throw new Error("Failed to load post");
@@ -266,7 +265,7 @@ export async function loader({
 }
 
 export default function PostPage({ loaderData }: Route.ComponentProps) {
-  const markdown = loaderData;
+  const { data: post } = loaderData;
 
   return (
     <div className="min-h-screen bg-[var(--color-primary)]">
@@ -305,7 +304,7 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeHighlight]}
           >
-            {markdown}
+            {post.content}
           </ReactMarkdown>
         </article>
 
@@ -334,14 +333,7 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
             </Link>
 
             <div className="flex items-center gap-[var(--space-s)]">
-              <button
-                className="text-fluid-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-200 cursor-pointer"
-                onClick={() =>
-                  navigator.clipboard.writeText(window.location.href)
-                }
-              >
-                🖹 Copy link
-              </button>
+              <Copy />
             </div>
           </div>
         </footer>

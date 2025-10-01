@@ -1,9 +1,9 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import type { PostMeta } from "~/types";
+import type { Post } from "~/types";
 
 // Hero Featured Post - Takes up prominent space
-function HeroFeaturedPost({ post }: { post: PostMeta }) {
+function HeroFeaturedPost({ post }: { post: Post }) {
   const postDate = new Date(post.date);
   const now = new Date();
   const daysDiff = Math.floor(
@@ -21,7 +21,7 @@ function HeroFeaturedPost({ post }: { post: PostMeta }) {
       }}
       className="group relative"
     >
-      <Link to={`/blog/${post.slug}`} className="block">
+      <Link to={`/blog/${post.documentId}`} className="block">
         <div className="relative bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-2xl lg:rounded-[2rem] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700 overflow-hidden">
           {/* Animated gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 via-transparent to-[var(--color-accent-hover)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -168,7 +168,7 @@ function HeroFeaturedPost({ post }: { post: PostMeta }) {
 }
 
 // Secondary Featured Post Cards
-function SecondaryPostCard({ post, index }: { post: PostMeta; index: number }) {
+function SecondaryPostCard({ post }: { post: Post; index: number }) {
   const postDate = new Date(post.date);
   const now = new Date();
   const daysDiff = Math.floor(
@@ -187,7 +187,7 @@ function SecondaryPostCard({ post, index }: { post: PostMeta; index: number }) {
       }}
       className="group h-full"
     >
-      <Link to={`/blog/${post.slug}`} className="block h-full">
+      <Link to={`/blog/${post.documentId}`} className="block h-full">
         <div className="relative h-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 overflow-hidden hover:shadow-xl hover:shadow-[var(--color-accent)]/5 flex flex-col">
           {/* Subtle hover gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/0 to-[var(--color-accent)]/0 group-hover:from-[var(--color-accent)]/5 group-hover:to-transparent transition-all duration-500"></div>
@@ -285,7 +285,8 @@ function SecondaryPostCard({ post, index }: { post: PostMeta; index: number }) {
   );
 }
 
-export default function FeaturedPosts({ posts }: { posts: PostMeta[] }) {
+export default function FeaturedPosts({ posts }: { posts: Post[] }) {
+  console.log({ posts });
   const latestPosts = posts
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
@@ -325,7 +326,11 @@ export default function FeaturedPosts({ posts }: { posts: PostMeta[] }) {
         {secondaryPosts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
             {secondaryPosts.map((post, index) => (
-              <SecondaryPostCard key={post.id} post={post} index={index} />
+              <SecondaryPostCard
+                key={post.documentId}
+                post={post}
+                index={index}
+              />
             ))}
           </div>
         )}

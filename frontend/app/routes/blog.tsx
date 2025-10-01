@@ -1,4 +1,4 @@
-import type { PostMeta } from "~/types";
+import type { Post } from "~/types";
 import type { Route } from "./+types/blog";
 import PostCard from "~/components/PostCard";
 import Pagination from "~/components/Pagination";
@@ -42,19 +42,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({
-  request,
-}: Route.LoaderArgs): Promise<PostMeta[]> {
+export async function loader({}: Route.LoaderArgs): Promise<Post[]> {
   try {
-    const url = new URL("/posts_meta.json", request.url);
-    const response = await fetch(url);
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/posts`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch posts: ${response.statusText}`);
     }
 
     const posts = await response.json();
-    return posts;
+    return posts.data as Post[];
   } catch (error) {
     console.error("Error loading posts:", error);
     return [];
@@ -138,10 +135,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
         </div>
 
         {/* Empty State */}
-        <div
-          className="flex flex-col items-center justify-center py-20 lg:py-32 animate-fade-in-up"
-          style={{ animationDelay: "0.2s" }}
-        >
+        <div className="flex flex-col items-center justify-center py-20 lg:py-32 animate-fade-in-up">
           <div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-16 lg:p-20 text-center hover-lift relative overflow-hidden max-w-2xl">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
             <div className="relative z-10">
@@ -234,6 +228,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
           </div>
           <input
             type="text"
+            name="search"
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -439,7 +434,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
             {displayedPosts.map((post, index) => (
               <motion.div
                 layout
-                key={post.id}
+                key={post.documentId}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
@@ -451,7 +446,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
-                <PostCard post_meta={post} />
+                <PostCard post={post} />
               </motion.div>
             ))}
           </motion.div>

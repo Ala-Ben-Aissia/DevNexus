@@ -22,3 +22,10 @@ export type PostMeta = {
   excerpt: string;
   date: string;
 };
+
+export type Post = Omit<PostMeta, "id"> & {
+  documentId: string;
+  url: string;
+  content: string;
+  locale: string;
+};

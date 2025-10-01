@@ -80,7 +80,6 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
   });
 
   const categories = ["All", ...new Set(projects.map((p) => p.category))];
-  console.log(filteredProjects);
 
   return (
     <div className="space-y-12 lg:space-y-16">
