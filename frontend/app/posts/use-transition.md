@@ -14,14 +14,12 @@ The hook returns two values:
 Here's the basic syntax:
 
 ```jsx
-/dev/null/example.jsx#L1-5
 const [isPending, startTransition] = useTransition();
 ```
 
 You use `startTransition` to wrap any state update that can be deferred:
 
 ```jsx
-/dev/null/example.jsx#L7-12
 startTransition(() => {
   setTab(tabName); // This update is now non-urgent
 });
@@ -36,8 +34,7 @@ React prioritizes urgent updates (direct `setState` calls) over transitions, fal
 Consider a dashboard app where switching tabs triggers a heavy API call. Wrap the tab switch in a transition, and use Suspense to handle the loading state:
 
 ```jsx
-/dev/null/Dashboard.jsx#L1-20
-import { Suspense, useTransition } from 'react';
+import { Suspense, useTransition } from "react";
 
 function TabPanel({ tab }) {
   return (
@@ -48,13 +45,13 @@ function TabPanel({ tab }) {
 }
 
 function Dashboard() {
-  const [tab, setTab] = useState('overview');
+  const [tab, setTab] = useState("overview");
   const [isPending, startTransition] = useTransition();
 
   return (
     <div>
       <nav>
-        {tabs.map(t => (
+        {tabs.map((t) => (
           <button
             key={t}
             onClick={() => {
@@ -62,7 +59,7 @@ function Dashboard() {
             }}
             disabled={isPending}
           >
-            {t} {isPending && 'Loading...'}
+            {t} {isPending && "Loading..."}
           </button>
         ))}
       </nav>
@@ -81,18 +78,17 @@ This setup ensures the buttons remain clickable and responsive, even as the new 
 In forms, especially those involving network requests, `useTransition` prevents the UI from locking up during submission. Combine it with optimistic updates for a seamless experience:
 
 ```jsx
-/dev/null/Form.jsx#L1-25
 function CommentForm({ postId }) {
   const [comments, setComments] = useState([]);
   const [isPending, startTransition] = useTransition();
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newComment = { id: Date.now(), text: formData };
 
     // Optimistic update
-    setComments(prev => [...prev, newComment]);
+    setComments((prev) => [...prev, newComment]);
 
     startTransition(() => {
       // Simulate API call
@@ -101,17 +97,19 @@ function CommentForm({ postId }) {
       });
     });
 
-    setFormData('');
+    setFormData("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input value={formData} onChange={e => setFormData(e.target.value)} />
+      <input value={formData} onChange={(e) => setFormData(e.target.value)} />
       <button type="submit" disabled={isPending}>
-        {isPending ? 'Submitting...' : 'Submit'}
+        {isPending ? "Submitting..." : "Submit"}
       </button>
       <ul>
-        {comments.map(c => <li key={c.id}>{c.text}</li>)}
+        {comments.map((c) => (
+          <li key={c.id}>{c.text}</li>
+        ))}
       </ul>
     </form>
   );
@@ -125,19 +123,18 @@ Here, the form feels instant because the optimistic update is urgent, while the 
 For apps with multiple tabs—like an analytics dashboard—switching tabs often involves re-rendering charts or filtering large datasets. Without transitions, users might experience lag. `useTransition` defers the heavy lifting:
 
 ```jsx
-/dev/null/AnalyticsTabs.jsx#L1-15
 function AnalyticsTab({ activeTab }) {
   const data = useMemo(() => computeExpensiveData(activeTab), [activeTab]);
   return <Chart data={data} />;
 }
 
 function AnalyticsApp() {
-  const [activeTab, setActiveTab] = useState('sales');
+  const [activeTab, setActiveTab] = useState("sales");
   const [isPending, startTransition] = useTransition();
 
   return (
     <div>
-      {tabs.map(tab => (
+      {tabs.map((tab) => (
         <button
           key={tab}
           onClick={() => startTransition(() => setActiveTab(tab))}
@@ -176,7 +173,6 @@ In benchmarks, apps using transitions report up to 50% improvement in Time to In
 For instance, a search component might use `useDeferredValue` for the query and `useTransition` for result updates:
 
 ```jsx
-/dev/null/Search.jsx#L1-10
 const deferredQuery = useDeferredValue(query);
 startTransition(() => {
   setResults(fetchResults(deferredQuery));

@@ -1,6 +1,6 @@
 export default function Hero({ name, text }: { name: string; text: string }) {
   return (
-    <section className="min-h-[32vh] flex items-center justify-center px-4 lg:px-6">
+    <section className="min-h-[22vh] flex items-center justify-center px-4 lg:px-6 animate-fade-in-up">
       <div className="max-w-6xl mx-auto text-center space-y-12 lg:space-y-16">
         <div className="space-y-8 lg:space-y-12">
           <h1 className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-[var(--color-text)] tracking-tight leading-tight">

@@ -38,15 +38,15 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
   return (
     <div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">
       {/* Hero Section */}
-      <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
+      <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6 animate-fade-in-up">
         {/* Status Badge */}
         <StatusBadge
           text="Available for new projects"
           variant="success"
           showPulse={true}
-          className="mb-8"
+          className="my-8"
         />
-        <div className="space-y-8">
+        <div className="space-y-12">
           <h1 className="text-fluid-2xl lg:text-fluid-5xl font-light text-[var(--color-text)] leading-tight tracking-tight">
             <span className="block mb-4">Crafting Digital</span>
             <span className="font-medium text-[var(--color-text)] relative inline-block">
