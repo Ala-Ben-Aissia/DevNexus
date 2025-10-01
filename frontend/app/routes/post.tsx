@@ -242,7 +242,6 @@ export async function loader({
   params,
 }: Route.LoaderArgs): Promise<{ data: Post }> {
   try {
-    console.log(`${import.meta.env.VITE_API_URL}/api/posts/${params.id}`);
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`
     );
@@ -309,28 +308,35 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
         </article>
 
         {/* Footer */}
-        <footer className="mt-[var(--space-2xl)] border-t border-[var(--color-border)] pt-[var(--space-l)]">
+        <footer className="mt-[var(--space-2xl)] border-t border-[var(--color-border)] pt-4 sm:pt-8]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-[var(--space-s)]">
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-[var(--space-xs)] text-fluid-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-all duration-200 hover:translate-x-[-2px]"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              <span>View all posts</span>
-            </Link>
+            <div className="animate-fade-in-up bg-[var(--color-primary)] py-6">
+              <div className="max-w-7xl mx-auto px-6">
+                <Link
+                  to="/blog"
+                  className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
+                    <svg
+                      className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-fluid-base">
+                    View All Posts
+                  </span>
+                </Link>
+              </div>
+            </div>
 
             <div className="flex items-center gap-[var(--space-s)]">
               <Copy />

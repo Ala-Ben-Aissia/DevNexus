@@ -315,9 +315,7 @@ The blog section focuses on advanced web development topics:
 ```css
 /* Reusable utility classes */
 .hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
@@ -452,9 +450,7 @@ dev-nexus/
 ├── data/                    # Static data
 │   └── projects/            # Project JSON files
 ├── public/                  # Static assets
-│   ├── images/              # Image assets
-│   ├── posts/               # Blog post MDX files
-│   └── posts_meta.json      # Blog metadata
+│   └── images/              # Image assets
 ├── types/                   # Additional type definitions
 ├── .env                     # Environment variables
 ├── .gitignore              # Git ignore rules
@@ -513,16 +509,19 @@ export default function Component({ prop }: Props) {
 ### Performance Best Practices
 
 1. **Lazy Load Components**
+
    - Route-based code splitting
    - Dynamic imports for heavy components
    - Image lazy loading with Intersection Observer
 
 2. **Optimize Re-renders**
+
    - React.memo for expensive components
    - useMemo for expensive computations
    - useCallback for stable function references
 
 3. **CSS Performance**
+
    - GPU-accelerated properties (transform, opacity)
    - Avoid layout thrashing
    - Use CSS containment

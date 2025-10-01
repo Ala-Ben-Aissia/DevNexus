@@ -286,7 +286,6 @@ function SecondaryPostCard({ post }: { post: Post; index: number }) {
 }
 
 export default function FeaturedPosts({ posts }: { posts: Post[] }) {
-  console.log({ posts });
   const latestPosts = posts
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
