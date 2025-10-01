@@ -6,6 +6,7 @@ import { usePage } from "~/hooks/usePage";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Link } from "react-router";
+import StatusBadge from "~/components/StatusBadge";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Blog";
@@ -164,10 +165,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
       {/* Header Section */}
       <div className="text-center space-y-6 animate-fade-in-up relative">
         {/* Publishing status badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-300 dark:border-green-600 rounded-full text-fluid-sm font-medium mb-4">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          Publishing weekly insights
-        </div>
+        <StatusBadge text="Publishing weekly insights" variant="success" />
 
         <h1 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight">
           Developer{" "}
@@ -491,10 +489,10 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
           ></div> */}
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-700/20 dark:to-indigo-700/20 border border-blue-200 dark:border-blue-800 rounded-full text-fluid-sm font-medium mb-8">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              Stay Connected - Join the community
-            </div>
+            <StatusBadge
+              text="Stay Connected - Join the community"
+              variant="info"
+            />
             <h3 className="text-fluid-2xl lg:text-fluid-4xl font-light text-[var(--color-text)] mb-6 tracking-tight">
               Never Miss an <span className="font-medium">Update</span>
             </h3>

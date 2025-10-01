@@ -23,7 +23,7 @@ export default function Navbar() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="group flex items-center gap-3 transition-all duration-500 hover:scale-[1.02]"
+          className="group flex items-center gap-3 transition-all duration-200 hover:scale-[1.02]"
         >
           <div className="relative w-10 h-10">
             <svg
@@ -34,8 +34,8 @@ export default function Navbar() {
               <path
                 d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z"
                 fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+                stroke="lightgray"
+                strokeWidth="5"
                 className="text-[var(--color-accent)] transition-colors duration-300"
               />
             </svg>

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import type { Route } from "./+types/about";
 import { Link } from "react-router";
+import StatusBadge from "~/components/StatusBadge";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | About";
@@ -98,12 +99,10 @@ export default function AboutPage() {
       {/* Header Section */}
       <div className="text-center space-y-4 sm:space-y-6 animate-fade-in-up relative">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-300/20 dark:to-indigo-300/20 border border-purple-200 dark:border-purple-800 rounded-full text-xs sm:text-fluid-sm font-medium mb-5 sm:mb-8">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-500 rounded-full animate-pulse"></div>
-          <span className="whitespace-nowrap">
-            Crafting digital solutions since 2021
-          </span>
-        </div>
+        <StatusBadge
+          variant="premium"
+          text="Crafting digital solutions since 2021"
+        />
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-fluid-6xl font-light text-[var(--color-text)] tracking-tight px-4">
           About{" "}

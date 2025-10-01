@@ -3,6 +3,7 @@ import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
 import FeaturedPosts from "~/components/FeaturedPosts";
 import AboutPreview from "~/components/AboutPreview";
+import StatusBadge from "~/components/StatusBadge";
 import { Link } from "react-router";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -30,12 +31,12 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       {/* Hero Section */}
       <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-green-50 dark:from-green-200/20 dark:to-emerald-200/20 border border-green-200 dark:border-green-500 rounded-full text-fluid-sm font-medium mb-8">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          Available for new projects
-        </div>
-        <br />
-        <br />
+        <StatusBadge
+          text="Available for new projects"
+          variant="success"
+          showPulse={true}
+          className="mb-8"
+        />
         <div className="space-y-8">
           <h1 className="text-fluid-2xl lg:text-fluid-5xl font-light text-[var(--color-text)] leading-tight tracking-tight">
             <span className="block mb-4">Crafting Digital</span>
@@ -108,9 +109,13 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         <section className="w-full overflow-x-hidden">
           <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-accent)]/79 to-[var(--color-accent-hover)] border border-[var(--color-border)] text-[var(--color-text)] rounded-full text-fluid-sm font-medium mb-6">
-              <span className="text-lg">🔥</span>&nbsp;&nbsp;Featured Projects
-            </div>
+            <StatusBadge
+              text="Featured Projects"
+              variant="primary"
+              showPulse={false}
+              icon={<span className="text-lg">🔥</span>}
+              className="mb-6"
+            />
 
             <h2 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] mb-6 tracking-tight">
               Selected{" "}
@@ -135,22 +140,27 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         <section className="w-full overflow-x-hidden">
           <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] rounded-full text-[var(--color-text-light)] text-fluid-sm font-medium mb-6">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253z"
-                />
-              </svg>
-              Latest Insights
-            </div>
+            <StatusBadge
+              text="Latest Insights"
+              variant="primary"
+              showPulse={false}
+              icon={
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.832 18.477 19.246 18 17.5 18c-1.746 0-3.332.477-4.5 1.253z"
+                  />
+                </svg>
+              }
+              className="mb-6"
+            />
 
             <h2 className="text-fluid-4xl lg:text-fluid-6xl font-light text-[var(--color-text)] mb-6 tracking-tight">
               From the{" "}
@@ -188,22 +198,27 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
           <div className="relative z-10">
             {/* Response time badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-400/20 dark:to-indigo-400/20 border border-blue-200 dark:border-blue-800 rounded-full text-fluid-sm font-medium mb-8">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Usually responds within 24 hours
-            </div>
+            <StatusBadge
+              text="Usually responds within 24 hours"
+              variant="info"
+              showPulse={false}
+              icon={
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              }
+              className="mb-8"
+            />
 
             <h3 className="text-fluid-3xl lg:text-fluid-5xl font-light text-[var(--color-text)] mb-6 tracking-tight">
               Let's Build Something <span className="font-medium">Amazing</span>
