@@ -28,7 +28,8 @@ export async function loader({}: Route.LoaderArgs) {
           url: `${import.meta.env.VITE_API_URL}${p.image.url}`,
         },
       }))
-      .filter((p) => p.featured),
+      .filter((p) => p.featured)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
     posts: posts.data,
   };
 }

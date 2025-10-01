@@ -513,6 +513,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     date: Schema.Attribute.Date;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    githubUrl: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

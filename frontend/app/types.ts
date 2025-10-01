@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   image: { url: string };
   url: string;
+  githubUrl?: string;
   date: string;
   category: string;
   featured: boolean;
