@@ -97,7 +97,7 @@ function HeroFeaturedPost({ post }: { post: PostMeta }) {
             </div>
 
             {/* Title - Extra large for hero */}
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-[var(--color-text)] mb-4 sm:mb-6 leading-[1.15] tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-500">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-[var(--color-text)] mb-4 sm:mb-6 leading-[1.15] tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-500">
               {post.title}
             </h2>
 
@@ -243,7 +243,7 @@ function SecondaryPostCard({ post, index }: { post: PostMeta; index: number }) {
             </div>
 
             {/* Title */}
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-[var(--color-text)] mb-3 sm:mb-4 leading-tight tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-300 flex-grow">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-normal text-[var(--color-text)] mb-3 sm:mb-4 leading-tight tracking-tight group-hover:text-[var(--color-text)] transition-colors duration-300 flex-grow">
               {post.title}
             </h3>
 

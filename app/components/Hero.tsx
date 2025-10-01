@@ -1,8 +1,6 @@
-import { NavLink } from "react-router";
-
 export default function Hero({ name, text }: { name: string; text: string }) {
   return (
-    <section className="min-h-[40vh] mt-16 lg:mt-20 flex items-center justify-center px-4 lg:px-6">
+    <section className="min-h-[32vh] mt-32 md:mt-32 flex items-center justify-center px-4 lg:px-6">
       <div className="max-w-6xl mx-auto text-center space-y-12 lg:space-y-16">
         <div className="space-y-8 lg:space-y-12">
           <h1 className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-[var(--color-text)] tracking-tight leading-tight">
@@ -18,7 +16,7 @@ export default function Hero({ name, text }: { name: string; text: string }) {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8">
+        {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8">
           <NavLink
             to="/projects"
             className="group px-8 lg:px-12 py-3 lg:py-4 bg-[var(--color-secondary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] font-medium rounded-full transition-all duration-300 border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:shadow-lg hover:-translate-y-1 min-w-[180px] lg:min-w-[200px] text-base lg:text-lg"
@@ -32,7 +30,7 @@ export default function Hero({ name, text }: { name: string; text: string }) {
           >
             Get In Touch
           </NavLink>
-        </div>
+        </div> */}
       </div>
     </section>
   );

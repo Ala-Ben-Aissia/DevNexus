@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { FaBars, FaDev, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import ThemeToggleSimple from "./ThemeToggleSimple";
 
@@ -23,16 +23,14 @@ export default function Navbar() {
     "font-semibold text-[var(--color-text)] transition-all duration-500 relative";
 
   return (
-    <nav className="bg-[var(--color-primary)]/95 backdrop-blur-xl sticky top-0 z-50 border-b border-[var(--color-border)] gpu-accelerated">
-      <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm bg-gradient-to-r from-[var(--color-primary)]/70 via-[var(--color-primary)]/50 to-[var(--color-primary)]/70 border-b border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.12)] supports-[backdrop-filter]:backdrop-saturate-150">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <NavLink
           to="/"
-          className="group flex items-center gap-3 transition-all duration-500"
+          className="group flex items-center gap-3 transition-all duration-500 hover:scale-[1.02]"
         >
-          {/* Artistic Hexagonal Logo */}
           <div className="relative w-10 h-10">
-            {/* Outer rotating hexagon */}
             <svg
               viewBox="0 0 100 100"
               className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:rotate-180"
@@ -47,7 +45,6 @@ export default function Navbar() {
               />
             </svg>
 
-            {/* Inner static hexagon with gradient */}
             <svg
               viewBox="0 0 100 100"
               className="absolute inset-0 w-full h-full"
@@ -60,16 +57,8 @@ export default function Navbar() {
                   x2="25%"
                   y2="50%"
                 >
-                  <stop
-                    offset="0%"
-                    className="text-[var(--color-accent)]"
-                    style={{ stopColor: "currentColor" }}
-                  />
-                  <stop
-                    offset="100%"
-                    // className="text-[var(--color-accent-hover)]"
-                    style={{ stopColor: "currentColor" }}
-                  />
+                  <stop offset="0%" style={{ stopColor: "currentColor" }} />
+                  <stop offset="100%" style={{ stopColor: "currentColor" }} />
                 </linearGradient>
               </defs>
               <path
@@ -79,18 +68,15 @@ export default function Navbar() {
               />
             </svg>
 
-            {/* Center letter monogram */}
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-lg font-bold text-[var(--color-primary)] transition-transform duration-300 group-hover:scale-110">
                 A
               </span>
             </div>
 
-            {/* Glow effect on hover */}
             <div className="absolute inset-0 rounded-full bg-[var(--color-accent)] opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
           </div>
 
-          {/* Brand Wordmark */}
           <div className="flex flex-col leading-none">
             <span className="text-base font-bold text-[var(--color-text)] tracking-tight transition-colors duration-300">
               DevNexus
@@ -101,7 +87,6 @@ export default function Navbar() {
           </div>
         </NavLink>
 
-        {/* Desktop Links */}
         {/* Desktop Navigation */}
         <div className="hidden sm:flex items-center gap-8">
           {navLinks.map((l) => (
@@ -109,8 +94,10 @@ export default function Navbar() {
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `transition-all duration-500 text-fluid-base relative ${
-                  isActive ? active : base
+                `relative text-fluid-base transition-all duration-500 ${
+                  isActive
+                    ? "font-semibold text-[var(--color-text)]"
+                    : "text-[var(--color-text-light)] hover:text-[var(--color-text)]"
                 }`
               }
             >
@@ -119,7 +106,6 @@ export default function Navbar() {
             </NavLink>
           ))}
 
-          {/* Theme Toggle */}
           <div className="ml-4">
             <ThemeToggleSimple />
           </div>
@@ -146,9 +132,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown */}
       <div
-        className={`sm:hidden absolute left-0 right-0 bg-[var(--color-primary)]/98 backdrop-blur-xl border-t border-[var(--color-border)] transition-all duration-500 overflow-hidden ${
+        className={`sm:hidden absolute left-0 right-0 bg-gradient-to-b from-[var(--color-primary)]/90 to-[var(--color-primary)]/70 backdrop-blur-2xl border-t border-white/10 transition-all duration-500 ${
           menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -158,15 +144,16 @@ export default function Navbar() {
               key={l.label}
               to={l.to}
               className={({ isActive }) =>
-                `transition-all duration-500 relative group text-fluid-lg ${
-                  isActive ? active : base
+                `transition-all duration-500 relative text-fluid-lg ${
+                  isActive
+                    ? "font-semibold text-[var(--color-text)]"
+                    : "text-[var(--color-text-light)] hover:text-[var(--color-text)]"
                 }`
               }
               onClick={() => setMenuOpen(false)}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <span className="relative z-10">{l.label}</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
+              {l.label}
             </NavLink>
           ))}
         </div>

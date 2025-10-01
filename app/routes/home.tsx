@@ -1,4 +1,4 @@
-import type { Project, PostMeta } from "~/types";
+import type { Project } from "~/types";
 import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
 import FeaturedPosts from "~/components/FeaturedPosts";
@@ -28,13 +28,6 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
     <div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">
       {/* Hero Section */}
       <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
-        {/* Floating badges */}
-        {/*<div className="absolute top-0 left-1/4 w-20 h-20 bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] rounded-full opacity-10 blur-xl animate-pulse"></div>*/}
-        <div
-          className="absolute top-20 right-1/3 w-14 h-14 bg-gradient-to-br from-[var(--color-accent-hover)] to-[var(--color-accent)] rounded-full opacity-20 blur-lg animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-
         {/* Status Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-full text-fluid-sm font-medium mb-8">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -42,7 +35,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         </div>
 
         <div className="space-y-8">
-          <h1 className="text-fluid-5xl lg:text-fluid-8xl font-light text-[var(--color-text)] leading-tight tracking-tight">
+          <h1 className="text-fluid-2xl lg:text-fluid-5xl font-light text-[var(--color-text)] leading-tight tracking-tight">
             <span className="block mb-4">Crafting Digital</span>
             <span className="font-medium text-[var(--color-text)] relative inline-block">
               Experiences
@@ -56,7 +49,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
           {/* Enhanced tagline with stats */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-8 lg:gap-12">
             <div className="text-center">
-              <div className="text-fluid-2xl font-medium text-[var(--color-text)]">
+              <div className="text-fluid-lg font-medium text-[var(--color-text)]">
                 50+
               </div>
               <div className="text-fluid-sm text-[var(--color-text-light)]">
@@ -65,7 +58,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             </div>
             <div className="hidden sm:block w-px h-12 bg-[var(--color-border)]"></div>
             <div className="text-center">
-              <div className="text-fluid-2xl font-medium text-[var(--color-text)]">
+              <div className="text-fluid-lg font-medium text-[var(--color-text)]">
                 3+
               </div>
               <div className="text-fluid-sm text-[var(--color-text-light)]">
@@ -74,7 +67,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
             </div>
             <div className="hidden sm:block w-px h-12 bg-[var(--color-border)]"></div>
             <div className="text-center">
-              <div className="text-fluid-2xl font-medium text-[var(--color-text)]">
+              <div className="text-fluid-lg font-medium text-[var(--color-text)]">
                 100%
               </div>
               <div className="text-fluid-sm text-[var(--color-text-light)]">
