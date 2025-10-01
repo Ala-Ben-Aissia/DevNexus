@@ -70,7 +70,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
               {/* Year and Status */}
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <span className="text-xs sm:text-sm font-medium text-[var(--color-text-muted)] tracking-wider uppercase">
-                  {new Date(project.createdAt).getFullYear()}
+                  {new Date(project.date).getFullYear()}
                 </span>
                 <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent"></div>
               </div>
@@ -92,7 +92,10 @@ function HeroFeaturedProject({ project }: { project: Project }) {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                <Button text="View Project" to={`/${project.documentId}`} />
+                <Button
+                  text="View Project"
+                  to={`/projects/${project.documentId}`}
+                />
 
                 {/* External link indicator */}
                 {project.url && (
@@ -179,7 +182,7 @@ function SecondaryProjectCard({
             {/* Year - smaller */}
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-medium text-[var(--color-text-muted)] tracking-wider uppercase whitespace-nowrap">
-                {new Date(project.createdAt).getFullYear()}
+                {new Date(project.date).getFullYear()}
               </span>
               <div className="flex-1 h-px bg-gradient-to-r from-[var(--color-border)] to-transparent"></div>
             </div>

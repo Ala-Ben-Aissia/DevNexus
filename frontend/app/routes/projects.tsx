@@ -73,14 +73,14 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
     goNext,
     goPrev,
   } = usePage({
-    list: filteredProjects,
-    perPage: 4,
+    list: filteredProjects.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    ),
+    perPage: 3,
   });
 
   const categories = ["All", ...new Set(projects.map((p) => p.category))];
-  const sortedProjects = displayedProject.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  console.log(filteredProjects);
 
   return (
     <div className="space-y-12 lg:space-y-16">
@@ -135,7 +135,7 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
             containerType: "inline-size",
           }}
         >
-          {sortedProjects.map((project, index) => (
+          {displayedProject.map((project, index) => (
             <motion.div
               layout
               key={project.documentId}
@@ -143,7 +143,7 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{
-                duration: 0.5,
+                duration: 0.2,
                 delay: index * 0.1,
                 ease: "easeOut",
               }}
