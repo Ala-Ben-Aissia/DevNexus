@@ -41,10 +41,19 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const projects = await fetch(`${import.meta.env.VITE_API_URL}/projects`).then<
-    Promise<Project[]>
-  >((res) => res.json());
-  return projects;
+  const projects = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`
+  ).then<Promise<{ data: Project[] }>>((res) => res.json());
+
+  return projects.data.map((p) => {
+    const imageUrl = p.image.url ?? "/images/no-image.png";
+    return {
+      ...p,
+      image: {
+        url: `${import.meta.env.VITE_API_URL}${imageUrl}`,
+      },
+    };
+  });
 }
 
 export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
@@ -69,6 +78,9 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
   });
 
   const categories = ["All", ...new Set(projects.map((p) => p.category))];
+  const sortedProjects = displayedProject.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return (
     <div className="space-y-12 lg:space-y-16">
@@ -123,10 +135,10 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
             containerType: "inline-size",
           }}
         >
-          {displayedProject.map((project, index) => (
+          {sortedProjects.map((project, index) => (
             <motion.div
               layout
-              key={project.id}
+              key={project.documentId}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}

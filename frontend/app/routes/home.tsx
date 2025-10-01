@@ -8,9 +8,11 @@ import { Link } from "react-router";
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Fetch featured projects
-  const projects = await fetch(`${import.meta.env.VITE_API_URL}/projects`).then<
-    Promise<Project[]>
-  >((res) => res.json());
+  const projects = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`
+  ).then<Promise<{ data: Project[] }>>((res) => res.json());
+
+  // console.dir({ projects: projects.data }, { depth: null });
 
   // Fetch blog posts
   const postsUrl = new URL("/posts_meta.json", request.url);
@@ -18,7 +20,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   const posts = postsResponse.ok ? await postsResponse.json() : [];
 
   return {
-    featuredProjects: projects.filter((p) => p.featured),
+    featuredProjects: projects.data
+      .map((p) => ({
+        ...p,
+        image: {
+          url: `${import.meta.env.VITE_API_URL}${p.image.url}`,
+        },
+      }))
+      .filter((p) => p.featured),
     posts,
   };
 }

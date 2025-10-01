@@ -3,14 +3,14 @@ import type { Project } from "~/types";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link to={`/projects/${project.id}`}>
+    <Link to={`/projects/${project.documentId}`}>
       <article
-        key={project.id}
+        key={project.documentId}
         className="group bg-[var(--color-secondary)] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover-lift transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-accent)] h-full flex flex-col gpu-accelerated"
       >
         <div className="aspect-[16/10] w-full overflow-hidden relative">
           <img
-            src={project.image}
+            src={project.image.url}
             alt={project.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             loading="lazy"

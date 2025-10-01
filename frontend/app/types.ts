@@ -1,8 +1,8 @@
 export type Project = {
-  id: number;
+  documentId: string;
   title: string;
   description: string;
-  image: string;
+  image: { url: string };
   url: string;
   date: string;
   category: string;

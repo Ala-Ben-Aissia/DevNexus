@@ -34,10 +34,10 @@ export function meta({ loaderData }: Route.MetaArgs) {
       property: "og:image",
       content: project.image,
     },
-    {
-      property: "og:url",
-      content: `https://devnexus.vercel.app/projects/${project.id}`,
-    },
+    // {
+    //   property: "og:url",
+    //   content: `https://devnexus.vercel.app/projects/${project.documentId}`,
+    // },
     {
       property: "twitter:title",
       content: title,
@@ -56,15 +56,25 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const id = params.id;
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`);
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}?populate=*`
+    );
     if (!res.ok) {
       throw new Response("Error loading project", { status: res.status });
     }
-    const project = (await res.json()) as Project;
+    const project = (await res.json()) as { data: Project };
     if (!project) {
       throw new Response("Not Found", { status: 404 });
     }
-    return project;
+    const imageUrl = `${import.meta.env.VITE_API_URL}${
+      project.data.image.url ?? "/images/no-image.png"
+    }`;
+    return {
+      ...project.data,
+      image: {
+        url: imageUrl,
+      },
+    };
   } catch (error) {
     throw new Response("Error loading project", { status: 500 });
   }
@@ -151,7 +161,7 @@ export default function Project({ loaderData }: Route.ComponentProps) {
         {/* Hero Image */}
         <div className="relative h-[60vh] lg:h-[70vh] overflow-hidden">
           <motion.img
-            src={project.image}
+            src={project.image.url}
             alt={project.title}
             className="w-full h-full object-cover"
             initial={{ scale: 1.1, opacity: 0 }}

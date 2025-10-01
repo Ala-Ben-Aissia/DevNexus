@@ -27,7 +27,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
           <div className="relative w-full h-64 sm:h-80 lg:h-[400px] xl:h-[480px] overflow-hidden">
             {/* Image with parallax effect */}
             <motion.img
-              src={project.image}
+              src={project.image.url}
               alt={project.title}
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.05 }}
@@ -70,7 +70,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
               {/* Year and Status */}
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
                 <span className="text-xs sm:text-sm font-medium text-[var(--color-text-muted)] tracking-wider uppercase">
-                  {new Date(project.date).getFullYear()}
+                  {new Date(project.createdAt).getFullYear()}
                 </span>
                 <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent"></div>
               </div>
@@ -92,7 +92,7 @@ function HeroFeaturedProject({ project }: { project: Project }) {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                <Button text="View Project" to={`/${project.id}`} />
+                <Button text="View Project" to={`/${project.documentId}`} />
 
                 {/* External link indicator */}
                 {project.url && (
@@ -151,7 +151,7 @@ function SecondaryProjectCard({
           {/* Image Section - SMALLER */}
           <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-48 sm:h-auto flex-shrink-0 overflow-hidden">
             <motion.img
-              src={project.image}
+              src={project.image.url}
               alt={project.title}
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.08 }}
@@ -179,7 +179,7 @@ function SecondaryProjectCard({
             {/* Year - smaller */}
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-medium text-[var(--color-text-muted)] tracking-wider uppercase whitespace-nowrap">
-                {new Date(project.date).getFullYear()}
+                {new Date(project.createdAt).getFullYear()}
               </span>
               <div className="flex-1 h-px bg-gradient-to-r from-[var(--color-border)] to-transparent"></div>
             </div>
@@ -199,7 +199,10 @@ function SecondaryProjectCard({
 
             {/* Footer */}
             <div className="flex items-center justify-between">
-              <Button text="View Details" to={`/projects/${project.id}`} />
+              <Button
+                text="View Details"
+                to={`/projects/${project.documentId}`}
+              />
 
               {/* External link icon */}
               {project.url && (
@@ -264,7 +267,7 @@ export default function FeaturedProjects({
           <div className="w-full space-y-5 sm:space-y-6 lg:space-y-8">
             {otherProjects.slice(0, 3).map((project, index) => (
               <SecondaryProjectCard
-                key={project.id}
+                key={project.documentId}
                 project={project}
                 index={index}
               />
