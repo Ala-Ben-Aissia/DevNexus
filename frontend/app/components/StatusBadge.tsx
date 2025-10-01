@@ -92,19 +92,17 @@ export default function StatusBadge({
 
   return (
     <div
-      className={`inline-flex items-center gap-2 px-4 py-2 mb-12 ${styles.container} border rounded-full text-fluid-sm font-medium transition-all duration-300 hover:scale-105 backdrop-blur-sm ${className}`}
+      className={`inline-flex items-center gap-2 px-4 py-2 mb-12 ${styles.container} border rounded-full text-fluid-sm font-medium transition-all hover:scale-105 backdrop-blur-sm ${className}`}
     >
       {showPulse && !icon && (
         <div
-          className={`w-2 h-2 ${styles.pulseColor} rounded-full animate-pulse transition-colors duration-300`}
+          className={`w-2 h-2 ${styles.pulseColor} rounded-full animate-pulse transition-colors`}
         ></div>
       )}
       {icon && (
-        <span className="flex items-center transition-transform duration-300">
-          {icon}
-        </span>
+        <span className="flex items-center transition-transform">{icon}</span>
       )}
-      <span className="transition-colors duration-300">{text}</span>
+      <span className="">{text}</span>
     </div>
   );
 }

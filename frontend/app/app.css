@@ -6,6 +6,9 @@
         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* Configure class-based dark mode for Tailwind v4 */
+@variant dark (.dark &);
+
 /* Advanced fluid typography system */
 :root {
     /* Fluid typography scale */
