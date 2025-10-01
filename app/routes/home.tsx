@@ -29,11 +29,12 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       {/* Hero Section */}
       <section className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-full text-fluid-sm font-medium mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-green-50 dark:from-green-200/20 dark:to-emerald-200/20 border border-green-200 dark:border-green-500 rounded-full text-fluid-sm font-medium mb-8">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           Available for new projects
         </div>
-
+        <br />
+        <br />
         <div className="space-y-8">
           <h1 className="text-fluid-2xl lg:text-fluid-5xl font-light text-[var(--color-text)] leading-tight tracking-tight">
             <span className="block mb-4">Crafting Digital</span>
@@ -186,7 +187,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
           <div className="relative z-10">
             {/* Response time badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-full text-fluid-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-400/20 dark:to-indigo-400/20 border border-blue-200 dark:border-blue-800 rounded-full text-fluid-sm font-medium mb-8">
               <svg
                 className="w-4 h-4"
                 fill="none"

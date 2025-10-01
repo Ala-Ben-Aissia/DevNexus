@@ -109,7 +109,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
       {/* Header Section */}
       <div className="text-center space-y-6 animate-fade-in-up relative">
         {/* Availability badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-full text-fluid-sm font-medium mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-300/20 dark:to-emerald-300/20 border border-green-200 dark:border-green-800 rounded-full text-fluid-sm font-medium mb-4">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           Currently accepting new projects
         </div>

@@ -97,7 +97,7 @@ export default function AboutPage() {
       {/* Header Section */}
       <div className="text-center space-y-6 animate-fade-in-up relative">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800 rounded-full text-fluid-sm font-medium mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-300/20 dark:to-indigo-300/20 border border-purple-200 dark:border-purple-800 rounded-full text-fluid-sm font-medium mb-4">
           <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
           Crafting digital solutions since 2021
         </div>
