@@ -3,6 +3,7 @@ import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
 import FeaturedPosts from "~/components/FeaturedPosts";
 import AboutPreview from "~/components/AboutPreview";
+import { Link } from "react-router";
 
 export async function loader({ request }: Route.LoaderArgs) {
   // Fetch featured projects
@@ -86,19 +87,19 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8 px-4">
-          <a
-            href="/projects"
+          <Link
+            to="/projects"
             className="group px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-secondary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] font-medium rounded-full transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-accent)] hover-lift min-w-[200px] lg:min-w-[240px] text-fluid-base relative overflow-hidden"
           >
             <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-          </a>
-          <a
-            href="/contact"
+          </Link>
+          <Link
+            to="/contact"
             className="group px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift min-w-[200px] lg:min-w-[240px] text-fluid-base"
           >
             Get In Touch
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -215,8 +216,8 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
             {/* Enhanced CTAs with benefits */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-8">
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="group inline-flex items-center gap-4 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
               >
                 <span className="relative z-10">Start Your Project</span>
@@ -234,7 +235,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
                   />
                 </svg>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-              </a>
+              </Link>
 
               <a
                 href="#"

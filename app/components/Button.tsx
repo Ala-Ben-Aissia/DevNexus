@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Button({
   text,
   to,
@@ -6,8 +8,8 @@ export default function Button({
   to: `/${string}`;
 }) {
   return (
-    <a
-      href="/projects"
+    <Link
+      to={to}
       className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-fluid-base min-w-[200px] justify-center"
     >
       <span>{text}</span>
@@ -24,6 +26,6 @@ export default function Button({
           d="M17 8l4 4m0 0l-4 4m4-4H3"
         />
       </svg>
-    </a>
+    </Link>
   );
 }

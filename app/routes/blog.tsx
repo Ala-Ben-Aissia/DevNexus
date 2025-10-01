@@ -5,6 +5,7 @@ import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Blog";
@@ -503,8 +504,8 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
               and behind-the-scenes content.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
               >
                 <span className="relative z-10">Get in Touch</span>
@@ -522,9 +523,9 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
                   />
                 </svg>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-              </a>
-              <a
-                href="/projects"
+              </Link>
+              <Link
+                to="/projects"
                 className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-fluid-base min-w-[200px] justify-center"
               >
                 <span>View Projects</span>
@@ -541,7 +542,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

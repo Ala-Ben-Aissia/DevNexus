@@ -330,8 +330,8 @@ export default function Project({ loaderData }: Route.ComponentProps) {
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <a
-                href={project.url}
+              <Link
+                to={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block w-full px-6 py-4 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-2xl text-center transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden border border-[var(--color-accent)] hover:border-[var(--color-accent-hover)]"
@@ -366,7 +366,7 @@ export default function Project({ loaderData }: Route.ComponentProps) {
                   </svg>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-              </a>
+              </Link>
 
               <button
                 onClick={handleCopyLink}

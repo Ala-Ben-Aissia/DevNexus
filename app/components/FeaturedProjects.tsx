@@ -199,7 +199,7 @@ function SecondaryProjectCard({
 
             {/* Footer */}
             <div className="flex items-center justify-between">
-              <Button text="View Details" to={`/${project.id}`} />
+              <Button text="View Details" to={`/projects/${project.id}`} />
 
               {/* External link icon */}
               {project.url && (
