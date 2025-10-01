@@ -115,7 +115,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
       {/* Featured Projects Section */}
       {featuredProjects.length > 0 && (
-        <section className="w-full overflow-x-hidden">
+        <section className="w-full">
           <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
             <StatusBadge
@@ -146,7 +146,7 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
 
       {/* Latest Blog Posts Section */}
       {posts.length > 0 && (
-        <section className="w-full overflow-x-hidden">
+        <section className="w-full">
           <div className="w-full text-center mb-16 lg:mb-20 px-4 sm:px-6">
             {/* Section badge */}
             <StatusBadge
@@ -189,12 +189,12 @@ export default function HomePage({ loaderData }: Route.ComponentProps) {
       )}
 
       {/* About Preview Section */}
-      <section className="w-full overflow-x-hidden px-4 sm:px-6">
+      <section className="w-full px-4 sm:px-6">
         <AboutPreview />
       </section>
 
       {/* Call to Action */}
-      <section className="w-full text-center py-16 lg:py-20 overflow-x-hidden px-4 sm:px-6">
+      <section className="w-full text-center py-16 lg:py-20 px-4 sm:px-6">
         <div className="w-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-6 sm:p-12 lg:p-16 hover-lift relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 
