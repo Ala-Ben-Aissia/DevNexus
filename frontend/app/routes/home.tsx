@@ -20,13 +20,9 @@ export async function loader({}: Route.LoaderArgs) {
   );
   const posts = postsResponse.ok ? await postsResponse.json() : [];
   const imageUrl = (p: Project) =>
-    p.image?.url
-      ? `${import.meta.env.VITE_API_URL}${p.image.url}`
-      : "/images/no-image.png";
+    p.image?.url ? `${p.image.url}` : "/images/no-image.png";
   const imageUrlLight = (p: Project) =>
-    p.imageLight?.url
-      ? `${import.meta.env.VITE_API_URL}${p.imageLight.url}`
-      : "/images/no-image-light.jpg";
+    p.imageLight?.url ? `${p.imageLight.url}` : "/images/no-image-light.jpg";
   return {
     featuredProjects: projects.data
       .map((p) => ({

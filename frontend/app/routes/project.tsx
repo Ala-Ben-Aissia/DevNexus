@@ -55,7 +55,7 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
   const id = params.id;
   try {
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/projects/${id}?populate=*`
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}?populate=*`,
     );
     if (!res.ok) {
       throw new Response("Error loading project", { status: res.status });
@@ -64,11 +64,9 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
     if (!project) {
       throw new Response("Not Found", { status: 404 });
     }
-    const imageUrl = `${import.meta.env.VITE_API_URL}${
-      project.data.image.url ?? "/images/no-image.png"
-    }`;
+    const imageUrl = `${project.data.image.url ?? "/images/no-image.png"}`;
     const imageLightUrl = project.data.imageLight?.url
-      ? `${import.meta.env.VITE_API_URL}${project.data.imageLight.url}`
+      ? `${project.data.imageLight.url}`
       : undefined;
     return {
       ...project.data,

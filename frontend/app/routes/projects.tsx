@@ -47,11 +47,9 @@ export async function loader() {
   ).then<Promise<{ data: Project[] }>>((res) => res.json());
 
   return projects.data.map((p) => {
-    const imageUrl = p.image?.url
-      ? `${import.meta.env.VITE_API_URL}${p.image.url}`
-      : "/images/no-image.png";
+    const imageUrl = p.image?.url ? `${p.image.url}` : "/images/no-image.png";
     const imageUrlLight = p.imageLight?.url
-      ? `${import.meta.env.VITE_API_URL}${p.imageLight.url}`
+      ? `${p.imageLight.url}`
       : "/images/no-image-light.jpg";
     return {
       ...p,

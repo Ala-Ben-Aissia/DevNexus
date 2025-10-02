@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import StatusBadge from "./StatusBadge";
 
 function HeroFeaturedProject({ project }: { project: Project }) {
+  console.log(project);
   return (
     <motion.div
       className="relative"
