@@ -4,8 +4,7 @@ import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import type { Project } from "~/types";
-import { useTheme } from "~/contexts/ThemeContext";
+import { getDataFromCache } from "./home";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Projects";
@@ -42,11 +41,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const projects = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`,
-  ).then<Promise<{ data: Project[] }>>((res) => res.json());
+  const projects = await getDataFromCache();
 
-  return projects.data.map((p) => {
+  return projects["projects"].map((p) => {
     const imageUrl = p.image?.url ? `${p.image.url}` : "/images/no-image.png";
     const imageUrlLight = p.imageLight?.url
       ? `${p.imageLight.url}`

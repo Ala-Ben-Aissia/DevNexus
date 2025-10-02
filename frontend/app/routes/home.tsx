@@ -1,4 +1,4 @@
-import type { Project } from "~/types";
+import type { Post, Project } from "~/types";
 import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
 import FeaturedPosts from "~/components/FeaturedPosts";
@@ -6,25 +6,46 @@ import AboutPreview from "~/components/AboutPreview";
 import StatusBadge from "~/components/StatusBadge";
 import { Link } from "react-router";
 
+export const cache: { projects: Project[]; posts: Post[] } = {
+  projects: [],
+  posts: [],
+};
+
+export const getDataFromCache = async (): Promise<{
+  projects: Project[];
+  posts: Post[];
+}> => {
+  if (cache["projects"].length && cache["posts"].length) {
+    return cache;
+  }
+  const promise = Promise.all([
+    fetch(`${import.meta.env.VITE_API_URL}/api/projects?populate=*`).then<
+      Promise<{ data: Project[] }>
+    >((res) => res.json()),
+    fetch(`${import.meta.env.VITE_API_URL}/api/posts`).then<
+      Promise<{ data: Post[] }>
+    >((res) => res.json()),
+  ]);
+  try {
+    const [projects, posts] = await promise;
+    cache["projects"] = projects.data;
+    cache["posts"] = posts.data;
+    return cache;
+  } catch {
+    console.error("Failed to laod projects and posts");
+    return { posts: [], projects: [] };
+  }
+};
+
 export async function loader({}: Route.LoaderArgs) {
-  // Fetch featured projects
-  const projects = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`,
-  ).then<Promise<{ data: Project[] }>>((res) => res.json());
+  const { posts, projects } = await getDataFromCache();
 
-  // console.dir({ projects: projects.data }, { depth: null });
-
-  // Fetch blog posts
-  const postsResponse = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/posts`,
-  );
-  const posts = postsResponse.ok ? await postsResponse.json() : [];
   const imageUrl = (p: Project) =>
     p.image?.url ? `${p.image.url}` : "/images/no-image.png";
   const imageUrlLight = (p: Project) =>
     p.imageLight?.url ? `${p.imageLight.url}` : "/images/no-image-light.jpg";
   return {
-    featuredProjects: projects.data
+    featuredProjects: projects
       .map((p) => ({
         ...p,
         image: {
@@ -36,7 +57,7 @@ export async function loader({}: Route.LoaderArgs) {
       }))
       .filter((p) => p.featured)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-    posts: posts.data,
+    posts,
   };
 }
 

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Link } from "react-router";
 import StatusBadge from "~/components/StatusBadge";
+import { getDataFromCache } from "./home";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Blog";
@@ -42,20 +43,9 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({}: Route.LoaderArgs): Promise<Post[]> {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/posts`);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
-    }
-
-    const posts = await response.json();
-    return posts.data as Post[];
-  } catch (error) {
-    console.error("Error loading posts:", error);
-    return [];
-  }
+export async function loader({}: Route.LoaderArgs) {
+  const { posts } = await getDataFromCache();
+  return posts;
 }
 
 export default function BlogPage({ loaderData }: Route.ComponentProps) {
@@ -64,7 +54,7 @@ export default function BlogPage({ loaderData }: Route.ComponentProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   posts = posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   // Get unique categories
