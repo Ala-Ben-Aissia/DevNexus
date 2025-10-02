@@ -9,14 +9,14 @@ import { Link } from "react-router";
 export async function loader({}: Route.LoaderArgs) {
   // Fetch featured projects
   const projects = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`
+    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`,
   ).then<Promise<{ data: Project[] }>>((res) => res.json());
 
   // console.dir({ projects: projects.data }, { depth: null });
 
   // Fetch blog posts
   const postsResponse = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/posts`
+    `${import.meta.env.VITE_API_URL}/api/posts`,
   );
   const posts = postsResponse.ok ? await postsResponse.json() : [];
 
@@ -26,6 +26,9 @@ export async function loader({}: Route.LoaderArgs) {
         ...p,
         image: {
           url: `${import.meta.env.VITE_API_URL}${p.image.url}`,
+        },
+        imageLight: {
+          url: `${import.meta.env.VITE_API_URL}${p.imageLight?.url}`,
         },
       }))
       .filter((p) => p.featured)

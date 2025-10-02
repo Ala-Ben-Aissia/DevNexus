@@ -2,6 +2,9 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import type { Project } from "~/types";
 import Button from "./Button";
+import { useTheme } from "~/contexts/ThemeContext";
+import { useEffect, useState } from "react";
+import StatusBadge from "./StatusBadge";
 
 function HeroFeaturedProject({ project }: { project: Project }) {
   return (
@@ -38,28 +41,27 @@ function HeroFeaturedProject({ project }: { project: Project }) {
 
             {/* Status Badge */}
             <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20">
-              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-xl">
+              {/* <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-xl">
                 <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                <span className="text-xs sm:text-sm font-semibold text-white/95 tracking-wide whitespace-nowrap">
+                <span className="text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap">
                   Live Project
                 </span>
-              </div>
+              </div> */}
+              <StatusBadge
+                variant="success"
+                text="Live Project"
+                className="text-xs"
+              />
             </div>
 
             {/* Category Badge */}
-            <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20">
-              <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-black/20 backdrop-blur-xl text-white/90 text-xs sm:text-sm font-semibold rounded-full border border-white/10">
-                {project.category}
-              </div>
+            <div className="absolute top-4 sm:top-6 text-xs right-0 sm:right-6 z-20">
+              <StatusBadge variant="info" text={project.category} />
             </div>
 
             {/* Featured Badge */}
             <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20">
-              <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-[var(--color-accent)]/20 to-[var(--color-accent-hover)]/20 backdrop-blur-xl border border-[var(--color-accent)]/30 rounded-full">
-                <span className="text-xs sm:text-sm font-bold text-white/95 tracking-wide">
-                  ⭐ Featured
-                </span>
-              </div>
+              <StatusBadge variant="premium" text="⭐ Featured" />
             </div>
           </div>
 
@@ -282,6 +284,16 @@ export default function FeaturedProjects({
   featuredProjects: Project[];
 }) {
   const [heroProject, ...otherProjects] = featuredProjects;
+  const [image, setImage] = useState(heroProject.image);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setImage(
+      theme === "dark"
+        ? heroProject.image
+        : heroProject.imageLight ?? { url: "/images/no-image.png" },
+    );
+  }, [theme]);
 
   return (
     <div className="relative w-full">
@@ -304,7 +316,7 @@ export default function FeaturedProjects({
         {/* Hero Featured Project - LARGE */}
         {heroProject && (
           <div className="w-full mb-8 sm:mb-10 lg:mb-12">
-            <HeroFeaturedProject project={heroProject} />
+            <HeroFeaturedProject project={{ ...heroProject, image }} />
           </div>
         )}
 
