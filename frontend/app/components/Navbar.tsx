@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import ThemeToggleSimple from "./ThemeToggleSimple";
 
@@ -110,7 +109,7 @@ export default function Navbar() {
         <div className="sm:hidden flex items-center gap-3">
           <ThemeToggleSimple />
           <button
-            className="text-[var(--color-text)] text-fluid-xl cursor-pointer hover:text-[var(--color-text-light)] transition-all duration-300 hover-lift"
+            className="text-[var(--color-text)] text-fluid-xl cursor-pointer hover:text-[var(--color-text-light)] transition-all duration-300"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -120,7 +119,42 @@ export default function Navbar() {
                   menuOpen ? "rotate-45" : ""
                 }`}
               >
-                {menuOpen ? <FaTimes /> : <FaBars />}
+                {menuOpen ? (
+                  <svg
+                    className="w-6 h-6 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 12h14m-7 7V5"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeWidth="2"
+                      d="M5 7h14M5 12h14M5 17h14"
+                    />
+                  </svg>
+                )}
               </div>
             </div>
           </button>

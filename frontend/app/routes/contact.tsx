@@ -1,9 +1,7 @@
 import { InputField } from "~/components/InputField";
 import type { Route } from "./+types/contact";
 import { z } from "zod";
-import { Form } from "react-router";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 
 // Schema with detailed error messages
 const formSchema = z.object({
@@ -61,37 +59,37 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function action({
-  request,
-}: Route.ActionArgs): Promise<ActionResponse> {
-  const formData = await request.formData();
+// export async function action({
+//   request,
+// }: Route.ActionArgs): Promise<ActionResponse> {
+//   const formData = await request.formData();
 
-  const rawData = {
-    fullName: formData.get("fullName"),
-    email: formData.get("email"),
-    subject: formData.get("subject"),
-    body: formData.get("body"),
-  };
+//   const rawData = {
+//     fullName: formData.get("fullName"),
+//     email: formData.get("email"),
+//     subject: formData.get("subject"),
+//     body: formData.get("body"),
+//   };
 
-  const result = formSchema.safeParse(rawData);
+//   const result = formSchema.safeParse(rawData);
 
-  if (result.success) {
-    // TODO: Send email or save to database here
-    return {
-      success: true,
-      message: "Your message has been sent successfully!",
-      data: result.data,
-    };
-  }
+//   if (result.success) {
+//     // TODO: Send email or save to database here
+//     return {
+//       success: true,
+//       message: "Your message has been sent successfully!",
+//       data: result.data,
+//     };
+//   }
 
-  // Extract first validation error
-  const firstError = result.error.issues[0];
-  return {
-    success: false,
-    message: firstError.message,
-    field: firstError.path[0]?.toString(),
-  };
-}
+//   // Extract first validation error
+//   const firstError = result.error.issues[0];
+//   return {
+//     success: false,
+//     message: firstError.message,
+//     field: firstError.path[0]?.toString(),
+//   };
+// }
 
 export default function ContactPage({ actionData }: Route.ComponentProps) {
   const [showMessage, setShowMessage] = useState(false);
@@ -423,7 +421,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
               </div>
 
               {/* Success/Error Messages */}
-              <AnimatePresence>
+              {/* <AnimatePresence>
                 {actionData && showMessage && (
                   <motion.div
                     initial={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -461,9 +459,14 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                     </div>
                   </motion.div>
                 )}
-              </AnimatePresence>
+              </AnimatePresence> */}
 
-              <Form method="post" className="space-y-8">
+              {/* <Form */}
+              <form
+                method="post"
+                className="space-y-8"
+                action="https://formspree.io/f/mgvnyyvg"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <InputField
@@ -473,8 +476,10 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                       required
                       placeholder="John Doe"
                       className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
+                      min="5"
+                      max="50"
                     />
-                    {!actionData?.success &&
+                    {/* {!actionData?.success &&
                       actionData?.field === "fullName" && (
                         <motion.p
                           initial={{ opacity: 0, y: -10 }}
@@ -483,7 +488,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                         >
                           {actionData.message}
                         </motion.p>
-                      )}
+                      )} */}
                   </div>
 
                   <div>
@@ -495,7 +500,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                       placeholder="john@example.com"
                       className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
                     />
-                    {!actionData?.success && actionData?.field === "email" && (
+                    {/* {!actionData?.success && actionData?.field === "email" && (
                       <motion.p
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -503,7 +508,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                       >
                         {actionData.message}
                       </motion.p>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
@@ -513,9 +518,10 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                     name="subject"
                     label="Subject"
                     placeholder="What's this about?"
+                    max="100"
                     className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
                   />
-                  {!actionData?.success && actionData?.field === "subject" && (
+                  {/* {!actionData?.success && actionData?.field === "subject" && (
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -523,7 +529,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                     >
                       {actionData.message}
                     </motion.p>
-                  )}
+                  )} */}
                 </div>
 
                 <div>
@@ -541,10 +547,12 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                       required
                       placeholder="Tell me about your project or idea... (minimum 20 characters)"
                       className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated resize-none"
+                      minLength={20}
+                      maxLength={1000}
                     />
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-0 hover:opacity-5 focus-within:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
                   </div>
-                  {!actionData?.success && actionData?.field === "body" && (
+                  {/* {!actionData?.success && actionData?.field === "body" && (
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -552,7 +560,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                     >
                       {actionData.message}
                     </motion.p>
-                  )}
+                  )} */}
                 </div>
 
                 <button
@@ -577,7 +585,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                 </button>
-              </Form>
+              </form>
             </div>
           </div>
         </div>
