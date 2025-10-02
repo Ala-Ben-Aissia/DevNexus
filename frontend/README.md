@@ -392,7 +392,7 @@ The blog section focuses on advanced web development topics:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/dev-nexus.git
+git clone https://github.com/Ala-Ben-Aissia/dev-nexus.git
 
 # Navigate to project directory
 cd dev-nexus
