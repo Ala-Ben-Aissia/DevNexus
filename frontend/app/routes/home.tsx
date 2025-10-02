@@ -19,16 +19,23 @@ export async function loader({}: Route.LoaderArgs) {
     `${import.meta.env.VITE_API_URL}/api/posts`,
   );
   const posts = postsResponse.ok ? await postsResponse.json() : [];
-
+  const imageUrl = (p: Project) =>
+    p.image?.url
+      ? `${import.meta.env.VITE_API_URL}${p.image.url}`
+      : "/images/no-image.png";
+  const imageUrlLight = (p: Project) =>
+    p.imageLight?.url
+      ? `${import.meta.env.VITE_API_URL}${p.imageLight.url}`
+      : "/images/no-image-light.jpg";
   return {
     featuredProjects: projects.data
       .map((p) => ({
         ...p,
         image: {
-          url: `${import.meta.env.VITE_API_URL}${p.image.url}`,
+          url: imageUrl(p),
         },
         imageLight: {
-          url: `${import.meta.env.VITE_API_URL}${p.imageLight?.url}`,
+          url: imageUrlLight(p),
         },
       }))
       .filter((p) => p.featured)

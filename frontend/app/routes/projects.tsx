@@ -5,6 +5,7 @@ import { usePage } from "~/hooks/usePage";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Project } from "~/types";
+import { useTheme } from "~/contexts/ThemeContext";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Projects";
@@ -42,15 +43,23 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader() {
   const projects = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`
+    `${import.meta.env.VITE_API_URL}/api/projects?populate=*`,
   ).then<Promise<{ data: Project[] }>>((res) => res.json());
 
   return projects.data.map((p) => {
-    const imageUrl = p.image.url ?? "/images/no-image.png";
+    const imageUrl = p.image?.url
+      ? `${import.meta.env.VITE_API_URL}${p.image.url}`
+      : "/images/no-image.png";
+    const imageUrlLight = p.imageLight?.url
+      ? `${import.meta.env.VITE_API_URL}${p.imageLight.url}`
+      : "/images/no-image-light.jpg";
     return {
       ...p,
       image: {
-        url: `${import.meta.env.VITE_API_URL}${imageUrl}`,
+        url: imageUrl,
+      },
+      imageLight: {
+        url: imageUrlLight,
       },
     };
   });
@@ -74,7 +83,7 @@ export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
     goPrev,
   } = usePage({
     list: filteredProjects.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     ),
     perPage: 3,
   });

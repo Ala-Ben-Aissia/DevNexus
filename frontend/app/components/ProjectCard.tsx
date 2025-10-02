@@ -1,7 +1,9 @@
 import { Link } from "react-router";
+import { useTheme } from "~/contexts/ThemeContext";
 import type { Project } from "~/types";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const { theme } = useTheme();
   return (
     <Link to={`/projects/${project.documentId}`}>
       <article
@@ -10,7 +12,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       >
         <div className="aspect-[16/10] w-full overflow-hidden relative">
           <img
-            src={project.image.url}
+            src={theme === "dark" ? project.image.url : project.imageLight?.url}
             alt={project.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             loading="lazy"

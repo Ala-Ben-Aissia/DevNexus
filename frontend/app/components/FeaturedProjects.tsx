@@ -153,6 +153,7 @@ function SecondaryProjectCard({
   project: Project;
   index: number;
 }) {
+  const { theme } = useTheme();
   return (
     <motion.div
       className="group w-full"
@@ -172,7 +173,9 @@ function SecondaryProjectCard({
           {/* Image Section - SMALLER */}
           <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-48 sm:h-auto flex-shrink-0 overflow-hidden">
             <motion.img
-              src={project.image.url}
+              src={
+                theme === "dark" ? project.image.url : project.imageLight?.url
+              }
               alt={project.title}
               className="w-full h-full object-cover"
               whileHover={{ scale: 1.08 }}
