@@ -48,13 +48,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="scroll-smooth">
+        <Analytics />
         <ThemeProvider>
           <Navbar />
           <main className="w-full">{children}</main>
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
-        <Analytics />
       </body>
     </html>
   );
