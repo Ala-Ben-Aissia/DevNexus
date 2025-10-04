@@ -353,13 +353,13 @@ html.dark pre code.hljs::-webkit-scrollbar-thumb:hover {
 
 html.dark .hljs-comment,
 html.dark .hljs-quote {
-  color: #5c6370 !important;
+  color: #818998 !important;
 }
 
 @media (prefers-color-scheme: dark) {
   html:not(.light) .hljs-comment,
   html:not(.light) .hljs-quote {
-    color: #5c6370 !important;
+    color: #818998 !important;
   }
 }
 
