@@ -51,7 +51,12 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 
+const cache = { project: null } as { project: Project | null };
+
 export async function clientLoader({ params }: Route.LoaderArgs) {
+  if (cache.project) {
+    return cache.project;
+  }
   const id = params.id;
   try {
     const res = await fetch(
@@ -60,21 +65,23 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
     if (!res.ok) {
       throw new Response("Error loading project", { status: res.status });
     }
-    const project = (await res.json()) as { data: Project };
-    if (!project) {
+    const projectData = (await res.json()) as { data: Project };
+    if (!projectData) {
       throw new Response("Not Found", { status: 404 });
     }
-    const imageUrl = `${project.data.image.url ?? "/images/no-image.png"}`;
-    const imageLightUrl = project.data.imageLight?.url
-      ? `${project.data.imageLight.url}`
+    const imageUrl = `${projectData.data.image.url ?? "/images/no-image.png"}`;
+    const imageLightUrl = projectData.data.imageLight?.url
+      ? `${projectData.data.imageLight.url}`
       : undefined;
-    return {
-      ...project.data,
+    const project = {
+      ...projectData.data,
       image: {
         url: imageUrl,
       },
       imageLight: imageLightUrl ? { url: imageLightUrl } : undefined,
     };
+    cache["project"] = project;
+    return project;
   } catch (error) {
     throw new Response("Error loading project", { status: 500 });
   }
