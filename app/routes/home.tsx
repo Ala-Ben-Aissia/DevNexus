@@ -16,8 +16,12 @@ export const getDataFromCache = async (): Promise<{
   posts: Post[];
 }> => {
   if (cache["projects"].length && cache["posts"].length) {
+    console.log("from cache");
+    console.log(cache);
     return cache;
   }
+  console.log("not from cache");
+  console.log(cache);
   const promise = Promise.all([
     fetch(`${import.meta.env.VITE_API_URL}/api/projects?populate=*`).then<
       Promise<{ data: Project[] }>
