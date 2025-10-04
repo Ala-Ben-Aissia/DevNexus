@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import Copy from "~/components/Copy";
 
+const cache = { post: null } as { post: Post | null };
+
 const markdownComponents: Partial<
   Record<keyof React.JSX.IntrinsicElements, React.ComponentType<any>>
 > = {
@@ -241,9 +243,10 @@ const markdownComponents: Partial<
 export async function loader({
   params,
 }: Route.LoaderArgs): Promise<{ data: Post }> {
+  if (cache.post) return { data: cache.post };
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`
+      `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`,
     );
 
     if (!response.ok) {
@@ -255,7 +258,7 @@ export async function loader({
     if (!post) {
       throw new Error("Post not found");
     }
-
+    cache.post = post.data;
     return post;
   } catch (error) {
     console.error("Error loading post:", error);
