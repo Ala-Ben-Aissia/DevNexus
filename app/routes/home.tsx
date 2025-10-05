@@ -18,7 +18,9 @@ import type { Data } from "~/types";
 
 export default function HomePage() {
   const { projects, posts } = useRouteLoaderData("root") as Data;
-  const featuredProjects = projects.filter((p) => p.featured);
+  const featuredProjects = projects
+    .filter((p) => p.featured)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">
