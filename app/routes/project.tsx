@@ -1,91 +1,63 @@
-import type { Project } from "~/types";
 import type { Route } from "./+types/project";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
 import { motion } from "motion/react";
 import { useState } from "react";
 import Copy from "~/components/Copy";
-import { useTheme } from "~/contexts/ThemeContext";
+import type { Data } from "~/types";
+import { useTheme } from "~/hooks/useTheme";
 
-export function meta({ loaderData }: Route.MetaArgs) {
-  const project = loaderData;
-  if (!project) {
-    return [
-      { title: "Dev Nexus}" },
-      {
-        description:
-          "A list of projects I've worked on, including web development and other projects.",
-      },
-    ];
-  }
-  const title = `${project.title} | Dev Nexus`;
-  return [
-    { title },
-    {
-      name: "description",
-      content: project.description,
-    },
-    {
-      property: "og:title",
-      content: title,
-    },
-    {
-      property: "og:description",
-      content: project.description,
-    },
-    {
-      property: "og:image",
-      content: project.image,
-    },
-    {
-      property: "twitter:title",
-      content: title,
-    },
-    {
-      property: "twitter:description",
-      content: project.description,
-    },
-    {
-      property: "twitter:image",
-      content: project.image,
-    },
-  ];
-}
+// export function meta({ loaderData }: Route.MetaArgs) {
+//   const project = loaderData;
+//   if (!project) {
+//     return [
+//       { title: "Dev Nexus}" },
+//       {
+//         description:
+//           "A list of projects I've worked on, including web development and other projects.",
+//       },
+//     ];
+//   }
+//   const title = `${project.title} | Dev Nexus`;
+//   return [
+//     { title },
+//     {
+//       name: "description",
+//       content: project.description,
+//     },
+//     {
+//       property: "og:title",
+//       content: title,
+//     },
+//     {
+//       property: "og:description",
+//       content: project.description,
+//     },
+//     {
+//       property: "og:image",
+//       content: project.image,
+//     },
+//     {
+//       property: "twitter:title",
+//       content: title,
+//     },
+//     {
+//       property: "twitter:description",
+//       content: project.description,
+//     },
+//     {
+//       property: "twitter:image",
+//       content: project.image,
+//     },
+//   ];
+// }
 
-const cache = { project: null } as { project: Project | null };
+// export async function clientLoader({ params, context }: Route.LoaderArgs) {
+//   const id = params.id;
+//   const { projects } = await fetchData();
+//   const project = projects.find((p) => p.documentId === id) as Project;
 
-export async function clientLoader({ params }: Route.LoaderArgs) {
-  if (cache.project) {
-    return cache.project;
-  }
-  const id = params.id;
-  try {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/projects/${id}?populate=*`,
-    );
-    if (!res.ok) {
-      throw new Response("Error loading project", { status: res.status });
-    }
-    const projectData = (await res.json()) as { data: Project };
-    if (!projectData) {
-      throw new Response("Not Found", { status: 404 });
-    }
-    const imageUrl = `${projectData.data.image.url ?? "/images/no-image.png"}`;
-    const imageLightUrl = projectData.data.imageLight?.url
-      ? `${projectData.data.imageLight.url}`
-      : undefined;
-    const project = {
-      ...projectData.data,
-      image: {
-        url: imageUrl,
-      },
-      imageLight: imageLightUrl ? { url: imageLightUrl } : undefined,
-    };
-    cache["project"] = project;
-    return project;
-  } catch (error) {
-    throw new Response("Error loading project", { status: 500 });
-  }
-}
+//   return project;
+// }
 
 export function hydrateFallback() {
   return (
@@ -105,8 +77,9 @@ export function hydrateFallback() {
   );
 }
 
-export default function Project({ loaderData }: Route.ComponentProps) {
-  const project = loaderData;
+export default function Project({ params }: Route.ComponentProps) {
+  const data = useRouteLoaderData("root") as Data;
+  const project = data.projects.find((p) => p.documentId === params.id)!;
   const [imageLoaded, setImageLoaded] = useState(false);
   const { theme } = useTheme();
 

@@ -4,9 +4,9 @@ import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
 import StatusBadge from "~/components/StatusBadge";
-import { getDataFromCache } from "./home";
+import type { Data } from "~/types";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Blog";
@@ -42,13 +42,13 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({}: Route.LoaderArgs) {
-  const { posts } = await getDataFromCache();
-  return posts;
-}
+// export async function loader({}: Route.LoaderArgs) {
+//   const { posts } = await fetchData();
+//   return posts;
+// }
 
 export default function BlogPage({ loaderData }: Route.ComponentProps) {
-  let posts = loaderData;
+  let { posts } = useRouteLoaderData("root") as Data;
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 

@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import type { Project } from "~/types";
 import Button from "./Button";
-import { useTheme } from "~/contexts/ThemeContext";
+import { useTheme } from "~/hooks/useTheme";
 import { useEffect, useState } from "react";
 import StatusBadge from "./StatusBadge";
 

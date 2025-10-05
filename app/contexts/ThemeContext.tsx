@@ -1,13 +1,7 @@
 "use client";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 
-type Theme = "light" | "dark";
+export type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
@@ -15,16 +9,14 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined,
+);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Mark as client-side
-    setIsClient(true);
-
     // Only run on client-side
     const storedTheme = localStorage.getItem("theme") as Theme | null;
     const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -70,20 +62,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    // Return safe defaults during SSR or if provider is missing
-    if (typeof window === "undefined") {
-      return {
-        theme: "dark" as Theme,
-        toggleTheme: () => {},
-        setTheme: () => {},
-      };
-    }
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
 }

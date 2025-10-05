@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import { useTheme } from "~/contexts/ThemeContext";
+import { useTheme } from "~/hooks/useTheme";
 import { useState, useEffect } from "react";
 
 export default function ThemeToggleSimple() {

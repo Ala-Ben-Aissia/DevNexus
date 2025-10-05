@@ -1,68 +1,24 @@
-import type { Post, Project } from "~/types";
-import type { Route } from "./+types/home";
 import FeaturedProjects from "~/components/FeaturedProjects";
 import FeaturedPosts from "~/components/FeaturedPosts";
 import AboutPreview from "~/components/AboutPreview";
 import StatusBadge from "~/components/StatusBadge";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
+import type { Data } from "~/types";
 
-export const cache: { projects: Project[]; posts: Post[] } = {
-  projects: [],
-  posts: [],
-};
+// export async function loader({}: Route.LoaderArgs) {
+//   const { posts, projects } = await fetchData();
 
-export const getDataFromCache = async (): Promise<{
-  projects: Project[];
-  posts: Post[];
-}> => {
-  if (cache["projects"].length && cache["posts"].length) {
-    return cache;
-  }
-  const promise = Promise.all([
-    fetch(`${import.meta.env.VITE_API_URL}/api/projects?populate=*`).then<
-      Promise<{ data: Project[] }>
-    >((res) => res.json()),
-    fetch(`${import.meta.env.VITE_API_URL}/api/posts`).then<
-      Promise<{ data: Post[] }>
-    >((res) => res.json()),
-  ]);
-  try {
-    const [projects, posts] = await promise;
-    cache["projects"] = projects.data;
-    cache["posts"] = posts.data;
-    return cache;
-  } catch {
-    console.error("Failed to laod projects and posts");
-    return { posts: [], projects: [] };
-  }
-};
+//   return {
+//     featuredProjects: projects
+//       .filter((p) => p.featured)
+//       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+//     posts,
+//   };
+// }
 
-export async function loader({}: Route.LoaderArgs) {
-  const { posts, projects } = await getDataFromCache();
-
-  const imageUrl = (p: Project) =>
-    p.image?.url ? `${p.image.url}` : "/images/no-image.png";
-  const imageUrlLight = (p: Project) =>
-    p.imageLight?.url ? `${p.imageLight.url}` : "/images/no-image-light.jpg";
-  return {
-    featuredProjects: projects
-      .map((p) => ({
-        ...p,
-        image: {
-          url: imageUrl(p),
-        },
-        imageLight: {
-          url: imageUrlLight(p),
-        },
-      }))
-      .filter((p) => p.featured)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-    posts,
-  };
-}
-
-export default function HomePage({ loaderData }: Route.ComponentProps) {
-  const { featuredProjects, posts } = loaderData;
+export default function HomePage() {
+  const { projects, posts } = useRouteLoaderData("root") as Data;
+  const featuredProjects = projects.filter((p) => p.featured);
 
   return (
     <div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">

@@ -4,7 +4,8 @@ import Pagination from "~/components/Pagination";
 import { usePage } from "~/hooks/usePage";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { getDataFromCache } from "./home";
+import { useRouteLoaderData } from "react-router";
+import type { Project } from "~/types";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | Projects";
@@ -40,29 +41,9 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader() {
-  const projects = await getDataFromCache();
-
-  return projects["projects"].map((p) => {
-    const imageUrl = p.image?.url ? `${p.image.url}` : "/images/no-image.png";
-    const imageUrlLight = p.imageLight?.url
-      ? `${p.imageLight.url}`
-      : "/images/no-image-light.jpg";
-    return {
-      ...p,
-      image: {
-        url: imageUrl,
-      },
-      imageLight: {
-        url: imageUrlLight,
-      },
-    };
-  });
-}
-
 export default function ProjectsPage({ loaderData }: Route.ComponentProps) {
   const [category, setCategory] = useState("All");
-  const projects = loaderData;
+  const { projects } = useRouteLoaderData("root") as { projects: Project[] };
 
   const filteredProjects =
     category === "All"

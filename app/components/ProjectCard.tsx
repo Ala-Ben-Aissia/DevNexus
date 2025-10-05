@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useTheme } from "~/contexts/ThemeContext";
+import { useTheme } from "~/hooks/useTheme";
 import type { Project } from "~/types";
 
 export default function ProjectCard({ project }: { project: Project }) {

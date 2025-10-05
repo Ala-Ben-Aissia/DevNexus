@@ -31,3 +31,5 @@ export type Post = Omit<PostMeta, "id"> & {
   content: string;
   locale: string;
 };
+
+export type Data = { projects: Project[]; posts: Post[] };
