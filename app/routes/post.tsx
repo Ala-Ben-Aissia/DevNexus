@@ -1,12 +1,12 @@
 import type { Post } from "~/types";
-import type { Route } from "./+types/post";
 import ReactMarkdown from "react-markdown";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import Copy from "~/components/Copy";
+import type { Route } from "./+types/post";
 
-const cache = { post: null } as { post: Post | null };
+import { motion } from "motion/react";
 
 const markdownComponents: Partial<
   Record<keyof React.JSX.IntrinsicElements, React.ComponentType<any>>
@@ -240,48 +240,54 @@ const markdownComponents: Partial<
   ),
 };
 
-export async function loader({
-  params,
-}: Route.LoaderArgs): Promise<{ data: Post }> {
-  if (cache.post) return { data: cache.post };
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`,
-    );
+// export async function loader({
+//   params,
+// }: Route.LoaderArgs): Promise<{ data: Post }> {
+//   if (cache.post) return { data: cache.post };
+//   try {
+//     const response = await fetch(
+//       `${import.meta.env.VITE_API_URL}/api/posts/${params.id}`,
+//     );
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch posts: ${response.statusText}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch posts: ${response.statusText}`);
+//     }
 
-    const post = (await response.json()) as { data: Post };
+//     const post = (await response.json()) as { data: Post };
 
-    if (!post) {
-      throw new Error("Post not found");
-    }
-    cache.post = post.data;
-    return post;
-  } catch (error) {
-    console.error("Error loading post:", error);
-    throw new Error("Failed to load post");
-  }
-}
+//     if (!post) {
+//       throw new Error("Post not found");
+//     }
+//     cache.post = post.data;
+//     return post;
+//   } catch (error) {
+//     console.error("Error loading post:", error);
+//     throw new Error("Failed to load post");
+//   }
+// }
 
-export default function PostPage({ loaderData }: Route.ComponentProps) {
-  const { data: post } = loaderData;
+export default function PostPage({ params }: Route.ComponentProps) {
+  const { posts } = useRouteLoaderData("root") as { posts: Post[] };
+  const post = posts.find((p) => p.documentId === params.id)!;
 
   return (
     <div className="min-h-screen bg-[var(--color-primary)]">
       <div className="mx-auto max-w-4xl px-[var(--space-s)] py-[var(--space-m)] sm:px-[var(--space-m)] lg:px-[var(--space-l)]">
         {/* Back Navigation */}
-        <div className="animate-fade-in-up bg-[var(--color-primary)] border-b border-[var(--color-border)] py-6">
-          <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="sticky top-0 z-50 bg-[var(--color-primary)]/80 backdrop-blur-xl border-b border-[var(--color-border)]"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <Link
-              to="/blog"
-              className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
+              to="/projects"
+              className="group inline-flex items-center gap-2 sm:gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
                 <svg
-                  className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                  className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:-translate-x-1"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -294,10 +300,12 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
                   />
                 </svg>
               </div>
-              <span className="font-medium text-fluid-base">Back to Blog</span>
+              <span className="font-medium text-sm sm:text-base">
+                Back to Blog
+              </span>
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Main Content with proper markdown styles */}
         <article className="prose-container">
@@ -313,15 +321,20 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
         {/* Footer */}
         <footer className="mt-[var(--space-2xl)] border-t border-[var(--color-border)] pt-4 sm:pt-8]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-[var(--space-s)]">
-            <div className="animate-fade-in-up bg-[var(--color-primary)] py-6">
-              <div className="max-w-7xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="sticky top-0 z-50 bg-[var(--color-primary)]/80 backdrop-blur-xl border-b border-[var(--color-border)]"
+            >
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
                 <Link
-                  to="/blog"
-                  className="group inline-flex items-center gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
+                  to="/projects"
+                  className="group inline-flex items-center gap-2 sm:gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
                     <svg
-                      className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                      className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:-translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -334,12 +347,12 @@ export default function PostPage({ loaderData }: Route.ComponentProps) {
                       />
                     </svg>
                   </div>
-                  <span className="font-medium text-fluid-base">
-                    View All Posts
+                  <span className="font-medium text-sm sm:text-base">
+                    View all Posts
                   </span>
                 </Link>
               </div>
-            </div>
+            </motion.div>
 
             <div className="flex items-center gap-[var(--space-s)]">
               <Copy />
