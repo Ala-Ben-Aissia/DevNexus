@@ -1,4 +1,3 @@
-import type { Post } from "~/types";
 import type { Route } from "./+types/blog";
 import PostCard from "~/components/PostCard";
 import Pagination from "~/components/Pagination";

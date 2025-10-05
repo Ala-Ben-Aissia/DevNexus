@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,6 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="scroll-smooth">
         <Analytics />
+        <SpeedInsights />
         <ThemeProvider>
           <Navbar />
           <main className="w-full">{children}</main>
