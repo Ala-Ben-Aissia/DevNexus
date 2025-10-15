@@ -675,8 +675,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Ala Ben Aissia**
 
-- Portfolio: [devnexus.vercel.app](https://devnexus.vercel.app)
-- Email: hello@devnexus.com
+- Portfolio: [devnexus.vercel.app](https://dev-nexus-six.vercel.app)
+- Email: alabenaissia@oulook.com
 - LinkedIn: [linkedin.com/in/ala-ben-aissia](https://linkedin.com/in/ala-ben-aissia)
 - GitHub: [@alabenaissia](https://github.com/alabenaissia)
 
