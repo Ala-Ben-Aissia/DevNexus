@@ -12,7 +12,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4+-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11+-FF0055?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-[**View Live Demo**](https://devnexus.vercel.app) • [**Documentation**](#-features) • [**Blog**](#-blog--insights)
+[**View Live Demo**](https://dev-nexus-six.vercel.app) • [**Documentation**](#-features) • [**Blog**](#-blog--insights)
 
 </div>
 
