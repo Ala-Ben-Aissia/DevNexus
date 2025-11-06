@@ -20,6 +20,8 @@ model Project {
   liveUrl     String?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+
+  @@index([updatedAt])
 }
 
 model ProjectImage {
@@ -41,4 +43,7 @@ model Post {
   content     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([updatedAt])
+  @@index([slug])
 }

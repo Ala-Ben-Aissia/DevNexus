@@ -42,6 +42,8 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
+const perPage = 3
+
 export async function loader({}: Route.LoaderArgs) {
 	const posts = await prisma.post.findMany({
 		select: {
@@ -53,6 +55,7 @@ export async function loader({}: Route.LoaderArgs) {
 			createdAt: true,
 		},
 		orderBy: {createdAt: 'desc'},
+		take: perPage,
 	})
 	return posts
 }
@@ -87,7 +90,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 		goPrev,
 	} = usePage({
 		list: filteredPosts,
-		perPage: filteredPosts.length,
+		perPage,
 	})
 
 	if (posts.length === 0) {

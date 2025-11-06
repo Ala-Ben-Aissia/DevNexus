@@ -39,6 +39,8 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
+const perPage = 3
+
 export async function loader() {
 	const projects = await prisma.project.findMany({
 		select: {
@@ -48,6 +50,7 @@ export async function loader() {
 			createdAt: true,
 			image: {select: {id: true}},
 		},
+		take: perPage,
 		orderBy: {createdAt: 'desc'},
 	})
 	return projects
@@ -68,7 +71,7 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 		goPrev,
 	} = usePage({
 		list: projects,
-		perPage: 4,
+		perPage,
 	})
 
 	// const categories = ['All', ...new Set(projects.map(p => p.category))]
