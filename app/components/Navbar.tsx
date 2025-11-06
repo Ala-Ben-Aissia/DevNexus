@@ -75,20 +75,24 @@ export default function Navbar() {
 				{/* Desktop Navigation */}
 				<div className="hidden sm:flex items-center gap-8">
 					{navLinks.map(l => (
-						<NavLink
-							key={l.label}
-							to={l.to}
-							className={({isActive}) =>
-								`relative text-fluid-base transition-all duration-500 ${
-									isActive
-										? 'font-semibold text-[var(--color-text)]'
-										: 'text-[var(--color-text-light)] hover:text-[var(--color-text)]'
-								}`
-							}
-						>
-							<span className="relative z-10">{l.label}</span>
-							<div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
-						</NavLink>
+						<div key={l.label}>
+							{/* <PrefetchPageLinks page={l.to} /> */}
+							<NavLink
+								prefetch="intent"
+								key={l.label}
+								to={l.to}
+								className={({isActive}) =>
+									`relative text-fluid-base transition-all duration-500 ${
+										isActive
+											? 'font-semibold text-[var(--color-text)]'
+											: 'text-[var(--color-text-light)] hover:text-[var(--color-text)]'
+									}`
+								}
+							>
+								<span className="relative z-10">{l.label}</span>
+								<div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full"></div>
+							</NavLink>
+						</div>
 					))}
 
 					<div className="ml-4">

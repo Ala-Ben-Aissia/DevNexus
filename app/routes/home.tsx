@@ -6,6 +6,12 @@ import StatusBadge from '~/components/StatusBadge'
 import prisma from '~/lib/db'
 import type {Route} from './+types/home'
 
+export function headers(_: Route.HeadersArgs) {
+	return {
+		'Cache-Control': 'max-age=3600, s-maxage=86400',
+	}
+}
+
 export async function loader() {
 	const latestProjects = await prisma.project.findMany({
 		select: {
@@ -18,7 +24,6 @@ export async function loader() {
 			image: {select: {id: true}},
 		},
 		orderBy: {createdAt: 'desc'},
-		take: 3,
 	})
 
 	const latestPosts = await prisma.post.findMany({

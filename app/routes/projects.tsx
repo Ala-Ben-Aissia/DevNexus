@@ -1,4 +1,5 @@
-import {AnimatePresence, motion} from 'motion/react'
+import type {Project} from 'generated/prisma/browser'
+import {motion} from 'motion/react'
 import Pagination from '~/components/Pagination'
 import ProjectCard from '~/components/ProjectCard'
 import {usePage} from '~/hooks/usePage'
@@ -41,18 +42,33 @@ export function meta({}: Route.MetaArgs) {
 
 const perPage = 3
 
+// const cache = new Map<'projects', (Project & {image: {id: string} | null})[]>()
+
+// const getProjects = async () => {
+// 	if (cache.has('projects')) return cache.get('projects')
+// 	const projects = await prisma.$queryRaw<(Project & {image: {id: string} | null})[]>`
+// 	SELECT p.id, p.title, p.description, p."createdAt", i.id as "imageId"
+// 	FROM "Project" p
+// 	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
+// 	ORDER BY p."createdAt" DESC
+// 	`
+// 	cache.set('projects', projects)
+// 	return projects
+// }
+
+export function headers(_: Route.HeadersArgs) {
+	return {
+		'Cache-Control': 'max-age=3600, s-maxage=86400',
+	}
+}
+
 export async function loader() {
-	const projects = await prisma.project.findMany({
-		select: {
-			id: true,
-			title: true,
-			description: true,
-			createdAt: true,
-			image: {select: {id: true}},
-		},
-		take: perPage,
-		orderBy: {createdAt: 'desc'},
-	})
+	const projects = await prisma.$queryRaw<(Project & {image: {id: string} | null})[]>`
+	SELECT p.id, p.title, p.description, p."createdAt", i.id as "imageId"
+	FROM "Project" p
+	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
+	ORDER BY p."createdAt" DESC
+	`
 	return projects
 }
 
@@ -121,32 +137,28 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 				))}
 			</div> */}
 
-			<AnimatePresence mode="wait">
-				<motion.div
-					layout
-					className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12"
-					style={{
-						containerType: 'inline-size',
-					}}
-				>
-					{displayedProject.map((project, index) => (
-						<motion.div
-							layout
-							key={project.id}
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
-							exit={{opacity: 0, y: -20}}
-							transition={{
-								duration: 0.2,
-								delay: index * 0.1,
-								ease: 'easeOut',
-							}}
-						>
-							<ProjectCard project={project} />
-						</motion.div>
-					))}
-				</motion.div>
-			</AnimatePresence>
+			<motion.div
+				layout
+				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12"
+				style={{containerType: 'inline-size'}}
+			>
+				{displayedProject.map((project, index) => (
+					<motion.div
+						layout
+						key={project.id}
+						initial={{opacity: 0, y: 20}}
+						animate={{opacity: 1, y: 0}}
+						exit={{opacity: 0, y: -20}}
+						transition={{
+							duration: 0.2,
+							delay: index * 0.1,
+							ease: 'easeOut',
+						}}
+					>
+						<ProjectCard project={project} />
+					</motion.div>
+				))}
+			</motion.div>
 
 			<div className="flex justify-center mt-16 animate-fade-in-up">
 				<Pagination
