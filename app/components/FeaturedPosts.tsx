@@ -23,7 +23,7 @@ function HeroFeaturedPost({post}: {post: Post}) {
 			}}
 			className="group relative"
 		>
-			<Link to={`/blog/${post.id}`} className="block">
+			<Link to={`/blog/${post.slug}`} className="block">
 				<div className="relative bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-2xl lg:rounded-[2rem] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700 overflow-hidden">
 					{/* Animated gradient overlay */}
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 via-transparent to-[var(--color-accent-hover)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -189,7 +189,7 @@ function SecondaryPostCard({post}: {post: Post; index: number}) {
 			}}
 			className="group h-full"
 		>
-			<Link to={`/blog/${post.id}`} className="block h-full">
+			<Link to={`/blog/${post.slug}`} className="block h-full">
 				<div className="relative h-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 overflow-hidden hover:shadow-xl hover:shadow-[var(--color-accent)]/5 flex flex-col">
 					{/* Subtle hover gradient */}
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/0 to-[var(--color-accent)]/0 group-hover:from-[var(--color-accent)]/5 group-hover:to-transparent transition-all duration-500"></div>
@@ -288,15 +288,7 @@ function SecondaryPostCard({post}: {post: Post; index: number}) {
 }
 
 export default function FeaturedPosts({posts}: {posts: Post[]}) {
-	const latestPosts = posts
-		.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-		.slice(0, 3)
-
-	if (latestPosts.length === 0) {
-		return null
-	}
-
-	const [heroPost, ...secondaryPosts] = latestPosts
+	const [heroPost, ...secondaryPosts] = posts
 
 	return (
 		<div className="relative">

@@ -158,17 +158,17 @@ function SecondaryProjectCard({project}: {project: Project}) {
 							whileHover={{scale: 1.08}}
 							transition={{duration: 0.6, ease: 'easeOut'}}
 						/>
-
 						{/* Gradient overlay */}
-						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/30 to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-[var(--color-primary)]"></div>
-
+						```typescriptreact
+						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/70 via-[var(--color-primary)]/30 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/60 lg:to-[var(--color-primary)]"></div>
+						```
 						{/* Category badge - smaller */}
-						{/* <div className="absolute top-3 left-3 z-10">
-							<span className="px-2 py-1 bg-white/10 backdrop-blur-xl text-white/90 text-xs font-semibold rounded-full border border-white/20">
-								{project.category}
+						<div className="absolute top-3 left-3 z-10">
+							<span className="px-2 py-1 bg-white/10 backdrop-blur-xl text-gray-600 text-xs font-semibold rounded-full border border-white/20">
+								{/* {project.category} */}
+								fullstack
 							</span>
-						</div> */}
-
+						</div>
 						{/* Status indicator - smaller */}
 						<div className="absolute top-3 right-3 z-10">
 							<div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-lg shadow-emerald-500/50"></div>
@@ -203,9 +203,9 @@ function SecondaryProjectCard({project}: {project: Project}) {
 							<Button text="View Details" to={`/projects/${project.id}`} />
 
 							{/* Live Site Link */}
-							{/* {project.url && (
+							{project.liveUrl && (
 								<a
-									href={project.url}
+									href={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="group/link inline-flex items-center justify-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-[var(--color-tertiary)] border border-[var(--color-border)] hover:border-[var(--color-accent)] rounded-full transition-all duration-500 text-[var(--color-text)] hover:bg-[var(--color-secondary)] font-medium text-sm sm:text-base hover-lift whitespace-nowrap flex-shrink-0"
@@ -226,10 +226,10 @@ function SecondaryProjectCard({project}: {project: Project}) {
 									</svg>
 									<span>Live Site</span>
 								</a>
-							)} */}
+							)}
 
 							{/* GitHub Link */}
-							{/* {project.githubUrl && (
+							{project.githubUrl && (
 								<a
 									href={project.githubUrl}
 									target="_blank"
@@ -246,7 +246,7 @@ function SecondaryProjectCard({project}: {project: Project}) {
 									</svg>
 									<span className="whitespace-nowrap">GitHub</span>
 								</a>
-							)} */}
+							)}
 						</div>
 					</div>
 				</div>

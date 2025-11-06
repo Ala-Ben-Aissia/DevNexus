@@ -1,5 +1,4 @@
 import ReactMarkdown from 'react-markdown'
-import {Link} from 'react-router'
 import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
 import Copy from '~/components/Copy'
@@ -277,29 +276,9 @@ export default function PostPage({loaderData: post}: Route.ComponentProps) {
 							transition={{duration: 0.5}}
 							className="sticky top-0 z-50 bg-[var(--color-primary)]/80 backdrop-blur-xl border-b border-[var(--color-border)]"
 						>
-							<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-								<Link
-									to="/projects"
-									className="group inline-flex items-center gap-2 sm:gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)] transition-all duration-300"
-								>
-									<div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] group-hover:border-[var(--color-accent)] rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 hover-lift">
-										<svg
-											className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:-translate-x-1"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={1.5}
-												d="M15 19l-7-7 7-7"
-											/>
-										</svg>
-									</div>
-									<span className="font-medium text-sm sm:text-base">View all Posts</span>
-								</Link>
-							</div>
+							<NavButton relative="path" to="..">
+								Back to blog
+							</NavButton>
 						</motion.div>
 
 						<div className="flex items-center gap-[var(--space-s)]">
