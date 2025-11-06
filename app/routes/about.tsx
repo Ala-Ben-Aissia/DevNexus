@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
-import type { Route } from "./+types/about";
 import { Link } from "react-router";
 import StatusBadge from "~/components/StatusBadge";
+import type { Route } from "./+types/about";
 
 export function meta({}: Route.MetaArgs) {
   const title = "Dev Nexus | About";

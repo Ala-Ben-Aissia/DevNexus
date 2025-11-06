@@ -24,7 +24,7 @@ async function generateProjects() {
 				...projects[i],
 				image: {
 					create: {
-						blob: await loadImage('./public/images/empty.jpg'),
+						blob: await loadImage('./app/assets/empty.jpg'),
 						contentType: 'image/jpg',
 						altText: projects[i].title,
 					},
