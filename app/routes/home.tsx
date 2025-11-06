@@ -13,6 +13,8 @@ export async function loader() {
 			title: true,
 			description: true,
 			createdAt: true,
+			liveUrl: true,
+			githubUrl: true,
 			image: {select: {id: true}},
 		},
 		orderBy: {createdAt: 'desc'},

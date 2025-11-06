@@ -13,10 +13,6 @@ function HeroFeaturedProject({project}: {project: Project}) {
 			className="relative"
 			initial={{opacity: 1, y: 0}}
 			animate={{opacity: 1, y: 0}}
-			transition={{
-				duration: 0.6,
-				ease: [0.25, 0.46, 0.45, 0.94],
-			}}
 		>
 			<div className="relative w-full bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-xl lg:rounded-3xl overflow-hidden border border-[var(--color-border)]">
 				{/* Animated gradient overlay */}
@@ -25,9 +21,9 @@ function HeroFeaturedProject({project}: {project: Project}) {
 				{/* Subtle outer glow */}
 				<div className="absolute -inset-[1px] bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-accent-hover)] to-[var(--color-accent)] opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-700 -z-10"></div>
 
-				<div className="flex flex-col lg:grid lg:grid-cols-2 w-full">
+				<div className="flex flex-col lg:grid lg:grid-cols-2 w-full lg:min-h-[500px] xl:min-h-[600px]">
 					{/* Image Section */}
-					<div className="relative w-full h-64 sm:h-80 lg:h-[400px] xl:h-[480px] overflow-hidden">
+					<div className="relative w-full h-64 sm:h-80 lg:h-auto overflow-hidden">
 						{/* Image with parallax effect */}
 						<motion.img
 							src={getProjectImageSrc(project.image?.id)}
@@ -42,19 +38,13 @@ function HeroFeaturedProject({project}: {project: Project}) {
 
 						{/* Status Badge */}
 						<div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20">
-							{/* <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 shadow-xl">
-                <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                <span className="text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap">
-                  Live Project
-                </span>
-              </div> */}
 							<StatusBadge variant="success" text="Live Project" className="text-xs" />
 						</div>
 
 						{/* Category Badge */}
-						{/* <div className="absolute top-4 sm:top-6 text-xs right-0 sm:right-6 z-20">
-							<StatusBadge variant="info" text={project.category} />
-						</div> */}
+						<div className="absolute top-4 sm:top-6 text-xs right-4 sm:right-6 z-20">
+							<StatusBadge variant="info" text={'Full-Stack'} />
+						</div>
 
 						{/* Featured Badge */}
 						<div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20">
@@ -93,10 +83,10 @@ function HeroFeaturedProject({project}: {project: Project}) {
 								<Button text="View Project" to={`/projects/${project.id}`} />
 
 								{/* Live Site Link */}
-								{/* {project.url && (
+								{project.liveUrl && (
 									<Button
 										text="Live Site"
-										to={`${project.url}`}
+										to={`${project.liveUrl}`}
 										icon={
 											<svg
 												className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 transition-transform duration-300 group-hover/link:translate-x-0.5"
@@ -113,10 +103,10 @@ function HeroFeaturedProject({project}: {project: Project}) {
 											</svg>
 										}
 									/>
-								)} */}
+								)}
 
 								{/* GitHub Link */}
-								{/* {project.githubUrl && (
+								{project.githubUrl && (
 									<Button
 										to={`${project.githubUrl}`}
 										icon={
@@ -130,7 +120,7 @@ function HeroFeaturedProject({project}: {project: Project}) {
 										}
 										text="GitHub"
 									/>
-								)} */}
+								)}
 							</div>
 						</div>
 					</div>

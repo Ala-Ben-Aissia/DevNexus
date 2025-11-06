@@ -92,10 +92,9 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 	if (posts.length === 0) {
 		return (
-			<div className="space-y-12 lg:space-y-16">
-				{/* Header Section */}
-				<div className="text-center space-y-6 animate-fade-in-up relative">
-					{/* Writing status badge */}
+			<div className="w-full overflow-x-hidden space-y-20 lg:space-y-32">
+				{/* Hero Section */}
+				<div className="w-full text-center space-y-12 lg:space-y-16 relative px-4 sm:px-6">
 					<div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-full text-blue-700 dark:text-blue-300 text-fluid-sm font-medium mb-4">
 						<svg
 							className="w-4 h-4"
@@ -150,7 +149,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 	return (
 		<div className="space-y-12 lg:space-y-16">
 			{/* Header Section */}
-			<div className="text-center space-y-6 animate-fade-in-up relative">
+			<div className="text-center space-y-6 relative">
 				{/* Publishing status badge */}
 				<StatusBadge text="Publishing weekly insights" variant="success" />
 
