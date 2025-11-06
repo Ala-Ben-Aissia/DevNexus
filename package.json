@@ -5,9 +5,11 @@
 	"scripts": {
 		"build": "react-router build",
 		"dev": "react-router dev",
-		"start": "react-router-serve ./build/server/*/index.js",
+		"start": "DATABASE_URL='file:./dev.db' react-router-serve ./build/server/*/index.js",
 		"typecheck": "react-router typegen && tsc",
-		"server": "json-server ./data/db.json --port 8000"
+		"server": "json-server ./data/db.json --port 8000",
+		"postinstall": "prisma generate",
+		"vercel-build": "prisma generate && prisma migrate deploy && react-router build"
 	},
 	"dependencies": {
 		"@prisma/client": "^6.19.0",

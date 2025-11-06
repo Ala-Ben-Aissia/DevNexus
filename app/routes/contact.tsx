@@ -19,12 +19,6 @@ const formSchema = z.object({
 		.trim(),
 })
 
-type FormData = z.infer<typeof formSchema>
-
-type ActionResponse =
-	| {success: true; message: string; data: FormData}
-	| {success: false; message: string; field?: string}
-
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Contact'
 	return [
@@ -93,6 +87,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function ContactPage({actionData}: Route.ComponentProps) {
 	const [showMessage, setShowMessage] = useState(false)
+	// console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
 	useEffect(() => {
 		if (actionData) {
