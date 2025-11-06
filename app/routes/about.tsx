@@ -143,10 +143,7 @@ export default function AboutPage() {
 			</div>
 
 			{/* Hero Section with Profile */}
-			<div
-				className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center animate-fade-in-up"
-				style={{animationDelay: '0.1s'}}
-			>
+			<div className="grid lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center animate-fade-in-up">
 				{/* Profile Image */}
 				<div className="lg:col-span-2 flex justify-center">
 					<div className="relative group">
@@ -215,7 +212,7 @@ export default function AboutPage() {
 
 			{/* Journey Timeline */}
 			{/* Journey Timeline */}
-			<div className="animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+			<div className="animate-fade-in-up">
 				<div className="text-center mb-8 sm:mb-10 md:mb-12">
 					<h3 className="text-2xl sm:text-3xl md:text-fluid-3xl font-light text-[var(--color-text)] mb-3 sm:mb-4 tracking-tight px-4">
 						My <span className="font-medium">Journey</span>
@@ -284,7 +281,7 @@ export default function AboutPage() {
 			</div>
 
 			{/* Fun Facts Section */}
-			<div className="animate-fade-in-up" style={{animationDelay: '0.25s'}}>
+			<div className="animate-fade-in-up">
 				<div className="text-center mb-8 sm:mb-10 md:mb-12">
 					<h3 className="text-2xl sm:text-3xl md:text-fluid-3xl font-light text-[var(--color-text)] mb-3 sm:mb-4 tracking-tight px-4">
 						Fun <span className="font-medium">Facts</span>
@@ -320,7 +317,7 @@ export default function AboutPage() {
 			</div>
 
 			{/* Skills Section */}
-			<div className="animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+			<div className="animate-fade-in-up">
 				<div className="text-center mb-8 sm:mb-10 md:mb-12">
 					<h3 className="text-2xl sm:text-3xl md:text-fluid-3xl font-light text-[var(--color-text)] mb-3 sm:mb-4 tracking-tight px-4">
 						Core <span className="font-medium">Skills</span>
@@ -369,7 +366,7 @@ export default function AboutPage() {
 			</div>
 
 			{/* Tech Stack Section */}
-			<div className="animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+			<div className="animate-fade-in-up">
 				<div className="text-center mb-8 sm:mb-10 md:mb-12">
 					<h3 className="text-2xl sm:text-3xl md:text-fluid-3xl font-light text-[var(--color-text)] mb-3 sm:mb-4 tracking-tight px-4">
 						Tech <span className="font-medium">Stack</span>
@@ -407,10 +404,7 @@ export default function AboutPage() {
 			</div>
 
 			{/* Call to Action */}
-			<div
-				className="text-center py-12 sm:py-14 md:py-16 lg:py-20 animate-fade-in-up"
-				style={{animationDelay: '0.5s'}}
-			>
+			<div className="text-center py-12 sm:py-14 md:py-16 lg:py-20 animate-fade-in-up">
 				<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl sm:rounded-3xl border border-[var(--color-border)] p-8 sm:p-10 md:p-12 lg:p-16 hover-lift relative overflow-hidden max-w-4xl mx-auto">
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 					<div className="relative z-10">

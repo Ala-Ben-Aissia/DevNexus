@@ -145,10 +145,7 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 				</motion.div>
 			</AnimatePresence>
 
-			<div
-				className="flex justify-center mt-16 animate-fade-in-up"
-				style={{animationDelay: '0.4s'}}
-			>
+			<div className="flex justify-center mt-16 animate-fade-in-up">
 				<Pagination
 					totalPages={totalPages}
 					currentPage={currentPage}

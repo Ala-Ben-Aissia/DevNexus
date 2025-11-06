@@ -157,7 +157,7 @@ export default function ContactPage({actionData}: Route.ComponentProps) {
 			</div>
 
 			{/* FAQ Section */}
-			<div className="animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+			<div className="animate-fade-in-up">
 				<div className="text-center mb-12">
 					<h2 className="text-fluid-2xl lg:text-fluid-3xl font-light text-[var(--color-text)] mb-4 tracking-tight">
 						Frequently Asked <span className="font-medium">Questions</span>
@@ -208,10 +208,7 @@ export default function ContactPage({actionData}: Route.ComponentProps) {
 
 			<div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
 				{/* Contact Info */}
-				<div
-					className="lg:col-span-2 space-y-8 animate-fade-in-up"
-					style={{animationDelay: '0.1s'}}
-				>
+				<div className="lg:col-span-2 space-y-8 animate-fade-in-up">
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-8 lg:p-10 hover-lift relative overflow-hidden">
 						<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 						<div className="relative z-10 space-y-8">
@@ -374,10 +371,7 @@ export default function ContactPage({actionData}: Route.ComponentProps) {
 				</div>
 
 				{/* Contact Form */}
-				<div
-					className="lg:col-span-3 animate-fade-in-up"
-					style={{animationDelay: '0.2s'}}
-				>
+				<div className="lg:col-span-3 animate-fade-in-up">
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-8 lg:p-10 hover-lift relative overflow-hidden">
 						<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 						<div className="relative z-10">

@@ -196,10 +196,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			</div>
 
 			{/* Search Bar */}
-			<div
-				className="max-w-2xl mx-auto animate-fade-in-up"
-				style={{animationDelay: '0.1s'}}
-			>
+			<div className="max-w-2xl mx-auto animate-fade-in-up">
 				<div className="relative group">
 					<div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
 						<svg
@@ -267,10 +264,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			</div>
 
 			{/* Categories Filter */}
-			<div
-				className="flex flex-wrap justify-center gap-3 animate-fade-in-up"
-				style={{animationDelay: '0.15s'}}
-			>
+			<div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
 				{categories.map((category, index) => (
 					<button
 						key={category}
@@ -283,7 +277,6 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 								? 'bg-[var(--color-accent)] text-[var(--color-text)] border-[var(--color-accent)] shadow-md'
 								: 'bg-[var(--color-secondary)] text-[var(--color-text-light)] border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-tertiary)]'
 						}`}
-						style={{animationDelay: `${index * 0.1}s`}}
 					>
 						<span className="relative z-10 flex items-center gap-2">
 							{category === 'All' && (
@@ -369,7 +362,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 			{/* Newsletter Signup */}
 			{filteredPosts.length > 0 && (
-				<div className="animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+				<div className="animate-fade-in-up">
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl border border-[var(--color-border)] p-6 hover-lift relative overflow-hidden max-w-2xl mx-auto">
 						<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 						<div className="relative z-10 text-center">
@@ -415,11 +408,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			{/* Blog Posts - Vertical Layout */}
 			{filteredPosts.length > 0 && (
 				<AnimatePresence mode="wait">
-					<motion.div
-						layout
-						className="space-y-8 lg:space-y-12"
-						style={{animationDelay: '0.2s'}}
-					>
+					<motion.div layout className="space-y-8 lg:space-y-12">
 						{displayedPosts.map((post, index) => (
 							<motion.div
 								layout
@@ -433,7 +422,6 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 									ease: [0.25, 0.46, 0.45, 0.94],
 								}}
 								className="animate-fade-in-up"
-								style={{animationDelay: `${0.3 + index * 0.1}s`}}
 							>
 								<PostCard post={post} />
 							</motion.div>
@@ -444,10 +432,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 			{/* Pagination */}
 			{totalPages > 1 && filteredPosts.length > 0 && (
-				<div
-					className="flex justify-center mt-16 lg:mt-20 animate-fade-in-up"
-					style={{animationDelay: '0.4s'}}
-				>
+				<div className="flex justify-center mt-16 lg:mt-20 animate-fade-in-up">
 					<Pagination
 						totalPages={totalPages}
 						currentPage={currentPage}
@@ -459,10 +444,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			)}
 
 			{/* Call to Action */}
-			<div
-				className="text-center py-16 lg:py-20 animate-fade-in-up"
-				style={{animationDelay: '0.6s'}}
-			>
+			<div className="text-center py-16 lg:py-20 animate-fade-in-up">
 				<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 hover-lift relative overflow-hidden max-w-4xl mx-auto">
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
 					{/* Floating elements */}
