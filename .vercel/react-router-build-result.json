@@ -1,0 +1,278 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "root": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/about": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/contact": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/projects": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/project": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/blog": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/post": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/badge-showcase": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/resources/project-image": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/not-found": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "app/root.tsx",
+        "path": "",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/layouts/home": {
+        "id": "routes/layouts/home",
+        "parentId": "root",
+        "file": "app/routes/layouts/home.tsx",
+        "config": {}
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "routes/layouts/home",
+        "file": "app/routes/home.tsx",
+        "index": true,
+        "config": {}
+      },
+      "routes/layouts/main": {
+        "id": "routes/layouts/main",
+        "parentId": "root",
+        "file": "app/routes/layouts/main.tsx",
+        "config": {}
+      },
+      "routes/about": {
+        "id": "routes/about",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/about.tsx",
+        "path": "about",
+        "config": {}
+      },
+      "routes/contact": {
+        "id": "routes/contact",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/contact.tsx",
+        "path": "contact",
+        "config": {}
+      },
+      "routes/projects": {
+        "id": "routes/projects",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/projects.tsx",
+        "path": "projects",
+        "config": {}
+      },
+      "routes/project": {
+        "id": "routes/project",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/project.tsx",
+        "path": "projects/:id",
+        "config": {}
+      },
+      "routes/blog": {
+        "id": "routes/blog",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/blog.tsx",
+        "path": "blog",
+        "config": {}
+      },
+      "routes/post": {
+        "id": "routes/post",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/post.tsx",
+        "path": "blog/:slug",
+        "config": {}
+      },
+      "routes/badge-showcase": {
+        "id": "routes/badge-showcase",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/badge-showcase.tsx",
+        "path": "badge-showcase",
+        "config": {}
+      },
+      "routes/resources/project-image": {
+        "id": "routes/resources/project-image",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/resources/project-image.ts",
+        "path": "resources/project-image/:imageId",
+        "config": {}
+      },
+      "routes/not-found": {
+        "id": "routes/not-found",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/not-found.tsx",
+        "path": "*",
+        "config": {}
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "/Users/alabenaissia/code/React/dev-nexus/app",
+    "basename": "/",
+    "buildDirectory": "/Users/alabenaissia/code/React/dev-nexus/build",
+    "future": {
+      "v8_middleware": false,
+      "unstable_optimizeDeps": false,
+      "unstable_splitRouteModules": false,
+      "unstable_subResourceIntegrity": false,
+      "unstable_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "id": "root",
+        "file": "root.tsx",
+        "path": ""
+      },
+      "routes/layouts/home": {
+        "id": "routes/layouts/home",
+        "parentId": "root",
+        "file": "routes/layouts/home.tsx"
+      },
+      "routes/home": {
+        "id": "routes/home",
+        "parentId": "routes/layouts/home",
+        "file": "routes/home.tsx",
+        "index": true
+      },
+      "routes/layouts/main": {
+        "id": "routes/layouts/main",
+        "parentId": "root",
+        "file": "routes/layouts/main.tsx"
+      },
+      "routes/about": {
+        "id": "routes/about",
+        "parentId": "routes/layouts/main",
+        "file": "routes/about.tsx",
+        "path": "about"
+      },
+      "routes/contact": {
+        "id": "routes/contact",
+        "parentId": "routes/layouts/main",
+        "file": "routes/contact.tsx",
+        "path": "contact"
+      },
+      "routes/projects": {
+        "id": "routes/projects",
+        "parentId": "routes/layouts/main",
+        "file": "routes/projects.tsx",
+        "path": "projects"
+      },
+      "routes/project": {
+        "id": "routes/project",
+        "parentId": "routes/layouts/main",
+        "file": "routes/project.tsx",
+        "path": "projects/:id"
+      },
+      "routes/blog": {
+        "id": "routes/blog",
+        "parentId": "routes/layouts/main",
+        "file": "routes/blog.tsx",
+        "path": "blog"
+      },
+      "routes/post": {
+        "id": "routes/post",
+        "parentId": "routes/layouts/main",
+        "file": "routes/post.tsx",
+        "path": "blog/:slug"
+      },
+      "routes/badge-showcase": {
+        "id": "routes/badge-showcase",
+        "parentId": "routes/layouts/main",
+        "file": "routes/badge-showcase.tsx",
+        "path": "badge-showcase"
+      },
+      "routes/resources/project-image": {
+        "id": "routes/resources/project-image",
+        "parentId": "routes/layouts/main",
+        "file": "routes/resources/project-image.ts",
+        "path": "resources/project-image/:imageId"
+      },
+      "routes/not-found": {
+        "id": "routes/not-found",
+        "parentId": "routes/layouts/main",
+        "file": "routes/not-found.tsx",
+        "path": "*"
+      }
+    },
+    "routeDiscovery": {
+      "mode": "lazy",
+      "manifestPath": "/__manifest"
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true,
+    "unstable_routeConfig": [
+      {
+        "id": "root",
+        "path": "",
+        "file": "root.tsx",
+        "children": [
+          {
+            "file": "routes/layouts/home.tsx",
+            "children": [
+              {
+                "file": "routes/home.tsx",
+                "index": true
+              }
+            ]
+          },
+          {
+            "file": "routes/layouts/main.tsx",
+            "children": [
+              {
+                "file": "routes/about.tsx",
+                "path": "about"
+              },
+              {
+                "file": "routes/contact.tsx",
+                "path": "contact"
+              },
+              {
+                "file": "routes/projects.tsx",
+                "path": "projects"
+              },
+              {
+                "file": "routes/project.tsx",
+                "path": "projects/:id"
+              },
+              {
+                "file": "routes/blog.tsx",
+                "path": "blog"
+              },
+              {
+                "file": "routes/post.tsx",
+                "path": "blog/:slug"
+              },
+              {
+                "file": "routes/badge-showcase.tsx",
+                "path": "badge-showcase"
+              },
+              {
+                "file": "routes/resources/project-image.ts",
+                "path": "resources/project-image/:imageId"
+              },
+              {
+                "file": "routes/not-found.tsx",
+                "path": "*"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
