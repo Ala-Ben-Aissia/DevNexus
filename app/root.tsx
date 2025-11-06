@@ -7,6 +7,8 @@ import {
 	ScrollRestoration,
 } from 'react-router'
 
+import {Analytics} from '@vercel/analytics/react'
+import {SpeedInsights} from '@vercel/speed-insights/react'
 import type {Route} from './+types/root'
 import './app.css'
 import Navbar from './components/Navbar'
@@ -47,12 +49,12 @@ export function Layout({children}: {children: React.ReactNode}) {
 				<Links />
 			</head>
 			<body className="scroll-smooth">
-				{/* {!import.meta.env.DEV && (
+				{!import.meta.env.DEV && (
 					<>
 						<Analytics />
 						<SpeedInsights />
 					</>
-				)} */}
+				)}
 				<ThemeProvider>
 					<Navbar />
 					<main className="w-full">{children}</main>
