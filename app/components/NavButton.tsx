@@ -4,6 +4,7 @@ export function NavButton({children, ...props}: LinkProps) {
 	return (
 		<div className="max-w-7xl mx-auto py-4 sm:py-6">
 			<Link
+				prefetch="intent"
 				{...props}
 				className="group inline-flex items-center gap-2 sm:gap-3 text-[var(--color-text-light)] hover:text-[var(--color-text)]"
 			>

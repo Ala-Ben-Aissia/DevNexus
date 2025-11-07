@@ -303,6 +303,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 						>
 							{project.liveUrl && (
 								<Link
+									prefetch="intent"
 									to={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
@@ -390,6 +391,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 							</p>
 							<div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-3 sm:gap-4">
 								<Link
+									prefetch="intent"
 									to="/contact"
 									className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-sm sm:text-base relative overflow-hidden w-full sm:w-auto sm:min-w-[200px]"
 								>
@@ -410,6 +412,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 									<div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
 								</Link>
 								<Link
+									prefetch="intent"
 									to="/projects"
 									className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-sm sm:text-base w-full sm:w-auto sm:min-w-[200px]"
 								>

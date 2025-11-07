@@ -34,7 +34,8 @@ function HeroFeaturedProject({project}: {project: Project}) {
 						/>
 
 						{/* Gradient overlay */}
-						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[var(--color-primary)]"></div>
+						{/* <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[var(--color-primary)]"></div> */}
+						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/60 via-[var(--color-primary)]/40 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/40 lg:to-[var(--color-primary)]/60"></div>
 
 						{/* Status Badge */}
 						<div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20">
@@ -159,9 +160,9 @@ function SecondaryProjectCard({project}: {project: Project}) {
 							transition={{duration: 0.6, ease: 'easeOut'}}
 						/>
 						{/* Gradient overlay */}
-						```typescriptreact
-						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/70 via-[var(--color-primary)]/30 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/60 lg:to-[var(--color-primary)]"></div>
-						```
+
+						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/60 via-[var(--color-primary)]/40 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/40 lg:to-[var(--color-primary)]/60"></div>
+
 						{/* Category badge - smaller */}
 						<div className="absolute top-3 left-3 z-10">
 							<span className="px-2 py-1 bg-white/10 backdrop-blur-xl text-gray-600 text-xs font-semibold rounded-full border border-white/20">
@@ -305,6 +306,7 @@ export default function FeaturedProjects({
 						transition={{duration: 0.6, delay: 0.6}}
 					>
 						<Link
+							prefetch="intent"
 							to="/projects"
 							className="group inline-flex items-center gap-3 sm:gap-4 px-8 sm:px-10 lg:px-14 py-3 sm:py-4 lg:py-5 bg-gradient-to-r from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] hover:from-[var(--color-tertiary)] hover:to-[var(--color-tertiary)] text-[var(--color-text)] rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 font-semibold text-sm sm:text-base relative overflow-hidden shadow-lg shadow-transparent hover:shadow-[var(--color-accent)]/10"
 						>

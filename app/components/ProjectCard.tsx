@@ -13,7 +13,7 @@ export default function ProjectCard({
 }) {
 	// const {theme} = useTheme()
 	return (
-		<Link to={`/projects/${project.id}`}>
+		<Link prefetch="intent" to={`/projects/${project.id}`}>
 			<article
 				key={project.id}
 				className="group bg-[var(--color-secondary)] rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover-lift transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-accent)] h-full flex flex-col gpu-accelerated"
