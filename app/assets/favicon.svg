@@ -1,0 +1,49 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+  <style>
+    /* Default: Light mode */
+      .logo-fill { fill: #000000; }
+      .logo-text { fill: #FFFFFF; }
+
+    /* Dark mode: Auto-detect via prefers-color-scheme */
+    @media (prefers-color-scheme: dark) {
+      .logo-fill { fill: #ffffff; }
+      .logo-text { fill: #000000; }
+    }
+  </style>
+
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="25%" y2="50%">
+      <stop offset="0%" stop-color="currentColor" />
+      <stop offset="100%" stop-color="currentColor" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer hexagon outline -->
+  <path
+    d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z"
+    fill="none"
+    stroke="lightgray"
+    stroke-width="8"
+    opacity="0.6"
+  />
+
+  <!-- Inner filled hexagon -->
+  <path
+    class="logo-fill"
+    d="M50 20 L75 35 L75 65 L50 80 L25 65 L25 35 Z"
+  />
+
+  <!-- Centered "A" -->
+  <text
+    class="logo-text"
+    x="50"
+    y="50"
+    font-family="system-ui, sans-serif"
+    font-size="48"
+    font-weight="bold"
+    text-anchor="middle"
+    dominant-baseline="central"
+  >
+    A
+  </text>
+</svg>
