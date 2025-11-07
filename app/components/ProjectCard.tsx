@@ -3,15 +3,10 @@ import {Link} from 'react-router'
 import {getProjectImageSrc} from '~/utils/misc'
 
 type Project = Omit<P, 'updatedAt' | 'githubUrl' | 'liveUrl'> & {
-	image: {id: string} | null
+	imageId?: string
 }
 
-export default function ProjectCard({
-	project,
-}: {
-	project: Omit<Project, 'updatedAt'> & {image: {id: string} | null}
-}) {
-	// const {theme} = useTheme()
+export default function ProjectCard({project}: {project: Project}) {
 	return (
 		<Link prefetch="intent" to={`/projects/${project.id}`}>
 			<article
@@ -20,8 +15,7 @@ export default function ProjectCard({
 			>
 				<div className="aspect-[16/10] w-full overflow-hidden relative">
 					<img
-						// src={theme === 'dark' ? project.image.url : project.imageLight?.url}
-						src={getProjectImageSrc(project.image?.id)}
+						src={getProjectImageSrc(project.imageId)} // from raw sql
 						alt={project.title}
 						className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
 						loading="lazy"

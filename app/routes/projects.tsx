@@ -1,5 +1,6 @@
 import type {Project} from 'generated/prisma/browser'
 import {motion} from 'motion/react'
+import {data} from 'react-router'
 import Pagination from '~/components/Pagination'
 import ProjectCard from '~/components/ProjectCard'
 import {usePage} from '~/hooks/usePage'
@@ -56,20 +57,20 @@ const perPage = 3
 // 	return projects
 // }
 
-export function headers(_: Route.HeadersArgs) {
-	return {
-		'Cache-Control': 'max-age=3600, s-maxage=86400',
-	}
-}
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
+// 	}
+// }
 
 export async function loader() {
-	const projects = await prisma.$queryRaw<(Project & {image: {id: string} | null})[]>`
+	const projects = await prisma.$queryRaw<(Project & {imageId?: string})[]>`
 	SELECT p.id, p.title, p.description, p."createdAt", i.id as "imageId"
 	FROM "Project" p
 	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
 	ORDER BY p."createdAt" DESC
 	`
-	return projects
+	return data(projects).data
 }
 
 export default function ProjectsPage({loaderData: projects}: Route.ComponentProps) {

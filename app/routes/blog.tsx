@@ -61,7 +61,6 @@ export async function loader({}: Route.LoaderArgs) {
 			createdAt: true,
 		},
 		orderBy: {createdAt: 'desc'},
-		take: perPage,
 	})
 	return posts
 }
