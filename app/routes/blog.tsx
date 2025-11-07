@@ -1,4 +1,4 @@
-import {AnimatePresence, motion} from 'motion/react'
+import {AnimatePresence} from 'motion/react'
 import {useState} from 'react'
 import {Link} from 'react-router'
 import Pagination from '~/components/Pagination'
@@ -260,14 +260,14 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 				{/* Search results count */}
 				{searchQuery && (
-					<motion.div
-						initial={{opacity: 0, y: -10}}
-						animate={{opacity: 1, y: 0}}
+					<div
+						// initial={{opacity: 0, y: -10}}
+						// animate={{opacity: 1, y: 0}}
 						className="mt-3 text-center text-fluid-sm text-[var(--color-text-light)]"
 					>
 						Found {filteredPosts.length} article
 						{filteredPosts.length !== 1 ? 's' : ''} matching "{searchQuery}"
-					</motion.div>
+					</div>
 				)}
 			</div>
 
@@ -328,9 +328,9 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 			{/* No results message */}
 			{filteredPosts.length === 0 && searchQuery && (
-				<motion.div
-					initial={{opacity: 0, y: 20}}
-					animate={{opacity: 1, y: 0}}
+				<div
+					// initial={{opacity: 0, y: 20}}
+					// animate={{opacity: 1, y: 0}}
 					className="text-center py-16 animate-fade-in-up"
 				>
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 text-center hover-lift relative overflow-hidden max-w-2xl mx-auto">
@@ -365,7 +365,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 							</button>
 						</div>
 					</div>
-				</motion.div>
+				</div>
 			)}
 
 			{/* Newsletter Signup */}
@@ -416,25 +416,25 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			{/* Blog Posts - Vertical Layout */}
 			{filteredPosts.length > 0 && (
 				<AnimatePresence mode="wait">
-					<motion.div layout className="space-y-8 lg:space-y-12">
+					<div className="space-y-8 lg:space-y-12">
 						{displayedPosts.map((post, index) => (
-							<motion.div
-								layout
+							<div
+								// layout
 								key={post.id}
-								initial={{opacity: 0, y: 30}}
-								animate={{opacity: 1, y: 0}}
-								exit={{opacity: 0, y: -30}}
-								transition={{
-									duration: 0.6,
-									delay: index * 0.1,
-									ease: [0.25, 0.46, 0.45, 0.94],
-								}}
+								// initial={{opacity: 0, y: 30}}
+								// animate={{opacity: 1, y: 0}}
+								// exit={{opacity: 0, y: -30}}
+								// transition={{
+								// 	duration: 0.6,
+								// 	delay: index * 0.1,
+								// 	ease: [0.25, 0.46, 0.45, 0.94],
+								// }}
 								className="animate-fade-in-up"
 							>
 								<PostCard post={post} />
-							</motion.div>
+							</div>
 						))}
-					</motion.div>
+					</div>
 				</AnimatePresence>
 			)}
 

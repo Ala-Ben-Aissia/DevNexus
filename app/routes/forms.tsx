@@ -1,7 +1,7 @@
 import {useForm} from '@conform-to/react'
-import {parseWithZod} from '@conform-to/zod/v4'
+import {getZodConstraint, parseWithZod} from '@conform-to/zod/v4'
 import {useId, useState} from 'react'
-import {Form, redirect, useActionData} from 'react-router'
+import {data, Form, redirect, useActionData} from 'react-router'
 import z from 'zod'
 import prisma from '~/lib/db'
 import type {Route} from '../routes/+types/project'
@@ -79,52 +79,49 @@ const schema = z.object({
 			DESCRIPTION_MAX_LENGTH,
 			`Description must not exceed ${DESCRIPTION_MAX_LENGTH} characters`
 		),
-	image: z.object({
-		file: z
-			.instanceof(File, {message: 'Please provide a valid image file.'})
-			.refine(file => file.size <= MAX_UPLOAD_SIZE, 'File size must be less than 3MB')
-			.refine(
-				file => ACCEPTED_IMAGE_TYPES.includes(file.type),
-				'Unsupported file format. Only JPG, JPEG, PNG, or WEBP images are allowed.'
-			)
-			.optional(),
-		contentType: z.string().optional(),
-		altText: z.string().optional(),
-	}),
+	image: z
+		.instanceof(File, {message: 'Please provide a valid image file.'})
+		.refine(file => file.size > 0, 'Image is required')
+		.refine(file => file.size <= MAX_UPLOAD_SIZE, 'File size must be less than 3MB')
+		.refine(
+			file => ACCEPTED_IMAGE_TYPES.includes(file.type),
+			'Unsupported file format. Only JPG, JPEG, PNG, or WEBP images are allowed.'
+		)
+		.optional(),
 	githubUrl: z.url().optional(),
 	liveUrl: z.url().optional(),
 })
 
-type Image = z.infer<typeof schema>['image']
-
 export async function action({request}: Route.ActionArgs) {
 	const formData = await request.formData()
-	const submission = parseWithZod(formData, {
-		schema: schema.transform(value => {
-			const image = formData.get('image') as File
-			if (image.size === 0) return {...value, imagePromise: Promise.resolve(undefined)}
-			return {
-				...value,
-				imagePromise: [1].map(async () => {
-					const arrayBuffer = await image.arrayBuffer()
-					return {
-						blob: Buffer.from(arrayBuffer),
-						contentType: image.type,
-						altText: value.title,
-					}
-				})[0],
-			}
-		}),
-	})
+
+	const submission = parseWithZod(formData, {schema})
+
 	if (submission.status !== 'success') {
-		return submission.reply()
+		return data({errors: submission.reply()}, {status: 400})
 	}
 
-	const {title, description, githubUrl, liveUrl, imagePromise} = submission.value
-	const image = await imagePromise
+	const {title, description, githubUrl, liveUrl, image} = submission.value
+	const blob = image && Buffer.from(await image.arrayBuffer())
 
 	await prisma.project.create({
-		data: {title, description, githubUrl, liveUrl, image: {create: image}},
+		data: {
+			title,
+			description,
+			githubUrl,
+			liveUrl,
+			...(blob
+				? {
+						image: {
+							create: {
+								blob,
+								contentType: image.type,
+								altText: title,
+							},
+						},
+				  }
+				: {}),
+		},
 	})
 
 	return redirect('/projects')
@@ -134,8 +131,9 @@ export default function CreateProjectForm() {
 	const [previewImage, setPreviewImage] = useState<string | null>(null)
 	const lastResult = useActionData<typeof action>()
 	const [form, fields] = useForm({
+		constraint: getZodConstraint(schema),
 		// Sync the result of last submission
-		lastResult,
+		lastResult: lastResult?.errors,
 
 		// Reuse the validation logic on the client
 		onValidate({formData}) {

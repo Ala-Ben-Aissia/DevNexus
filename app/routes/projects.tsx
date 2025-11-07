@@ -1,5 +1,5 @@
 import type {Project} from 'generated/prisma/browser'
-import {motion} from 'motion/react'
+// import {motion} from 'motion/react'
 import {data} from 'react-router'
 import Pagination from '~/components/Pagination'
 import ProjectCard from '~/components/ProjectCard'
@@ -59,7 +59,7 @@ const perPage = 3
 
 // export function headers(_: Route.HeadersArgs) {
 // 	return {
-// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400, must-revalidate',
 // 	}
 // }
 
@@ -69,6 +69,7 @@ export async function loader() {
 	FROM "Project" p
 	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
 	ORDER BY p."createdAt" DESC
+
 	`
 	return data(projects).data
 }
@@ -138,28 +139,28 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 				))}
 			</div> */}
 
-			<motion.div
-				layout
+			<div
+				// layout
 				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12"
 				style={{containerType: 'inline-size'}}
 			>
 				{displayedProject.map((project, index) => (
-					<motion.div
-						layout
+					<div
+						// layout
 						key={project.id}
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
-						exit={{opacity: 0, y: -20}}
-						transition={{
-							duration: 0.2,
-							delay: index * 0.1,
-							ease: 'easeOut',
-						}}
+						// initial={{opacity: 0, y: 20}}
+						// animate={{opacity: 1, y: 0}}
+						// exit={{opacity: 0, y: -20}}
+						// transition={{
+						// 	duration: 0.2,
+						// 	delay: index * 0.1,
+						// 	ease: 'easeOut',
+						// }}
 					>
 						<ProjectCard project={project} />
-					</motion.div>
+					</div>
 				))}
-			</motion.div>
+			</div>
 
 			<div className="flex justify-center mt-16 animate-fade-in-up">
 				<Pagination
