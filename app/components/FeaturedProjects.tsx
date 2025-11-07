@@ -3,7 +3,6 @@ import {motion} from 'motion/react'
 import {Link} from 'react-router'
 import {getProjectImageSrc} from '~/utils/misc'
 import Button from './Button'
-import StatusBadge from './StatusBadge'
 
 type Project = Omit<Prj, 'updatedAt'> & {image: {id: string} | null}
 
@@ -32,25 +31,31 @@ function HeroFeaturedProject({project}: {project: Project}) {
 							whileHover={{scale: 1.05}}
 							transition={{duration: 0.7, ease: 'easeOut'}}
 						/>
-
 						{/* Gradient overlay */}
 						{/* <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[var(--color-primary)]"></div> */}
-						<div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/60 via-[var(--color-primary)]/40 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/40 lg:to-[var(--color-primary)]/60"></div>
-
+						<div className="z-10 absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/60 via-[var(--color-primary)]/40 to-transparent lg:bg-gradient-to-r lg:from-[var(--color-primary)]/20 lg:via-[var(--color-primary)]/40 lg:to-[var(--color-primary)]/60"></div>
 						{/* Status Badge */}
 						<div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20">
-							<StatusBadge variant="success" text="Live Project" className="text-xs" />
+							<div className="mb-12">
+								<div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-500/30 rounded-full shadow-lg">
+									<div className="relative flex items-center justify-center">
+										<div className="w-2 h-2 bg-emerald-500 rounded-full shadow-lg shadow-emerald-500/50"></div>
+										<div className="absolute w-2 h-2 bg-emerald-400 rounded-full animate-ping"></div>
+									</div>
+									<span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+										Live Project
+									</span>
+								</div>
+							</div>
 						</div>
-
 						{/* Category Badge */}
-						<div className="absolute top-4 sm:top-6 text-xs right-4 sm:right-6 z-20">
+						{/* <div className="absolute top-4 sm:top-6 text-xs right-4 sm:right-6 z-20">
 							<StatusBadge variant="info" text={'Full-Stack'} />
-						</div>
-
+						</div> */}
 						{/* Featured Badge */}
-						<div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-20">
+						{/* <div className="absolute bottom-[-1.9rem] sm:bottom-6 left-4 sm:left-6 z-20">
 							<StatusBadge variant="premium" text="⭐ Featured" />
-						</div>
+						</div> */}
 					</div>
 
 					{/* Content Section */}
