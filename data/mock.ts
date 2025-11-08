@@ -3,6 +3,15 @@ import type {Post, Project} from 'generated/prisma/browser'
 
 export const projects: Omit<Project, 'id'>[] = [
 	{
+		title: 'Eagle the master of the jungle',
+		liveUrl: 'https://example.com/',
+		githubUrl: 'https://example.com/',
+		description:
+			"Eagle's master of the jungle is a very strong creature, and it's very smart too. He can see its prey from very long distances",
+		createdAt: new Date('2025-11-15'),
+		updatedAt: new Date('2025-11-15'),
+	},
+	{
 		title: 'E-Commerce Platform Redesign',
 		liveUrl: 'https://example.com/',
 		githubUrl: 'https://example.com/',

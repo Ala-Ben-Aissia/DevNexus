@@ -7,6 +7,7 @@ import ErrorList from '~/components/ErrorList'
 import InputField from '~/components/InputField'
 import TextAreaField from '~/components/TextariaField'
 import prisma from '~/lib/db'
+import {generateBlurhash} from '~/utils/blurhash.server'
 import type {Route} from '../routes/+types/project'
 
 const TITLE_MAX_LENGTH = 50
@@ -48,27 +49,36 @@ export async function action({request}: Route.ActionArgs) {
 	}
 
 	const {title, description, githubUrl, liveUrl, image} = submission.value
-	const blob = image && Buffer.from(await image.arrayBuffer())
-
-	await prisma.project.create({
-		data: {
-			title,
-			description,
-			githubUrl,
-			liveUrl,
-			...(blob
-				? {
-						image: {
-							create: {
-								blob,
-								contentType: image.type,
-								altText: title,
-							},
-						},
-				  }
-				: {}),
-		},
-	})
+	if (image) {
+		const imageBuffer = await image.arrayBuffer()
+		const blob = Buffer.from(imageBuffer)
+		const blurhash = await generateBlurhash(imageBuffer)
+		await prisma.project.create({
+			data: {
+				title,
+				description,
+				githubUrl,
+				liveUrl,
+				image: {
+					create: {
+						blob,
+						contentType: image.type,
+						altText: title,
+						blurhash,
+					},
+				},
+			},
+		})
+	} else {
+		await prisma.project.create({
+			data: {
+				title,
+				description,
+				githubUrl,
+				liveUrl,
+			},
+		})
+	}
 
 	return redirect('/projects')
 }

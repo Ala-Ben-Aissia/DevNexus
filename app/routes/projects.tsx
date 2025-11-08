@@ -74,7 +74,7 @@ export async function loader({request}: Route.LoaderArgs) {
 				title: true,
 				description: true,
 				createdAt: true,
-				image: {select: {id: true}},
+				image: {select: {id: true, blurhash: true}},
 			},
 			orderBy: {createdAt: 'desc'},
 			skip: (page - 1) * perPage,
