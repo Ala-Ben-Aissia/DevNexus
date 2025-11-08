@@ -1,29 +1,26 @@
-import { useState } from "react";
+import {useSearchParams} from 'react-router'
 
-const PER_PAGE = 5;
+const PER_PAGE = 5
 
-export function usePage<T>({
-  list,
-  perPage = PER_PAGE,
-}: {
-  list: T[];
-  perPage?: number;
-}) {
-  perPage = perPage <= 0 ? PER_PAGE : perPage;
-  const totalPages = Math.max(1, Math.ceil(list.length / perPage));
+export function usePage<T>({list, perPage = PER_PAGE}: {list: T[]; perPage?: number}) {
+	const [searchParams, setSearchParams] = useSearchParams()
+	perPage = perPage <= 0 ? PER_PAGE : perPage
+	const totalPages = Math.max(1, Math.ceil(list.length / perPage))
+	const page = +(searchParams.get('page') || 1)
 
-  const [currentPage, setCurrentPage] = useState(1);
+	const onPageChange = (newPage: number) => {
+		if (newPage < 1) newPage = 1
+		if (newPage === page) return
+		const params = new URLSearchParams(searchParams)
+		params.set('page', String(newPage))
+		setSearchParams(params)
+	}
 
-  const onPageChange = (page: number) => {
-    if (page < 1) page = 1;
-    if (page > totalPages) page = totalPages;
-    setCurrentPage(page);
-  };
-  const goNext = () => onPageChange(currentPage + 1);
-  const goPrev = () => onPageChange(currentPage - 1);
+	const goNext = () => onPageChange(page + 1)
+	const goPrev = () => onPageChange(page - 1)
 
-  const start = perPage * (currentPage - 1);
-  const items = list.slice(start, start + perPage);
+	const start = perPage * (page - 1)
+	const items = list.slice(start, start + perPage)
 
-  return { items, totalPages, currentPage, onPageChange, goNext, goPrev };
+	return {items, totalPages, page, onPageChange, goNext, goPrev}
 }

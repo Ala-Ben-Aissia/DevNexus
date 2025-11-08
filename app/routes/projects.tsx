@@ -1,6 +1,4 @@
-import type {Project} from 'generated/prisma/browser'
 // import {motion} from 'motion/react'
-import {data} from 'react-router'
 import Pagination from '~/components/Pagination'
 import ProjectCard from '~/components/ProjectCard'
 import {usePage} from '~/hooks/usePage'
@@ -63,18 +61,33 @@ const perPage = 3
 // 	}
 // }
 
-export async function loader() {
-	const projects = await prisma.$queryRaw<(Project & {imageId?: string})[]>`
-	SELECT p.id, p.title, p.description, p."createdAt", i.id as "imageId"
-	FROM "Project" p
-	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
-	ORDER BY p."createdAt" DESC
+export async function loader({request}: Route.LoaderArgs) {
+	const url = new URL(request.url)
+	const page = Number(url.searchParams.get('page') || 1)
+	const perPage = 5
 
-	`
-	return data(projects).data
+	const [totalCount, projects] = await Promise.all([
+		prisma.project.count(),
+		prisma.project.findMany({
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				createdAt: true,
+				image: {select: {id: true}},
+			},
+			orderBy: {createdAt: 'desc'},
+			skip: (page - 1) * perPage,
+			take: perPage,
+		}),
+	])
+
+	const totalPages = Math.ceil(totalCount / perPage)
+	return {projects, page, totalPages}
 }
 
-export default function ProjectsPage({loaderData: projects}: Route.ComponentProps) {
+export default function ProjectsPage({loaderData}: Route.ComponentProps) {
+	const {projects, page, totalPages} = loaderData
 	// const [category, setCategory] = useState('All')
 
 	// const filteredProjects =
@@ -82,8 +95,6 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 
 	const {
 		items: displayedProject,
-		totalPages,
-		currentPage,
 		onPageChange,
 		goNext,
 		goPrev,
@@ -141,10 +152,10 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 
 			<div
 				// layout
-				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12"
+				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12 animate-fade-in-up"
 				style={{containerType: 'inline-size'}}
 			>
-				{displayedProject.map((project, index) => (
+				{projects.map((project, index) => (
 					<div
 						// layout
 						key={project.id}
@@ -165,7 +176,7 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 			<div className="flex justify-center mt-16 animate-fade-in-up">
 				<Pagination
 					totalPages={totalPages}
-					currentPage={currentPage}
+					currentPage={page}
 					onPageChange={onPageChange}
 					goNext={goNext}
 					goPrev={goPrev}

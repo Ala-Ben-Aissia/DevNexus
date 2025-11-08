@@ -1,33 +1,56 @@
-import { useId, type InputHTMLAttributes } from "react";
+import {useId, useState, type InputHTMLAttributes} from 'react'
 
-export function InputField({
-  type,
-  name,
-  id,
-  label,
-  ...props
-}: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
-  id ??= useId();
+export default function InputField({
+	type = 'text',
+	name,
+	id,
+	label,
+	error,
+	...props
+}: InputHTMLAttributes<HTMLInputElement> & {
+	label: string
+	error?: string[]
+}) {
+	const generatedId = useId()
+	const inputId = id ?? generatedId
 
-  return (
-    <div className="space-y-3">
-      <label
-        htmlFor={id}
-        className="block text-fluid-base font-medium text-[var(--color-text)] tracking-wide"
-      >
-        {label}
-      </label>
-      <div className="relative">
-        <input
-          type={type}
-          id={id}
-          name={name}
-          className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl dark:bg-gray-800 from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
-          autoComplete="off"
-          {...props}
-        />
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-0 hover:opacity-5 focus-within:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
-      </div>
-    </div>
-  );
+	const [isFocused, setIsFocused] = useState(false)
+
+	return (
+		<div className="relative">
+			<label
+				htmlFor={inputId}
+				className="block text-fluid-sm font-medium text-[var(--color-text-light)] mb-2 tracking-wide"
+			>
+				{label}
+			</label>
+			<input
+				name={name}
+				type={type}
+				{...props}
+				onFocus={e => {
+					setIsFocused(true)
+					props.onFocus?.(e)
+				}}
+				onBlur={e => {
+					setIsFocused(false)
+					props.onBlur?.(e)
+				}}
+				className={`
+          w-full px-5 py-4 rounded-2xl border-2 transition-all duration-300 outline-none
+          ${
+						isFocused
+							? 'border-[var(--color-accent-hover)] shadow-md'
+							: 'border-[var(--color-border)] hover:border-[var(--color-accent)]'
+					}
+          bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)]
+          text-[var(--color-text)]
+          placeholder-[var(--color-text-muted)]
+          ${error?.length ? 'border-red-500' : ''}
+					`}
+				id={inputId}
+			/>
+			{error && <p className="mt-1 text-sm text-red-500">{error[0]}</p>}
+		</div>
+	)
 }

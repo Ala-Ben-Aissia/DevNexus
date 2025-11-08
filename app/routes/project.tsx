@@ -196,10 +196,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 								<div className="w-12 sm:w-16 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-6 sm:mb-8"></div>
 								<div className="space-y-4">
 									<p className="text-sm sm:text-base lg:text-lg text-[var(--color-text-light)] leading-relaxed">
-										{project.description} This project showcases modern web development
-										practices with a focus on user experience, performance, and
-										accessibility. Built with the latest technologies and best practices
-										in mind.
+										{project.description}
 									</p>
 								</div>
 							</div>

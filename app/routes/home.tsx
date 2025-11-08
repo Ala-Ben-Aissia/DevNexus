@@ -13,31 +13,32 @@ export function headers(_: Route.HeadersArgs) {
 }
 
 export async function loader() {
-	const latestProjects = await prisma.project.findMany({
-		select: {
-			id: true,
-			title: true,
-			description: true,
-			createdAt: true,
-			liveUrl: true,
-			githubUrl: true,
-			image: {select: {id: true}},
-		},
-		orderBy: {createdAt: 'desc'},
-	})
+	const [latestProjects, latestPosts] = await Promise.all([
+		prisma.project.findMany({
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				createdAt: true,
+				liveUrl: true,
+				githubUrl: true,
+				image: {select: {id: true}},
+			},
+			orderBy: {createdAt: 'desc'},
+		}),
+		prisma.post.findMany({
+			select: {
+				id: true,
+				title: true,
+				slug: true,
+				content: true,
+				description: true,
+				createdAt: true,
+			},
+			orderBy: {createdAt: 'desc'},
+		}),
+	])
 
-	const latestPosts = await prisma.post.findMany({
-		select: {
-			id: true,
-			title: true,
-			slug: true,
-			content: true,
-			description: true,
-			createdAt: true,
-		},
-		orderBy: {createdAt: 'desc'},
-		take: 3,
-	})
 	return {latestPosts, latestProjects}
 }
 
