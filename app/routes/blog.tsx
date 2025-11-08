@@ -8,11 +8,11 @@ import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/blog'
 
-export function headers(_: Route.HeadersArgs) {
-	return {
-		'Cache-Control': 'max-age=3600, s-maxage=86400',
-	}
-}
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
+// 	}
+// }
 
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Blog'
@@ -48,9 +48,11 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-const perPage = 3
+const perPage = 2
 
-export async function loader({}: Route.LoaderArgs) {
+export async function loader({request}: Route.LoaderArgs) {
+	const page = Number(new URL(request.url).searchParams.get('page') || 1)
+	const count = await prisma.post.count()
 	const posts = await prisma.post.findMany({
 		select: {
 			id: true,
@@ -60,17 +62,21 @@ export async function loader({}: Route.LoaderArgs) {
 			slug: true,
 			createdAt: true,
 		},
+		skip: (page - 1) * perPage,
+		take: perPage,
 		orderBy: {createdAt: 'desc'},
 	})
-	return posts
+	return {posts, page, totalPages: Math.ceil(count / perPage)}
 }
 
-export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
+export default function BlogPage({loaderData}: Route.ComponentProps) {
+	console.log(loaderData)
+	const {posts, totalPages, page} = loaderData
 	const [selectedCategory, setSelectedCategory] = useState('All')
 	const [searchQuery, setSearchQuery] = useState('')
 
 	// Get unique categories
-	const categories = ['All', ...new Set(posts.map(post => 'Tech'))] // Mock categories
+	// const categories = ['All', ...new Set(posts.map(post => 'Tech'))] // Mock categories
 
 	// Filter posts by category and search query
 	const filteredPosts = posts.filter(post => {
@@ -86,14 +92,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 		return categoryMatch && searchMatch
 	})
 
-	const {
-		items: displayedPosts,
-		totalPages,
-		currentPage,
-		onPageChange,
-		goNext,
-		goPrev,
-	} = usePage({
+	const {goNext, goPrev, onPageChange} = usePage({
 		list: filteredPosts,
 		perPage,
 	})
@@ -272,7 +271,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			</div>
 
 			{/* Categories Filter */}
-			<div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
+			{/* <div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
 				{categories.map((category, index) => (
 					<button
 						key={category}
@@ -324,7 +323,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 						)}
 					</button>
 				))}
-			</div>
+			</div> */}
 
 			{/* No results message */}
 			{filteredPosts.length === 0 && searchQuery && (
@@ -417,7 +416,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			{filteredPosts.length > 0 && (
 				<AnimatePresence mode="wait">
 					<div className="space-y-8 lg:space-y-12">
-						{displayedPosts.map((post, index) => (
+						{posts.map((post, index) => (
 							<div
 								// layout
 								key={post.id}
@@ -443,7 +442,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 				<div className="flex justify-center mt-16 lg:mt-20 animate-fade-in-up">
 					<Pagination
 						totalPages={totalPages}
-						currentPage={currentPage}
+						currentPage={page}
 						onPageChange={onPageChange}
 						goNext={goNext}
 						goPrev={goPrev}
