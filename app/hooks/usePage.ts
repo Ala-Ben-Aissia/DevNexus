@@ -1,6 +1,6 @@
 import {useSearchParams} from 'react-router'
 
-export function usePage<T>({perPage}: {list: T[]; perPage: number}) {
+export function usePage<T>({list, perPage}: {list: T[]; perPage: number}) {
 	const [searchParams, setSearchParams] = useSearchParams()
 	// perPage = perPage <= 0 ? PER_PAGE : perPage
 	// const totalPages = Math.max(1, Math.ceil(list.length / perPage))
@@ -18,7 +18,7 @@ export function usePage<T>({perPage}: {list: T[]; perPage: number}) {
 	const goPrev = () => onPageChange(page - 1)
 
 	const start = perPage * (page - 1)
-	// const items = list.slice(start, start + perPage)
+	const items = list.slice(start, start + perPage)
 
-	return {goNext, goPrev, onPageChange}
+	return {goNext, goPrev, onPageChange, items}
 }

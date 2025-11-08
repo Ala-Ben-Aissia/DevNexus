@@ -62,16 +62,13 @@ export async function loader({request}: Route.LoaderArgs) {
 			slug: true,
 			createdAt: true,
 		},
-		skip: (page - 1) * perPage,
-		take: perPage,
 		orderBy: {createdAt: 'desc'},
 	})
-	return {posts, page, totalPages: Math.ceil(count / perPage)}
+	return {posts, page}
 }
 
 export default function BlogPage({loaderData}: Route.ComponentProps) {
-	console.log(loaderData)
-	const {posts, totalPages, page} = loaderData
+	const {posts, page} = loaderData
 	const [selectedCategory, setSelectedCategory] = useState('All')
 	const [searchQuery, setSearchQuery] = useState('')
 
@@ -92,10 +89,11 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 		return categoryMatch && searchMatch
 	})
 
-	const {goNext, goPrev, onPageChange} = usePage({
+	const {goNext, goPrev, onPageChange, items} = usePage({
 		list: filteredPosts,
 		perPage,
 	})
+	const totalPages = Math.ceil(filteredPosts.length / perPage)
 
 	if (posts.length === 0) {
 		return (
@@ -226,7 +224,7 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 						value={searchQuery}
 						onChange={e => {
 							setSearchQuery(e.target.value)
-							onPageChange(1) // Reset to first page on search
+							// onPageChange(1) // Reset to first page on search
 						}}
 						placeholder="Search articles by title or keyword..."
 						className="w-full pl-12 pr-4 py-4 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border-2 border-[var(--color-border)] rounded-2xl text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-all duration-300 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-lg"
@@ -265,7 +263,7 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 						className="mt-3 text-center text-fluid-sm text-[var(--color-text-light)]"
 					>
 						Found {filteredPosts.length} article
-						{filteredPosts.length !== 1 ? 's' : ''} matching "{searchQuery}"
+						{items.length !== 1 ? 's' : ''} matching "{searchQuery}"
 					</div>
 				)}
 			</div>
@@ -326,7 +324,7 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 			</div> */}
 
 			{/* No results message */}
-			{filteredPosts.length === 0 && searchQuery && (
+			{items.length === 0 && searchQuery && (
 				<div
 					// initial={{opacity: 0, y: 20}}
 					// animate={{opacity: 1, y: 0}}
@@ -368,7 +366,7 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 			)}
 
 			{/* Newsletter Signup */}
-			{filteredPosts.length > 0 && (
+			{items.length > 0 && (
 				<div className="animate-fade-in-up">
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl border border-[var(--color-border)] p-6 hover-lift relative overflow-hidden max-w-2xl mx-auto">
 						<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
@@ -413,10 +411,10 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 			)}
 
 			{/* Blog Posts - Vertical Layout */}
-			{filteredPosts.length > 0 && (
+			{items.length > 0 && (
 				<AnimatePresence mode="wait">
 					<div className="space-y-8 lg:space-y-12">
-						{posts.map((post, index) => (
+						{items.map((post, index) => (
 							<div
 								// layout
 								key={post.id}
