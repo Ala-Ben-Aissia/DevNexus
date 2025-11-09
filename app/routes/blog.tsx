@@ -8,11 +8,11 @@ import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/blog'
 
-export function headers(_: Route.HeadersArgs) {
-	return {
-		'Cache-Control': 'max-age=3600, s-maxage=86400',
-	}
-}
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
+// 	}
+// }
 
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Blog'
