@@ -3,13 +3,13 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "prisma db seed && react-router build",
+		"build": "dotenv -e .env prisma db seed && react-router build",
 		"dev": "react-router dev",
 		"start": "dotenv -e .env react-router-serve ./build/server/*/index.js",
 		"typecheck": "react-router typegen && tsc",
 		"server": "json-server ./data/db.json --port 8000",
-		"postinstall": "prisma generate",
-		"vercel-build": "prisma generate && prisma migrate deploy && react-router build"
+		"postinstall": "prisma generate --no-engine",
+		"vercel-build": "prisma generate --no-engine && prisma migrate deploy && react-router build"
 	},
 	"dependencies": {
 		"@conform-to/react": "^1.13.3",
