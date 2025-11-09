@@ -32,7 +32,6 @@ export default function Button({
 
 	return (
 		<Link
-			prefetch="intent"
 			to={to}
 			className={`group inline-flex items-center justify-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-4 sm:py-3 lg:px-4 lg:py-4 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] bg-[${bg.color}] hover:bg-[${bg.hover}] transition-all duration-500 text-sm sm:text-base whitespace-nowrap flex-shrink-0`}
 		>

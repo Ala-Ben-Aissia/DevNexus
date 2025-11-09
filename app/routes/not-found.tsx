@@ -11,7 +11,6 @@ export default function NotFoundPage() {
 					The page you are looking for does not exist.
 				</p>
 				<Link
-					prefetch="intent"
 					to="/"
 					className="inline-block px-6 py-3 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] text-[var(--color-text)] font-medium rounded-full transition-all duration-300 transform hover:scale-105"
 				>

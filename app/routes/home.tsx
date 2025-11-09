@@ -105,7 +105,6 @@ export default function HomePage({
 
 				<div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-8 px-4">
 					<Link
-						prefetch="intent"
 						to="/projects"
 						className="group px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-secondary)] hover:bg-[var(--color-tertiary)] text-[var(--color-text)] font-medium rounded-full transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-accent)] hover-lift min-w-[200px] lg:min-w-[240px] text-fluid-base relative overflow-hidden"
 					>
@@ -113,7 +112,6 @@ export default function HomePage({
 						<div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
 					</Link>
 					<Link
-						prefetch="intent"
 						to="/contact"
 						className="group px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift min-w-[200px] lg:min-w-[240px] text-fluid-base"
 					>
@@ -248,7 +246,6 @@ export default function HomePage({
 						{/* Enhanced CTAs with benefits */}
 						<div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-8">
 							<Link
-								prefetch="intent"
 								to="/contact"
 								className="group inline-flex items-center gap-4 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
 							>

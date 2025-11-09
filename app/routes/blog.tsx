@@ -8,11 +8,11 @@ import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/blog'
 
-// export function headers(_: Route.HeadersArgs) {
-// 	return {
-// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
-// 	}
-// }
+export function headers(_: Route.HeadersArgs) {
+	return {
+		'Cache-Control': 'max-age=3600, s-maxage=86400',
+	}
+}
 
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Blog'
@@ -471,7 +471,6 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 						</p>
 						<div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
 							<Link
-								prefetch="intent"
 								to="/contact"
 								className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
 							>
@@ -492,7 +491,6 @@ export default function BlogPage({loaderData}: Route.ComponentProps) {
 								<div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
 							</Link>
 							<Link
-								prefetch="intent"
 								to="/projects"
 								className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-fluid-base min-w-[200px] justify-center"
 							>

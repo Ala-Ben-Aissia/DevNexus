@@ -5,6 +5,12 @@ import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/projects'
 
+export function headers(_: Route.HeadersArgs) {
+	return {
+		'Cache-Control': 'private, max-age=5, stale-while-revalidate=20',
+	}
+}
+
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Projects'
 	return [

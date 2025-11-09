@@ -423,7 +423,6 @@ export default function AboutPage() {
 						</p>
 						<div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 lg:gap-6 px-4">
 							<Link
-								prefetch="intent"
 								to="/contact"
 								className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-medium rounded-full transition-all duration-500 hover-lift text-sm sm:text-base md:text-fluid-base relative overflow-hidden min-w-full sm:min-w-[200px] justify-center"
 							>
@@ -445,7 +444,6 @@ export default function AboutPage() {
 							</Link>
 
 							<Link
-								prefetch="intent"
 								to="/projects"
 								className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-sm sm:text-base md:text-fluid-base min-w-full sm:min-w-[200px] justify-center"
 							>

@@ -351,6 +351,15 @@ async function loadPostContent(path: string) {
 export const posts: Omit<Post, 'id' | 'slug'>[] = [
 	// slug is auto-generated in prisma/seed.ts (in prod, we can use slugify in a prisma transaction)
 	{
+		title: 'The Complete Guide to HTTP Caching: From Basics to Mastery',
+		description:
+			'A comprehensive guide to understanding and implementing professional caching strategies in modern web applications, including Cache-Control directives, React Router v7 prefetch caching, and advanced optimization patterns.',
+		content: await loadPostContent('./data/caching-strategies.md'),
+		createdAt: new Date('2025-11-09'),
+		updatedAt: new Date('2025-11-09'),
+	},
+
+	{
 		title: 'Prop Setters Pattern: Empowering Users with Rendering Control',
 		description:
 			'Learn how to use the prop setters pattern to control the rendering of components in React.',

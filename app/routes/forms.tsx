@@ -1,7 +1,7 @@
 import {getFormProps, getInputProps, getTextareaProps, useForm} from '@conform-to/react'
 import {getZodConstraint, parseWithZod} from '@conform-to/zod/v4'
 import {useState} from 'react'
-import {data, Form, redirect, useActionData} from 'react-router'
+import {data, Form, redirect, useActionData, useNavigation} from 'react-router'
 import z from 'zod'
 import ErrorList from '~/components/ErrorList'
 import InputField from '~/components/InputField'
@@ -80,7 +80,7 @@ export async function action({request}: Route.ActionArgs) {
 		})
 	}
 
-	return redirect('/projects')
+	return redirect('/projects', {headers: {'Cache-Control': 'no-cache'}})
 }
 
 export default function CreateProjectForm() {
@@ -96,6 +96,8 @@ export default function CreateProjectForm() {
 	})
 	const formProps = getFormProps(form)
 	const props = form.getFieldset()
+	const navigation = useNavigation()
+	const isPending = navigation.state !== 'idle'
 
 	return (
 		<div className="min-h-screen bg-[var(--color-primary)] py-12 px-4 sm:px-6 lg:px-8">
@@ -259,23 +261,27 @@ export default function CreateProjectForm() {
 							{/* Submit Button */}
 							<button
 								type="submit"
-								className="group relative w-full px-8 py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-2xl transition-all duration-500 text-fluid-base overflow-hidden border border-[var(--color-accent)] hover:border-[var(--color-accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/50 shadow-lg hover:shadow-xl hover-lift"
+								className="relative w-full px-8 py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-2xl transition-all duration-500 text-fluid-base overflow-hidden border border-[var(--color-accent)] hover:border-[var(--color-accent-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]/50 shadow-lg hover:shadow-xl hover-lift cursor-pointer"
 							>
-								<span className="relative z-10 flex items-center justify-center gap-3 cursor-pointer">
+								<span className="relative z-10 flex items-center justify-center gap-3">
 									Create Project
-									<svg
-										className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M13 7l5 5m0 0l-5 5m5-5H6"
-										/>
-									</svg>
+									{isPending ? (
+										<Spinner />
+									) : (
+										<svg
+											className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M13 7l5 5m0 0l-5 5m5-5H6"
+											/>
+										</svg>
+									)}
 								</span>
 								<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 transform -skew-x-12"></div>
 							</button>
@@ -284,5 +290,26 @@ export default function CreateProjectForm() {
 				</div>
 			</div>
 		</div>
+	)
+}
+
+export function Spinner() {
+	return (
+		<svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+			<circle
+				className="opacity-25"
+				cx="12"
+				cy="12"
+				r="10"
+				stroke="currentColor"
+				strokeWidth="4"
+				fill="none"
+			/>
+			<path
+				className="opacity-75"
+				fill="currentColor"
+				d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+			/>
+		</svg>
 	)
 }
