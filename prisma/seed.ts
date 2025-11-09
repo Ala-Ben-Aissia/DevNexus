@@ -19,7 +19,8 @@ async function generateEagleProject() {
 	await prisma.project.create({
 		data: {
 			title: 'Eagle',
-			description: 'Eagle description',
+			description:
+				"Eagle's master of the jungle is a very strong creature, and it's very smart too. He can see its prey from very long distances",
 			githubUrl: 'https://github.com',
 			liveUrl: 'https://example.com',
 			image: {
