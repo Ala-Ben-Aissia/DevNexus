@@ -23,7 +23,7 @@ function HeroFeaturedPost({post}: {post: Post}) {
 			}}
 			className="group relative"
 		>
-			<Link prefetch="intent" to={`/blog/${post.slug}`} className="block">
+			<Link to={`/blog/${post.slug}`} className="block">
 				<div className="relative bg-gradient-to-br from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] rounded-2xl lg:rounded-[2rem] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700 overflow-hidden">
 					{/* Animated gradient overlay */}
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 via-transparent to-[var(--color-accent-hover)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -189,7 +189,7 @@ function SecondaryPostCard({post}: {post: Post; index: number}) {
 			}}
 			className="group h-full"
 		>
-			<Link prefetch="intent" to={`/blog/${post.slug}`} className="block h-full">
+			<Link to={`/blog/${post.slug}`} className="block h-full">
 				<div className="relative h-full bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 overflow-hidden hover:shadow-xl hover:shadow-[var(--color-accent)]/5 flex flex-col">
 					{/* Subtle hover gradient */}
 					<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/0 to-[var(--color-accent)]/0 group-hover:from-[var(--color-accent)]/5 group-hover:to-transparent transition-all duration-500"></div>
@@ -333,7 +333,6 @@ export default function FeaturedPosts({posts}: {posts: Post[]}) {
 						transition={{duration: 0.6, delay: 0.6}}
 					>
 						<Link
-							prefetch="intent"
 							to="/blog"
 							className="group inline-flex items-center gap-3 sm:gap-4 px-8 sm:px-10 lg:px-14 py-3.5 sm:py-4 lg:py-5 bg-gradient-to-r from-[var(--color-secondary)] via-[var(--color-tertiary)] to-[var(--color-secondary)] hover:from-[var(--color-tertiary)] hover:to-[var(--color-tertiary)] text-[var(--color-text)] rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-500 font-semibold text-sm sm:text-base relative overflow-hidden shadow-lg shadow-transparent hover:shadow-[var(--color-accent)]/10"
 						>

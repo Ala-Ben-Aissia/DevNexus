@@ -1,5 +1,3 @@
-import {useEffect} from 'react'
-
 type Props = {
 	totalPages: number
 	currentPage: number
@@ -15,9 +13,6 @@ export default function Pagination({
 	goNext,
 	goPrev,
 }: Props) {
-	useEffect(() => {
-		document.documentElement.scrollTo({top: 0, behavior: 'instant'})
-	}, [currentPage])
 	return totalPages <= 1 ? null : (
 		<div className="flex items-center gap-4 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-tertiary)] px-8 py-6 rounded-3xl border border-[var(--color-border)] shadow-lg hover-lift gpu-accelerated">
 			{/* Prev button */}

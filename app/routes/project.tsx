@@ -1,10 +1,16 @@
-import {motion} from 'motion/react'
+// import {motion} from 'motion/react'
 import {Link} from 'react-router'
 import Copy from '~/components/Copy'
 import {NavButton} from '~/components/NavButton'
 import prisma from '~/lib/db'
 import {getProjectImageSrc, invariantResponse} from '~/utils/misc'
 import type {Route} from './+types/project'
+
+export function headers() {
+	return {
+		'Cache-Control': 'max-age=3600, s-maxage=86400, must-revalidate',
+	}
+}
 
 export function meta({loaderData}: Route.MetaArgs) {
 	const project = loaderData
@@ -83,26 +89,26 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 	return (
 		<div className="min-h-screen">
 			{/* Back Navigation */}
-			<motion.div
-				// initial={{opacity: 0, y: -20}}
-				// animate={{opacity: 1, y: 0}}
-				transition={{duration: 0.5}}
-				// className="sticky top-0 z-50 bg-[var(--color-primary)]/80 backdrop-blur-xl border-b border-[var(--color-border)]"
+			<div
+			// initial={{opacity: 0, y: -20}}
+			// animate={{opacity: 1, y: 0}}
+			// transition={{duration: 0.5}}
+			// className="sticky top-0 z-50 bg-[var(--color-primary)]/80 backdrop-blur-xl border-b border-[var(--color-border)]"
 			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
 					<NavButton relative="path" to="..">
 						Back to projects
 					</NavButton>
 				</div>
-			</motion.div>
+			</div>
 
 			{/* Hero Section with Project Image */}
 			<div className="relative bg-[var(--color-primary)]">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
 					{/* Badges and Meta Info */}
-					<motion.div
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
+					<div
+						// initial={{opacity: 0, y: 20}}
+						// animate={{opacity: 1, y: 0}}
 						// transition={{duration: 0.6, delay: 0.1}}
 						className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6 sm:mb-8"
 					>
@@ -120,39 +126,39 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 								month: 'long',
 							})}
 						</span>
-					</motion.div>
+					</div>
 
 					{/* Title */}
-					<motion.h1
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
+					<h1
+						// initial={{opacity: 0, y: 20}}
+						// animate={{opacity: 1, y: 0}}
 						// transition={{duration: 0.6, delay: 0.2}}
 						className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-[var(--color-text)] mb-4 sm:mb-6 tracking-tight leading-tight"
 					>
 						<span className="font-medium">{project.title}</span>
-					</motion.h1>
+					</h1>
 
 					{/* Description */}
-					<motion.p
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
+					<p
+						// initial={{opacity: 0, y: 20}}
+						// animate={{opacity: 1, y: 0}}
 						// transition={{duration: 0.6, delay: 0.3}}
 						className="text-base sm:text-lg lg:text-xl text-[var(--color-text-light)] max-w-3xl leading-relaxed mb-8 sm:mb-12"
 					>
 						{project.description}
-					</motion.p>
+					</p>
 
 					{/* Hero Image - Contained with Border and Shadow */}
-					<motion.div
-						initial={{opacity: 0, y: 30}}
-						animate={{opacity: 1, y: 0}}
+					<div
+						// initial={{opacity: 0, y: 30}}
+						// animate={{opacity: 1, y: 0}}
 						// transition={{duration: 0.8, delay: 0.4}}
 						className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[var(--color-border)] shadow-2xl shadow-black/20 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)]"
 					>
 						{/* Aspect ratio container */}
 						<div className="relative w-full" style={{paddingBottom: '56.25%'}}>
 							<a href={projectImageSrc}>
-								<motion.img
+								<img
 									src={getProjectImageSrc(project.image?.id)}
 									alt={project.title}
 									className="absolute inset-0 w-full h-full object-cover"
@@ -166,7 +172,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 
 						{/* Decorative corner accent */}
 						<div className="absolute top-0 right-0 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent blur-3xl pointer-events-none"></div>
-					</motion.div>
+					</div>
 				</div>
 			</div>
 
@@ -176,9 +182,9 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 					{/* Main Content Column */}
 					<div className="lg:col-span-2 space-y-8 sm:space-y-10 lg:space-y-12">
 						{/* Project Overview */}
-						<motion.div
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
+						<div
+							// initial={{opacity: 0, y: 20}}
+							// animate={{opacity: 1, y: 0}}
 							// transition={{duration: 0.6, delay: 0.5}}
 							className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl sm:rounded-3xl border border-[var(--color-border)] p-6 sm:p-8 lg:p-10 hover-lift relative overflow-hidden"
 						>
@@ -190,19 +196,16 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 								<div className="w-12 sm:w-16 h-px bg-gradient-to-r from-[var(--color-accent)] to-transparent mb-6 sm:mb-8"></div>
 								<div className="space-y-4">
 									<p className="text-sm sm:text-base lg:text-lg text-[var(--color-text-light)] leading-relaxed">
-										{project.description} This project showcases modern web development
-										practices with a focus on user experience, performance, and
-										accessibility. Built with the latest technologies and best practices
-										in mind.
+										{project.description}
 									</p>
 								</div>
 							</div>
-						</motion.div>
+						</div>
 
 						{/* Key Features */}
-						<motion.div
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
+						<div
+							// initial={{opacity: 0, y: 20}}
+							// animate={{opacity: 1, y: 0}}
 							// transition={{duration: 0.6, delay: 0.6}}
 							className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl sm:rounded-3xl border border-[var(--color-border)] p-6 sm:p-8 lg:p-10 hover-lift relative overflow-hidden"
 						>
@@ -215,10 +218,10 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 									{features.map((feature, index) => (
-										<motion.div
+										<div
 											key={feature.name}
-											initial={{opacity: 0, y: 20}}
-											animate={{opacity: 1, y: 0}}
+											// initial={{opacity: 0, y: 20}}
+											// animate={{opacity: 1, y: 0}}
 											// transition={{duration: 0.5, delay: 0.7 + index * 0.1}}
 											className="group flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-[var(--color-tertiary)] to-[var(--color-quaternary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-300 hover-lift"
 										>
@@ -229,19 +232,19 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 											<span className="text-[var(--color-text)] font-medium text-sm sm:text-base group-hover:text-[var(--color-text)] transition-colors duration-300">
 												{feature.name}
 											</span>
-										</motion.div>
+										</div>
 									))}
 								</div>
 							</div>
-						</motion.div>
+						</div>
 					</div>
 
 					{/* Sidebar */}
 					<div className="space-y-6 sm:space-y-8">
 						{/* Project Details */}
-						<motion.div
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
+						<div
+							// initial={{opacity: 0, y: 20}}
+							// animate={{opacity: 1, y: 0}}
 							// transition={{duration: 0.6, delay: 0.7}}
 							className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl sm:rounded-3xl border border-[var(--color-border)] p-5 sm:p-6 lg:p-8 hover-lift relative overflow-hidden"
 						>
@@ -292,18 +295,17 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 									</div>
 								</div>
 							</div>
-						</motion.div>
+						</div>
 
 						{/* Action Buttons */}
-						<motion.div
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
+						<div
+							// initial={{opacity: 0, y: 20}}
+							// animate={{opacity: 1, y: 0}}
 							// transition={{duration: 0.6, delay: 0.8}}
 							className="space-y-3 sm:space-y-4"
 						>
 							{project.liveUrl && (
 								<Link
-									prefetch="intent"
 									to={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
@@ -365,15 +367,15 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 							) : (
 								project.githubUrl && <Copy link={project.githubUrl} />
 							)}
-						</motion.div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			{/* Call to Action */}
-			<motion.div
-				initial={{opacity: 0, y: 20}}
-				animate={{opacity: 1, y: 0}}
+			<div
+				// initial={{opacity: 0, y: 20}}
+				// animate={{opacity: 1, y: 0}}
 				// transition={{duration: 0.6, delay: 0.9}}
 				className="py-12 sm:py-16 lg:py-20"
 			>
@@ -391,7 +393,6 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 							</p>
 							<div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-3 sm:gap-4">
 								<Link
-									prefetch="intent"
 									to="/contact"
 									className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-sm sm:text-base relative overflow-hidden w-full sm:w-auto sm:min-w-[200px]"
 								>
@@ -412,7 +413,6 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 									<div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
 								</Link>
 								<Link
-									prefetch="intent"
 									to="/projects"
 									className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 lg:px-10 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-sm sm:text-base w-full sm:w-auto sm:min-w-[200px]"
 								>
@@ -435,7 +435,7 @@ export default function Project({loaderData: project}: Route.ComponentProps) {
 						</div>
 					</div>
 				</div>
-			</motion.div>
+			</div>
 		</div>
 	)
 }

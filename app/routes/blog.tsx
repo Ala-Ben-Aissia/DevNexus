@@ -1,4 +1,4 @@
-import {AnimatePresence, motion} from 'motion/react'
+import {AnimatePresence} from 'motion/react'
 import {useState} from 'react'
 import {Link} from 'react-router'
 import Pagination from '~/components/Pagination'
@@ -8,11 +8,11 @@ import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/blog'
 
-export function headers(_: Route.HeadersArgs) {
-	return {
-		'Cache-Control': 'max-age=3600, s-maxage=86400',
-	}
-}
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400',
+// 	}
+// }
 
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Blog'
@@ -48,9 +48,11 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-const perPage = 3
+const perPage = 2
 
-export async function loader({}: Route.LoaderArgs) {
+export async function loader({request}: Route.LoaderArgs) {
+	const page = Number(new URL(request.url).searchParams.get('page') || 1)
+	const count = await prisma.post.count()
 	const posts = await prisma.post.findMany({
 		select: {
 			id: true,
@@ -61,17 +63,17 @@ export async function loader({}: Route.LoaderArgs) {
 			createdAt: true,
 		},
 		orderBy: {createdAt: 'desc'},
-		take: perPage,
 	})
-	return posts
+	return {posts, page}
 }
 
-export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
+export default function BlogPage({loaderData}: Route.ComponentProps) {
+	const {posts, page} = loaderData
 	const [selectedCategory, setSelectedCategory] = useState('All')
 	const [searchQuery, setSearchQuery] = useState('')
 
 	// Get unique categories
-	const categories = ['All', ...new Set(posts.map(post => 'Tech'))] // Mock categories
+	// const categories = ['All', ...new Set(posts.map(post => 'Tech'))] // Mock categories
 
 	// Filter posts by category and search query
 	const filteredPosts = posts.filter(post => {
@@ -87,17 +89,11 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 		return categoryMatch && searchMatch
 	})
 
-	const {
-		items: displayedPosts,
-		totalPages,
-		currentPage,
-		onPageChange,
-		goNext,
-		goPrev,
-	} = usePage({
+	const {goNext, goPrev, onPageChange, items} = usePage({
 		list: filteredPosts,
 		perPage,
 	})
+	const totalPages = Math.ceil(filteredPosts.length / perPage)
 
 	if (posts.length === 0) {
 		return (
@@ -228,7 +224,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 						value={searchQuery}
 						onChange={e => {
 							setSearchQuery(e.target.value)
-							onPageChange(1) // Reset to first page on search
+							// onPageChange(1) // Reset to first page on search
 						}}
 						placeholder="Search articles by title or keyword..."
 						className="w-full pl-12 pr-4 py-4 bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border-2 border-[var(--color-border)] rounded-2xl text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-all duration-300 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-lg"
@@ -261,19 +257,19 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 
 				{/* Search results count */}
 				{searchQuery && (
-					<motion.div
-						initial={{opacity: 0, y: -10}}
-						animate={{opacity: 1, y: 0}}
+					<div
+						// initial={{opacity: 0, y: -10}}
+						// animate={{opacity: 1, y: 0}}
 						className="mt-3 text-center text-fluid-sm text-[var(--color-text-light)]"
 					>
 						Found {filteredPosts.length} article
-						{filteredPosts.length !== 1 ? 's' : ''} matching "{searchQuery}"
-					</motion.div>
+						{items.length !== 1 ? 's' : ''} matching "{searchQuery}"
+					</div>
 				)}
 			</div>
 
 			{/* Categories Filter */}
-			<div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
+			{/* <div className="flex flex-wrap justify-center gap-3 animate-fade-in-up">
 				{categories.map((category, index) => (
 					<button
 						key={category}
@@ -325,13 +321,13 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 						)}
 					</button>
 				))}
-			</div>
+			</div> */}
 
 			{/* No results message */}
-			{filteredPosts.length === 0 && searchQuery && (
-				<motion.div
-					initial={{opacity: 0, y: 20}}
-					animate={{opacity: 1, y: 0}}
+			{items.length === 0 && searchQuery && (
+				<div
+					// initial={{opacity: 0, y: 20}}
+					// animate={{opacity: 1, y: 0}}
 					className="text-center py-16 animate-fade-in-up"
 				>
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-3xl border border-[var(--color-border)] p-12 lg:p-16 text-center hover-lift relative overflow-hidden max-w-2xl mx-auto">
@@ -366,11 +362,11 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 							</button>
 						</div>
 					</div>
-				</motion.div>
+				</div>
 			)}
 
 			{/* Newsletter Signup */}
-			{filteredPosts.length > 0 && (
+			{items.length > 0 && (
 				<div className="animate-fade-in-up">
 					<div className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-2xl border border-[var(--color-border)] p-6 hover-lift relative overflow-hidden max-w-2xl mx-auto">
 						<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
@@ -415,27 +411,27 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 			)}
 
 			{/* Blog Posts - Vertical Layout */}
-			{filteredPosts.length > 0 && (
+			{items.length > 0 && (
 				<AnimatePresence mode="wait">
-					<motion.div layout className="space-y-8 lg:space-y-12">
-						{displayedPosts.map((post, index) => (
-							<motion.div
-								layout
+					<div className="space-y-8 lg:space-y-12">
+						{items.map((post, index) => (
+							<div
+								// layout
 								key={post.id}
-								initial={{opacity: 0, y: 30}}
-								animate={{opacity: 1, y: 0}}
-								exit={{opacity: 0, y: -30}}
-								transition={{
-									duration: 0.6,
-									delay: index * 0.1,
-									ease: [0.25, 0.46, 0.45, 0.94],
-								}}
+								// initial={{opacity: 0, y: 30}}
+								// animate={{opacity: 1, y: 0}}
+								// exit={{opacity: 0, y: -30}}
+								// transition={{
+								// 	duration: 0.6,
+								// 	delay: index * 0.1,
+								// 	ease: [0.25, 0.46, 0.45, 0.94],
+								// }}
 								className="animate-fade-in-up"
 							>
 								<PostCard post={post} />
-							</motion.div>
+							</div>
 						))}
-					</motion.div>
+					</div>
 				</AnimatePresence>
 			)}
 
@@ -444,7 +440,7 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 				<div className="flex justify-center mt-16 lg:mt-20 animate-fade-in-up">
 					<Pagination
 						totalPages={totalPages}
-						currentPage={currentPage}
+						currentPage={page}
 						onPageChange={onPageChange}
 						goNext={goNext}
 						goPrev={goPrev}
@@ -475,7 +471,6 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 						</p>
 						<div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
 							<Link
-								prefetch="intent"
 								to="/contact"
 								className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-500 hover-lift text-fluid-base relative overflow-hidden min-w-[200px] justify-center"
 							>
@@ -496,7 +491,6 @@ export default function BlogPage({loaderData: posts}: Route.ComponentProps) {
 								<div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
 							</Link>
 							<Link
-								prefetch="intent"
 								to="/projects"
 								className="group inline-flex items-center gap-3 px-8 lg:px-12 py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-fluid-base min-w-[200px] justify-center"
 							>

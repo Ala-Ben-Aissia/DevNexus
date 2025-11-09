@@ -11,6 +11,7 @@ export default [
 		route('blog/:slug', 'routes/post.tsx'),
 		route('badge-showcase', 'routes/badge-showcase.tsx'),
 		route('resources/project-image/:imageId', 'routes/resources/project-image.ts'),
+		route('forms', 'routes/forms.tsx'),
 		route('*', 'routes/not-found.tsx'),
 	]),
 ] satisfies RouteConfig

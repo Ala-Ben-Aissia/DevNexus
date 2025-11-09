@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {z} from 'zod'
-import {InputField} from '~/components/InputField'
+import InputField from '~/components/InputField'
 import type {Route} from './+types/contact'
 
 // Schema with detailed error messages
@@ -88,6 +88,13 @@ export function meta({}: Route.MetaArgs) {
 export default function ContactPage({actionData}: Route.ComponentProps) {
 	const [showMessage, setShowMessage] = useState(false)
 	// console.log('DATABASE_URL:', process.env.DATABASE_URL)
+
+	const benefits = [
+		{icon: '📋', text: 'Detailed project proposal'},
+		{icon: '💰', text: 'Transparent pricing'},
+		{icon: '⚡', text: 'Quick turnaround'},
+		{icon: '🤝', text: 'Free consultation call'},
+	]
 
 	useEffect(() => {
 		if (actionData) {
@@ -380,18 +387,14 @@ export default function ContactPage({actionData}: Route.ComponentProps) {
 								</p>
 
 								{/* Form benefits */}
-								<div className="flex flex-wrap gap-4 mt-6">
-									{[
-										'📋 Detailed project proposal',
-										'💰 Transparent pricing',
-										'⚡ Quick turnaround',
-										'🤝 Free consultation call',
-									].map((benefit, index) => (
+								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-10">
+									{benefits.map((benefit, index) => (
 										<div
 											key={index}
-											className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--color-tertiary)] border border-[var(--color-border)] rounded-full text-fluid-xs text-[var(--color-text-light)]"
+											className="inline-flex items-center gap-3 px-4 py-3 bg-[var(--color-tertiary)] border border-[var(--color-border)] rounded-full text-fluid-sm text-[var(--color-text-light)] transition-all duration-300 hover:border-[var(--color-accent)] hover:shadow-sm gpu-accelerated"
 										>
-											{benefit}
+											<span className="text-xl">{benefit.icon}</span>
+											<span className="font-normal">{benefit.text}</span>
 										</div>
 									))}
 								</div>
@@ -476,6 +479,7 @@ export default function ContactPage({actionData}: Route.ComponentProps) {
 											required
 											placeholder="john@example.com"
 											className="w-full px-6 py-5 border-2 border-[var(--color-border)] rounded-2xl bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] text-[var(--color-text)] placeholder-[var(--color-text-light)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 focus:shadow-lg transition-all duration-500 text-fluid-base hover:border-[var(--color-accent)] hover:shadow-md gpu-accelerated"
+											autoComplete="no"
 										/>
 										{/* {!actionData?.success && actionData?.field === "email" && (
                       <motion.p

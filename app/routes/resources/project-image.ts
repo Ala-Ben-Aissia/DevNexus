@@ -14,6 +14,7 @@ export async function loader({params}: Route.LoaderArgs) {
 			'Content-Type': contentType,
 			'Content-Disposition': `inline; filename="${altText}"`,
 			'Content-Length': blob.length.toString(),
+			'Cache-Control': 'public, max-age=31536000, immutable', // 1 year
 		},
 	})
 }

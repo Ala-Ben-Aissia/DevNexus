@@ -1,4 +1,3 @@
-import {motion} from 'motion/react'
 import {Link} from 'react-router'
 import StatusBadge from '~/components/StatusBadge'
 import type {Route} from './+types/about'
@@ -229,11 +228,11 @@ export default function AboutPage() {
 
 					<div className="space-y-8 sm:space-y-10 md:space-y-12">
 						{journey.map((item, index) => (
-							<motion.div
+							<div
 								key={item.year}
-								initial={{opacity: 0, y: 30}}
-								animate={{opacity: 1, y: 0}}
-								transition={{duration: 0.6, delay: index * 0.2}}
+								// initial={{opacity: 0, y: 30}}
+								// animate={{opacity: 1, y: 0}}
+								// transition={{duration: 0.6, delay: index * 0.2}}
 								className={`flex flex-row md:flex-row items-start md:items-center gap-4 sm:gap-6 md:gap-8 ${
 									index % 2 === 0 ? '' : 'md:flex-row-reverse'
 								}`}
@@ -274,7 +273,7 @@ export default function AboutPage() {
 								</div>
 
 								<div className="flex-1 hidden md:block"></div>
-							</motion.div>
+							</div>
 						))}
 					</div>
 				</div>
@@ -294,11 +293,11 @@ export default function AboutPage() {
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
 					{funFacts.map((fact, index) => (
-						<motion.div
+						<div
 							key={fact.label}
-							initial={{opacity: 0, scale: 0.8}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: index * 0.1}}
+							// initial={{opacity: 0, scale: 0.8}}
+							// animate={{opacity: 1, scale: 1}}
+							// transition={{duration: 0.5, delay: index * 0.1}}
 							className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] p-5 sm:p-6 hover-lift relative overflow-hidden text-center"
 						>
 							<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
@@ -311,7 +310,7 @@ export default function AboutPage() {
 									{fact.label}
 								</div>
 							</div>
-						</motion.div>
+						</div>
 					))}
 				</div>
 			</div>
@@ -327,11 +326,11 @@ export default function AboutPage() {
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
 					{skills.map((skill, index) => (
-						<motion.div
+						<div
 							key={skill.name}
-							initial={{opacity: 0, y: 20}}
-							animate={{opacity: 1, y: 0}}
-							transition={{duration: 0.6, delay: index * 0.1}}
+							// initial={{opacity: 0, y: 20}}
+							// animate={{opacity: 1, y: 0}}
+							// transition={{duration: 0.6, delay: index * 0.1}}
 							className="bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] p-4 sm:p-5 md:p-6 hover-lift relative overflow-hidden"
 						>
 							<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-5"></div>
@@ -350,17 +349,17 @@ export default function AboutPage() {
 									</div>
 								</div>
 								<div className="w-full bg-[var(--color-tertiary)] rounded-full h-2.5 sm:h-3 relative overflow-hidden">
-									<motion.div
+									<div
 										className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] h-2.5 sm:h-3 rounded-full relative"
-										initial={{width: 0}}
-										animate={{width: `${skill.level}%`}}
-										transition={{duration: 1.5, delay: index * 0.2}}
+										// initial={{width: 0}}
+										// animate={{width: `${skill.level}%`}}
+										// transition={{duration: 1.5, delay: index * 0.2}}
 									>
 										<div className="absolute inset-0 bg-gradient-to-r from-transparent to-white opacity-30 animate-shimmer"></div>
-									</motion.div>
+									</div>
 								</div>
 							</div>
-						</motion.div>
+						</div>
 					))}
 				</div>
 			</div>
@@ -379,11 +378,11 @@ export default function AboutPage() {
 
 				<div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6">
 					{techStack.map((tech, index) => (
-						<motion.div
+						<div
 							key={tech.name}
-							initial={{opacity: 0, scale: 0.8}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: index * 0.05}}
+							// initial={{opacity: 0, scale: 0.8}}
+							// animate={{opacity: 1, scale: 1}}
+							// transition={{duration: 0.5, delay: index * 0.05}}
 							className="group relative bg-gradient-to-br from-[var(--color-secondary)] to-[var(--color-tertiary)] border border-[var(--color-border)] rounded-xl sm:rounded-2xl px-4 sm:px-5 md:px-6 py-3 sm:py-4 hover-lift hover:border-[var(--color-accent)] transition-all duration-300 cursor-default"
 						>
 							<div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl sm:rounded-2xl"></div>
@@ -398,7 +397,7 @@ export default function AboutPage() {
 									{tech.years} year{tech.years > 1 ? 's' : ''} exp
 								</div>
 							</div>
-						</motion.div>
+						</div>
 					))}
 				</div>
 			</div>
@@ -424,7 +423,6 @@ export default function AboutPage() {
 						</p>
 						<div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 lg:gap-6 px-4">
 							<Link
-								prefetch="intent"
 								to="/contact"
 								className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-medium rounded-full transition-all duration-500 hover-lift text-sm sm:text-base md:text-fluid-base relative overflow-hidden min-w-full sm:min-w-[200px] justify-center"
 							>
@@ -446,7 +444,6 @@ export default function AboutPage() {
 							</Link>
 
 							<Link
-								prefetch="intent"
 								to="/projects"
 								className="group inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 text-[var(--color-text)] font-medium rounded-full border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:bg-[var(--color-secondary)] transition-all duration-500 hover-lift text-sm sm:text-base md:text-fluid-base min-w-full sm:min-w-[200px] justify-center"
 							>

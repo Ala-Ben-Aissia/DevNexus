@@ -20,6 +20,7 @@
       "routes/post": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/badge-showcase": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/resources/project-image": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/forms": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/not-found": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
@@ -104,6 +105,13 @@
         "parentId": "routes/layouts/main",
         "file": "app/routes/resources/project-image.ts",
         "path": "resources/project-image/:imageId",
+        "config": {}
+      },
+      "routes/forms": {
+        "id": "routes/forms",
+        "parentId": "routes/layouts/main",
+        "file": "app/routes/forms.tsx",
+        "path": "forms",
         "config": {}
       },
       "routes/not-found": {
@@ -196,6 +204,12 @@
         "file": "routes/resources/project-image.ts",
         "path": "resources/project-image/:imageId"
       },
+      "routes/forms": {
+        "id": "routes/forms",
+        "parentId": "routes/layouts/main",
+        "file": "routes/forms.tsx",
+        "path": "forms"
+      },
       "routes/not-found": {
         "id": "routes/not-found",
         "parentId": "routes/layouts/main",
@@ -259,6 +273,10 @@
               {
                 "file": "routes/resources/project-image.ts",
                 "path": "resources/project-image/:imageId"
+              },
+              {
+                "file": "routes/forms.tsx",
+                "path": "forms"
               },
               {
                 "file": "routes/not-found.tsx",

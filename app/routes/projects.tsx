@@ -1,10 +1,15 @@
-import type {Project} from 'generated/prisma/browser'
-import {motion} from 'motion/react'
+// import {motion} from 'motion/react'
 import Pagination from '~/components/Pagination'
 import ProjectCard from '~/components/ProjectCard'
 import {usePage} from '~/hooks/usePage'
 import prisma from '~/lib/db'
 import type {Route} from './+types/projects'
+
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'private, max-age=5, stale-while-revalidate=20',
+// 	}
+// }
 
 export function meta({}: Route.MetaArgs) {
 	const title = 'Dev Nexus | Projects'
@@ -56,23 +61,39 @@ const perPage = 3
 // 	return projects
 // }
 
-export function headers(_: Route.HeadersArgs) {
-	return {
-		'Cache-Control': 'max-age=3600, s-maxage=86400',
-	}
+// export function headers(_: Route.HeadersArgs) {
+// 	return {
+// 		'Cache-Control': 'max-age=3600, s-maxage=86400, must-revalidate',
+// 	}
+// }
+
+export async function loader({request}: Route.LoaderArgs) {
+	const url = new URL(request.url)
+	const page = Number(url.searchParams.get('page') || 1)
+	const perPage = 5
+
+	const [totalCount, projects] = await Promise.all([
+		prisma.project.count(),
+		prisma.project.findMany({
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				createdAt: true,
+				image: {select: {id: true, blurhash: true}},
+			},
+			orderBy: {createdAt: 'desc'},
+			skip: (page - 1) * perPage,
+			take: perPage,
+		}),
+	])
+
+	const totalPages = Math.ceil(totalCount / perPage)
+	return {projects, page, totalPages}
 }
 
-export async function loader() {
-	const projects = await prisma.$queryRaw<(Project & {image: {id: string} | null})[]>`
-	SELECT p.id, p.title, p.description, p."createdAt", i.id as "imageId"
-	FROM "Project" p
-	LEFT JOIN "ProjectImage" i ON p.id = i."projectId"
-	ORDER BY p."createdAt" DESC
-	`
-	return projects
-}
-
-export default function ProjectsPage({loaderData: projects}: Route.ComponentProps) {
+export default function ProjectsPage({loaderData}: Route.ComponentProps) {
+	const {projects, page, totalPages} = loaderData
 	// const [category, setCategory] = useState('All')
 
 	// const filteredProjects =
@@ -80,8 +101,6 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 
 	const {
 		items: displayedProject,
-		totalPages,
-		currentPage,
 		onPageChange,
 		goNext,
 		goPrev,
@@ -137,33 +156,33 @@ export default function ProjectsPage({loaderData: projects}: Route.ComponentProp
 				))}
 			</div> */}
 
-			<motion.div
-				layout
-				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12"
+			<div
+				// layout
+				className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 xl:gap-12 animate-fade-in-up"
 				style={{containerType: 'inline-size'}}
 			>
-				{displayedProject.map((project, index) => (
-					<motion.div
-						layout
+				{projects.map((project, index) => (
+					<div
+						// layout
 						key={project.id}
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
-						exit={{opacity: 0, y: -20}}
-						transition={{
-							duration: 0.2,
-							delay: index * 0.1,
-							ease: 'easeOut',
-						}}
+						// initial={{opacity: 0, y: 20}}
+						// animate={{opacity: 1, y: 0}}
+						// exit={{opacity: 0, y: -20}}
+						// transition={{
+						// 	duration: 0.2,
+						// 	delay: index * 0.1,
+						// 	ease: 'easeOut',
+						// }}
 					>
 						<ProjectCard project={project} />
-					</motion.div>
+					</div>
 				))}
-			</motion.div>
+			</div>
 
 			<div className="flex justify-center mt-16 animate-fade-in-up">
 				<Pagination
 					totalPages={totalPages}
-					currentPage={currentPage}
+					currentPage={page}
 					onPageChange={onPageChange}
 					goNext={goNext}
 					goPrev={goPrev}

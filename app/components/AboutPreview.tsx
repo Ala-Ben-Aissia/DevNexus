@@ -28,7 +28,6 @@ const AboutPreview = () => {
 					elegant digital solutions and sharing knowledge with the developer community.
 				</p>
 				<Link
-					prefetch="intent"
 					to="/about"
 					className="group inline-flex items-center gap-3 text-[var(--color-text)] hover:text-[var(--color-text-light)] transition-all duration-500 text-fluid-base border-b border-[var(--color-border)] hover:border-[var(--color-accent)] hover-lift"
 				>

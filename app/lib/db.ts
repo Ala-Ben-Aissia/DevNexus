@@ -15,10 +15,8 @@ function createPrismaClient() {
 			{level: 'warn', emit: 'stdout'},
 		],
 	})
-
 	client.$on('query', e => {
 		if (e.duration < logThreshold) return
-
 		const color =
 			e.duration < logThreshold * 1.25
 				? 'green'
@@ -29,7 +27,6 @@ function createPrismaClient() {
 				: e.duration < logThreshold * 10
 				? 'red'
 				: 'redBright'
-
 		const duration = chalk[color](`${e.duration}ms`)
 		console.info(`Prisma:\n  Query: ${e.query.trim()}\n  Duration: ${duration}`)
 	})
