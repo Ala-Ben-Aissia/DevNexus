@@ -3,7 +3,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build",
+		"build": "prisma db seed && react-router build",
 		"dev": "react-router dev",
 		"start": "dotenv -e .env react-router-serve ./build/server/*/index.js",
 		"typecheck": "react-router typegen && tsc",
